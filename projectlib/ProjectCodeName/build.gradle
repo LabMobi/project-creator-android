@@ -1,0 +1,65 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    namespace = "mobi.lab.sample"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        compileSdkVersion(libs.versions.android.sdk.compile.get())
+        targetSdkVersion(libs.versions.android.sdk.target.get())
+        minSdkVersion(libs.versions.android.sdk.min.get())
+        version = rootProject.ext.libraryVersion
+    }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.getName().contains("release")) {
+                // Don"t add the variant name to release artefacts
+                outputFileName = "${archivesBaseName}-${rootProject.ext.libraryVersion}.aar"
+            } else {
+                outputFileName = "${archivesBaseName}-${variant.name}-${rootProject.ext.libraryVersion}.aar"
+            }
+        }
+    }
+
+    lint {
+        fatal("StopShip")
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events("passed", "skipped", "failed", "standardOut", "standardError")
+            // Always show output even if the result has not changed
+            outputs.upToDateWhen { false }
+            // Show standard stream outputs if used
+            showStandardStreams = true
+        }
+    }
+}
+
+dependencies {
+    implementation libs.kotlin
+    implementation libs.androidx.appcompat
+    
+    testImplementation libs.test.junit
+    testImplementation libs.test.junit.kotlin
+}
+
+task buildAll(dependsOn: [
+        "clean",
+        ":sample:build",
+        "build"
+])
+buildAll.group = "Build"
+buildAll.description = "Build the library and the sample application"
+build.mustRunAfter(clean)

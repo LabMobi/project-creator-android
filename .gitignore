@@ -1,0 +1,11 @@
+*.iml
+.idea/*
+.bundle/
+.gradle/
+
+vendor/
+target/
+Gemfile.lock
+
+project/app/google-services.json
+project/app/signing/debug.keystore
