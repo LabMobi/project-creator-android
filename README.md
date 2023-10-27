@@ -1,56 +1,6 @@
 # Android Project Creator
 
-This is a script to simplify Android project creation. 
-
-## Changelog
-
-| Date       |  Developer  | Change                                                       |
-| ---------- | :---------: | :----------------------------------------------------------- |
-| 04.04.2018 | Harri Kirik | Moved the project creation script to Mobi Lab's Git Lab. Created this file. |
-| 07.09.2018 | Harri Kirik | Updated to a Kotlin version. Moved the Java one to "java" branch |
-| 07.09.2018 | Harri Kirik | Added examples for tests and instrumentation tests. Added the "lib_" prefix for the MVP library. |
-| 07.09.2018 | Harri Kirik | Updated this readme to make it clearer where the project is created. |
-| 19.11.0218 | Harri Kirik | INFRA-43: Added in the newer MVP library. Update tools.      |
-| 19.11.2018 | Harri Kirik | INFRA-43: Added in example usage of the MVP + UseCases architecture. |
-| 20.11.2018 | Harri Kirik | INFRA-43: Added an example tests for a Presenter and a UseCase. |
-| 06.08.2019 | Lauris Kruusamäe | INFRA-72: Added a more opinionated base project that leverages Clean Architecture ideas and MVVM on the UI side |
-| 12.09.2019 | Lauris Kruusamäe | P42-12: Added a Splash + Login + Main screen base implementation |
-| 01.10.2019 | Lauris Kruusamäe | P42-17: Added support for creating a new Android library project |
-| 16.12.2019 | Lauris Kruusamäe | P42: Updated project and dependency versioning logic |
-| 21.04.2020 | Harri Kirik | P42: Updated wording. Moved script dev section to the end of the readme. |
-| 07.10.2020 | Harri Kirik | Updated the section about the CI. We use Codemagic now. |
-| 11.11.2020 | Lauris Kruusamäe | Updated ProgressButton library. |
-| 18.12.2020 | Lauris Kruusamäe | Replace Gson with Moshi + Kotshi. |
-| 04.03.2021 | Harri Kirik | Update the minSDK to API 23 for both templates. |
-| 30.04.2021 | Lauris Kruusamäe | Updated dependencies. Removed generic Jcenter repository. Move to java.time.* for time handling. |
-| 21.07.2021 | Tarvi Liivak | Added tasks to build bundles for release. Updated dependencies |
-| 19.08.2021 | Kristofer Käosaar | Update build tooling and dependency versions. |
-| 19.08.2021 | Kristofer Käosaar | Update to API 31. |
-| 13.09.2021 | Tarvi Liivak | Created debug activity with options to see logs and create crash. Moved debug content outside release build |
-| 28.10.2021 | Lauris Kruusamäe | Dependency updates. Disabled jetifier, enabled non transitive R class |
-| 17.01.2022 | Sammy Calle | Update of dependencies , gradle version , gradle wrapper. Task dependencyUpdate added to library template |
-| 18.01.2022 | Lauris Kruusamäe | Cleaned up debug menu usage and code organization. Fixed Scrolls log posting dialog not appearing issue |
-| 20.01.2022 | Sammy Calle | Added the checkCode gradle task that will run ktlint and detekt |
-| 10.02.2022 | Lauris Kruusamäe | Changed how .aar dependencies are included to hide gradle warnings |
-| 21.02.2022 | Lauris Kruusamäe | Make Mvvm LiveData observables depend on Fragment's View lifecycle instead of Fragment's lifecycle |
-| 16.03.2022 | Lauris Kruusamäe | Cleanup BaseViewModel. Remove generic progress support and replace finish MutableLiveData with finish() function |
-| 28.04.2022 | Lauris Kruusamäe | Project template README improvements |
-| 19.05.2022 | Lauris Kruusamäe | Update project template module structure |
-| 26.05.2022 | Lauris Kruusamäe | Add checkCode as the next step after setup in CI |
-| 06.06.2022 | Lauris Kruusamäe | Integrate Gradle Version Catalogs feature into the template. Add a local Maven repo for local .aar dependencies |
-| 07.06.2022 | Lauris Kruusamäe | Replace RxSchedulers file with SchedulerProvider interface to provide RxJava Schedulers |
-| 06.07.2022 | Lauris Kruusamäe | Remove unnecessary pre android 23 NetworkUtil implementations |
-| 13.07.2022 | Lauris Kruusamäe | Update Timber ScrollsTree debug tag creation |
-| 20.09.2022 | Lauris Kruusamäe | Update dependencies. Change target to 33 and added support for the new splash screen |
-| 21.09.2022 | Lauris Kruusamäe | Add Espresso and Dagger support for instrumentation tests with examples |
-| 26.09.2022 | Lauris Kruusamäe | Remove local .aar dependency support and move MVVM lib into the project and replace ProgressButton with a ProgressDialog implementation |
-| 04.10.2022 | Lauris Kruusamäe | Remove BaseViewModel and and move BaseMvvmActivity(Fragment) functionality to BaseActivity and BaseFragment. Rename Text.P16 to Text.Body16 as Body is a common text style used in Material design, too.  |
-| 11.11.2022 | Harri Kirik | Fixed an issue with the MyErrorTransformer and NetworkUtil where the lack of network connection was not correctly detected. Added an additional check for UnknownHostException. |
-| 15.11.2022 | Lauris Kruusamäe | Instrumentation test improvements. Removed IdlingResource reusage and improved ConditionIdlingResource to check Conditions in the proper order. |
-| 17.04.2023 | Lauris Kruusamäe | Improve DI comments. Migrate to gradle plugin dsl. Various improvements. |
-| 22.05.2023 | Lauris Kruusamäe | Update Gradle and AGP to version 8+. Additional rules for R8 full mode (AGP 8). Addeded KSP instead of kapt for all depedencies except for Dagger. |
-| 31.09.2023 | Lauris Kruusamäe | Change MVVM to a local maven artefact instead of a submodule. Update dependencies |
-| 04.10.2023 | Lauris Kruusamäe | Removed unnecessary util and extension functions. Updated dependencies |
+This is a script to simplify Android project creation.
 
 ## Idea
 
