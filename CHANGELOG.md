@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 29.10.2023
+
+### Changed
+
+Moved the repository to Mobi Lab's GitHub.
+
 ## 04.10.2023
 
 ### Changed
