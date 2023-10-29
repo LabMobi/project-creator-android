@@ -13,7 +13,7 @@ It assumes:
 
 ## Release prerequisites
 
-1) The`develop` branch build is set up in CI and builds pass testing.
+1) The `develop` branch build is set up in CI and builds pass testing.
 
 2) The JIRA tasks that will go into this release have been tagged with the correct `fix version`.
 

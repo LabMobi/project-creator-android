@@ -1,4 +1,5 @@
-# Android Project Creator
+![Mobi Lab](docs/assets/mobilab-header-logo.png)
+# Mobi Lab Android Project Template
 
 This is a script to simplify Android project creation.
 
@@ -66,13 +67,13 @@ The library project contains a module for main library implementation and a `sam
 
 Notice 1: The project does not create a git repository automatically.
 
-Notice 2: The template includes a README.md file for your new project. Please take some time and fill it in.
+Notice 2: The template includes a `README.md` file for your new project. Please take some time and fill it in.
 
-Notice 3: The template includes a RELEASE_GUIDE.md for your new project. Please take some time to review and update it.
+Notice 3: The template includes a `RELEASE_GUIDE.md` for your new project. Please take some time to review and update it.
 
 Notice 4: The template includes a `codemagic.yaml` fail to configure your build at Codemagic CI. Please take some time to review it.
 
-Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum java version is 11.
+Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum Java version is 17.
 
 ## Usage
 
@@ -84,8 +85,6 @@ Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum jav
 
  * Bundler Ruby gem installed. Use "gem install bundler" if not.
 
- * Access to Mobi Lab's Git Lab installation, to clone this project.
-
  * Either a UNIX operating system (Linux, OS X) or Windows 10 v1607 or newer with "Ubuntu on Windows" installed.
 
 #### Getting and updating the creation script
@@ -93,7 +92,7 @@ Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum jav
  * Getting: 
 
    ```bash
-   git clone git@git.lab.mobi:mobilab/project-creator-android.git
+   git clone git@github.com:LabMobi/project-creator-android.git
    ```
 
  * Updating: 
@@ -135,7 +134,7 @@ The script will ask you for a project relative path (like *../my-new-project-dir
 
 The created project has Firebase Crashlytics and Analytics enabled by default. But, the project is missing the required `google-services.json` file. Firebase needs to be configured before the project can be run. 
 
-If you do not know where the Firebase project is set up then contact your Project Manager for more information and access.
+For Mobi Lab employees, if you do not know where the Firebase project is set up then contact your Project Manager for more information and access.
 
 If you already have access to the Firebase Console for this application then add or update the application (both debug and release key hash values, these are different) at the Firebase Console project (https://firebase.google.com/docs/android/setup#register-app) and download the `google-services.json` configuration file to the main module directly. 
 
@@ -153,7 +152,9 @@ https://github.com/ben-manes/gradle-versions-plugin
 
 #### Creating a build job in CI
 
-By default we use Codemagic. 
+Disclaimer: This section assumes you are an employee of Mobi Lab and have access to the company's account in Codemagic CI.
+
+By default we use Codemagic.
 
 The build configuration file for it is already included, see `codemagic.yaml` and https://confluence.lab.mobi/display/DEV/Codemagic
 
@@ -188,9 +189,16 @@ If that command has already been run then this is fine. Otherwise this can cause
 
 ### Developing and updating the template itself
 
-Make sure you are in the `develop` branch. 
-
-When your merge request is approved and is merged into `develop`, feel free to merge `develop` into `master`
+1. Clone the repository
+2. Create a new branch using Mobi Lab's [branching strategy](https://labmobi.atlassian.net/wiki/spaces/DEV/pages/15991186/Git+branching+strategy)
+3. Make changes to the project
+4. Document the changes in `CHANGELOG.md` in the project's root directory
+5. Create a pull request targeting the `develop` branch
+   - A code review and approval from at least one other person from the community
+   - Tag `Lauris Kruusamäe` and `Harri Kirik` in the request
+6. If the review is approved, then merge the merge request to `develop` and then feel free to merge `develop` into `master`.
+   - If you do not have the rights to merge then contact  `Lauris Kruusamäe` or `Harri Kirik`.
+7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made.
 
 #### Set up the Google services for development
 
