@@ -1,5 +1,5 @@
 ![Mobi Lab](docs/assets/mobilab-header-logo.png)
-# Mobi Lab Android Project Template
+# Mobi Lab Android Template
 
 This is a script to simplify Android project creation.
 
@@ -196,9 +196,9 @@ If that command has already been run then this is fine. Otherwise this can cause
 5. Create a pull request targeting the `develop` branch
    - A code review and approval from at least one other person from the community
    - Tag `Lauris Kruusamäe` and `Harri Kirik` in the request
-6. If the review is approved, then merge the merge request to `develop` and then feel free to merge `develop` into `master`.
-   - If you do not have the rights to merge then contact  `Lauris Kruusamäe` or `Harri Kirik`.
-7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made.
+6. If the review is approved, then merge the merge request to `develop` and then feel free to merge `develop` into `master`
+   - If you do not have the rights to merge then contact `Lauris Kruusamäe` or `Harri Kirik`
+7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made
 
 #### Set up the Google services for development
 
