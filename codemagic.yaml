@@ -35,6 +35,7 @@ definitions:
     - &stepBuildDebug
       name: Build Android
       script: |
+        cd project
         ./gradlew clean buildAllDebug
     # Start emulator
     - &stepStartEmulator
