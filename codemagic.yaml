@@ -1,0 +1,118 @@
+# Has a separate flows for develop branch (automatic builds),
+# Merge Request (automatic builds) and master branch Release builds (manual builds).
+definitions:
+  artifacts: &androidArtifacts # Section def
+    - emulator.log
+    - app/build/reports
+    - app/build/outputs/androidTest-results
+    - app/build/outputs/logs
+    - app/build/outputs/**/*.apk
+    - app/build/outputs/**/*.aab
+    - app/build/outputs/**/mapping.txt
+  debug-emails: &debugEmails
+    - siret.jorro@lab.mobi
+  scripts:
+    # Local setup
+    - &stepLocalSetup
+      name: Set up local properties and permissons
+      script: |
+        cp google-services.json project/app
+        cd project
+        chmod +x gradlew
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
+        cd app
+        sed -i 's|signing/debug.keystore|../../ProjectCodeName-debug.keystore|g' build.gradle
+        sed -i 's|<%= storepass_debug %>|androiddebug|g' build.gradle
+        sed -i 's|<%= sanitized_name %>|androiddebug|g' build.gradle
+        sed -i 's|<%= keypass_debug %>|androiddebug|g' build.gradle
+    # Run checkCode
+    - &stepCheckCode
+      name: Check code style and formatting
+      script: |
+        cd project
+        ./gradlew checkCode
+    # Build DEBUG
+    - &stepBuildDebug
+      name: Build Android
+      script: |
+        ./gradlew clean buildAllDebug
+    # Start emulator
+    - &stepStartEmulator
+      name: Launch emulator
+      script: |
+        cd $ANDROID_HOME/tools
+        emulator -avd emulator &
+        adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+    # Stop emulator
+    - &stepStopEmulator
+      name: Stop emulator
+      script: |
+        cd $ANDROID_HOME/tools
+        adb emu kill
+    # Run tests
+    - &stepRunTests
+      name: Test Android
+      script: |
+        cd project
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
+
+# Flows
+workflows:
+  develop-builds:
+    name: Dev builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepLocalSetup
+      - *stepCheckCode
+      - *stepStartEmulator
+      - *stepRunTests
+      - *stepStopEmulator
+      - *stepBuildDebug
+    artifacts: *androidArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  merge-requests:
+    name: Merge requests
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepLocalSetup
+      - *stepCheckCode
+      - *stepStartEmulator
+      - *stepRunTests
+      - *stepStopEmulator
+      - *stepBuildDebug
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false
