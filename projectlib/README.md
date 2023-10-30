@@ -5,7 +5,7 @@ TODO an overview how to use the library
 
 ## Adding the library to a project
 
-To add the library we need the `.aar` artefact. Either build it locally or take it from Nevercode's `ProjectCodeName` project.
+To add the library we need the `.aar` artefact. Either build it locally or take it from Codemagic's `ProjectCodeName` project.
 
 ##### Gradle
 
