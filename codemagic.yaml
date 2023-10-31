@@ -43,11 +43,17 @@ definitions:
         cd projectlib
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
-    # Run checkCode
+    # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
       script: |
         cd project
+        ./gradlew checkCode
+    # Run lib checkCode
+    - &stepLibCheckCode
+      name: Check code style and formatting
+      script: |
+        cd projectlib
         ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
@@ -132,6 +138,7 @@ workflows:
           source: true
     scripts:
       - *stepLibLocalSetup
+      - *stepLibCheckCode
       - *stepLibBuild
     artifacts: *libArtifacts
     publishing:
