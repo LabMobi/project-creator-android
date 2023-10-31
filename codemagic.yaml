@@ -3,12 +3,12 @@
 definitions:
   artifacts: &androidArtifacts # Section def
     - emulator.log
-    - app/build/reports
-    - app/build/outputs/androidTest-results
-    - app/build/outputs/logs
-    - app/build/outputs/**/*.apk
-    - app/build/outputs/**/*.aab
-    - app/build/outputs/**/mapping.txt
+    - project/app/build/reports
+    - project/app/build/outputs/androidTest-results
+    - project/app/build/outputs/logs
+    - project/app/build/outputs/**/*.apk
+    - project/app/build/outputs/**/*.aab
+    - project/app/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - siret.jorro@lab.mobi
   scripts:
