@@ -1,7 +1,7 @@
 # Has a separate flows for develop branch (automatic builds),
 # Merge Request (automatic builds) and master branch Release builds (manual builds).
 definitions:
-  artifacts: &androidArtifacts # Section def
+  app-artifacts: &appArtifacts # Section def
     - emulator.log
     - project/app/build/reports
     - project/app/build/outputs/androidTest-results
@@ -9,11 +9,24 @@ definitions:
     - project/app/build/outputs/**/*.apk
     - project/app/build/outputs/**/*.aab
     - project/app/build/outputs/**/mapping.txt
+  lib-artifacts: &libArtifacts
+    - emulator.log
+    - projectlib/sample/build/reports
+    - projectlib/sample/outputs/androidTest-results
+    - projectlib/sample/build/outputs/logs
+    - projectlib/sample/build/outputs/**/*.apk
+    - projectlib/sample/build/outputs/**/*.aab
+    - projectlib/sample/build/outputs/**/mapping.txt
+    - projectlib/ProjectCodeName/build/reports
+    - projectlib/ProjectCodeName/build/outputs/androidTest-results
+    - projectlib/ProjectCodeName/build/outputs/logs
+    - projectlib/ProjectCodeName/build/outputs/**/*.aar
+    - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - siret.jorro@lab.mobi
   scripts:
-    # Local setup
-    - &stepLocalSetup
+    # App local setup
+    - &stepAppLocalSetup
       name: Set up local properties and permissons
       script: |
         cp google-services.json project/app
@@ -29,17 +42,36 @@ definitions:
         sed -i 's|<%= storepass_debug %>|androiddebug|g' build.gradle
         sed -i 's|<%= sanitized_name %>|androiddebug|g' build.gradle
         sed -i 's|<%= keypass_debug %>|androiddebug|g' build.gradle
+    # Library local setup
+    - &stepLibLocalSetup
+      name: Set up local properties and permissions
+      script: |
+        cd projectlib
+        chmod +x gradlew
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
     # Run checkCode
-    - &stepCheckCode
+    - &stepAppCheckCode
       name: Check code style and formatting
       script: |
         cd project
         ./gradlew checkCode
-    # Build DEBUG
-    - &stepBuildDebug
+    # Run checkCode
+    - &stepLibCheckCode
+      name: Check code style and formatting
+      script: |
+        cd projectlib
+        ./gradlew checkCode
+    # Build app DEBUG
+    - &stepAppBuildDebug
       name: Build Android
       script: |
         cd project
+        ./gradlew clean buildAllDebug
+    # Build lib DEBUG
+    - &stepLibBuildDebug
+      name: Build Android
+      script: |
+        cd projectlib
         ./gradlew clean buildAllDebug
     # Start emulator
     - &stepStartEmulator
@@ -54,8 +86,8 @@ definitions:
       script: |
         cd $ANDROID_HOME/tools
         adb emu kill
-    # Run tests
-    - &stepRunTests
+    # Run app tests
+    - &stepAppRunTests
       name: Test Android
       script: |
         cd project
@@ -69,11 +101,27 @@ definitions:
           echo "Tests failed"
           exit 1
         fi
+        # Run tests
+    # Run lib tests
+    - &stepLibRunTests
+      name: Test Android
+      script: |
+        cd projectlib
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
 
 # Flows
 workflows:
-  develop-builds:
-    name: Dev builds
+  develop-app-builds:
+    name: Dev app builds
     instance_type: linux_x2
     environment:
       java: 17
@@ -86,13 +134,37 @@ workflows:
           include: true
           source: true
     scripts:
-      - *stepLocalSetup
-      - *stepCheckCode
+      - *stepAppLocalSetup
+      - *stepAppCheckCode
       - *stepStartEmulator
-      - *stepRunTests
+      - *stepAppRunTests
       - *stepStopEmulator
-      - *stepBuildDebug
-    artifacts: *androidArtifacts
+      - *stepAppBuildDebug
+    artifacts: *appArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  develop-lib-builds:
+    name: Dev lib builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepLibLocalSetup
+      - *stepLibCheckCode
+      - *stepStartEmulator
+      - *stepLibRunTests
+      - *stepStopEmulator
+      - *stepLibBuildDebug
+    artifacts: *libArtifacts
     publishing:
       email:
         recipients: *debugEmails
@@ -110,12 +182,12 @@ workflows:
           source: false
       cancel_previous_builds: true
     scripts:
-      - *stepLocalSetup
-      - *stepCheckCode
+      - *stepAppLocalSetup
+      - *stepAppCheckCode
       - *stepStartEmulator
-      - *stepRunTests
+      - *stepAppRunTests
       - *stepStopEmulator
-      - *stepBuildDebug
+      - *stepAppBuildDebug
     publishing:
       email:
         recipients: *debugEmails
