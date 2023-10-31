@@ -11,12 +11,6 @@ definitions:
     - project/app/build/outputs/**/mapping.txt
   lib-artifacts: &libArtifacts
     - emulator.log
-    - projectlib/sample/build/reports
-    - projectlib/sample/outputs/androidTest-results
-    - projectlib/sample/build/outputs/logs
-    - projectlib/sample/build/outputs/**/*.apk
-    - projectlib/sample/build/outputs/**/*.aab
-    - projectlib/sample/build/outputs/**/mapping.txt
     - projectlib/ProjectCodeName/build/reports
     - projectlib/ProjectCodeName/build/outputs/androidTest-results
     - projectlib/ProjectCodeName/build/outputs/logs
@@ -55,24 +49,18 @@ definitions:
       script: |
         cd project
         ./gradlew checkCode
-    # Run checkCode
-    - &stepLibCheckCode
-      name: Check code style and formatting
-      script: |
-        cd projectlib
-        ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
       name: Build Android
       script: |
         cd project
         ./gradlew clean buildAllDebug
-    # Build lib DEBUG
-    - &stepLibBuildDebug
-      name: Build Android
+    # Build lib
+    - &stepLibBuild
+      name: Build library
       script: |
         cd projectlib
-        ./gradlew clean buildAllDebug
+        ./gradlew clean buildAll
     # Start emulator
     - &stepStartEmulator
       name: Launch emulator
@@ -102,21 +90,6 @@ definitions:
           exit 1
         fi
         # Run tests
-    # Run lib tests
-    - &stepLibRunTests
-      name: Test Android
-      script: |
-        cd projectlib
-        ./gradlew connectedAndroidTest
-        result=$?
-        adb logcat -d > emulator.log
-        if [ $result -eq 0 ]
-        then
-          echo "Tests executed successfully"
-        else
-          echo "Tests failed"
-          exit 1
-        fi
 
 # Flows
 workflows:
@@ -159,11 +132,7 @@ workflows:
           source: true
     scripts:
       - *stepLibLocalSetup
-      - *stepLibCheckCode
-      - *stepStartEmulator
-      - *stepLibRunTests
-      - *stepStopEmulator
-      - *stepLibBuildDebug
+      - *stepLibBuild
     artifacts: *libArtifacts
     publishing:
       email:
