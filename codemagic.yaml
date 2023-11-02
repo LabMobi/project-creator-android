@@ -10,6 +10,13 @@ definitions:
     - project/app/build/outputs/**/*.aab
     - project/app/build/outputs/**/mapping.txt
   lib-artifacts: &libArtifacts
+    - emulator.log
+    - projectlib/sample/build/reports
+    - projectlib/sample/outputs/androidTest-results
+    - projectlib/sample/build/outputs/logs
+    - projectlib/sample/build/outputs/**/*.apk
+    - projectlib/sample/build/outputs/**/*.aab
+    - projectlib/sample/build/outputs/**/mapping.txt
     - projectlib/ProjectCodeName/build/reports
     - projectlib/ProjectCodeName/build/outputs/androidTest-results
     - projectlib/ProjectCodeName/build/outputs/logs
@@ -60,9 +67,9 @@ definitions:
       script: |
         cd project
         ./gradlew clean buildAllDebug
-    # Build lib
+    # Build library and sample app
     - &stepLibBuild
-      name: Build library
+      name: Build library and sample app
       script: |
         cd projectlib
         ./gradlew clean buildAll
@@ -94,7 +101,21 @@ definitions:
           echo "Tests failed"
           exit 1
         fi
-        # Run tests
+    # Run library sample app tests
+    - &stepLibAppRunTests
+      name: Test Android
+      script: |
+        cd projectlib
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
 
 # Flows
 workflows:
@@ -140,6 +161,9 @@ workflows:
     scripts:
       - *stepLibLocalSetup
       - *stepLibCheckCode
+      - *stepStartEmulator
+      - *stepLibAppRunTests
+      - *stepStopEmulator
       - *stepLibBuild
     artifacts: *libArtifacts
     publishing:
