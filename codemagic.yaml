@@ -23,6 +23,8 @@ definitions:
     - projectlib/ProjectCodeName/build/outputs/**/*.aar
     - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
+    - lauris.kruusamae@lab.mobi
+    - harri.kirik@lab.mobi
     - siret.jorro@lab.mobi
   scripts:
     # App local setup
