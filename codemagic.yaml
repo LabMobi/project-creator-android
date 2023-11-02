@@ -10,7 +10,6 @@ definitions:
     - project/app/build/outputs/**/*.aab
     - project/app/build/outputs/**/mapping.txt
   lib-artifacts: &libArtifacts
-    - emulator.log
     - projectlib/ProjectCodeName/build/reports
     - projectlib/ProjectCodeName/build/outputs/androidTest-results
     - projectlib/ProjectCodeName/build/outputs/logs
@@ -28,14 +27,14 @@ definitions:
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
         cd app
-        sed -i 's|signing/signing.keystore|../../ProjectCodeName-debug.keystore|g' build.gradle
-        sed -i 's|<%= storepass_release %>|androiddebug|g' build.gradle
-        sed -i 's|<%= sanitized_name %>|androiddebug|g' build.gradle
-        sed -i 's|<%= keypass_release %>|androiddebug|g' build.gradle
-        sed -i 's|signing/debug.keystore|../../ProjectCodeName-debug.keystore|g' build.gradle
-        sed -i 's|<%= storepass_debug %>|androiddebug|g' build.gradle
-        sed -i 's|<%= sanitized_name %>|androiddebug|g' build.gradle
-        sed -i 's|<%= keypass_debug %>|androiddebug|g' build.gradle
+        sed -i 's|signing/signing.keystore|$CM_KEYSTORE_PATH|g' build.gradle
+        sed -i 's|<%= storepass_release %>|$CM_KEYSTORE_PASSWORD|g' build.gradle
+        sed -i 's|<%= sanitized_name %>|$CM_KEY_ALIAS|g' build.gradle
+        sed -i 's|<%= keypass_release %>|$CM_KEY_PASSWORD|g' build.gradle
+        sed -i 's|signing/debug.keystore|$CM_KEYSTORE_PATH|g' build.gradle
+        sed -i 's|<%= storepass_debug %>|$CM_KEYSTORE_PASSWORD|g' build.gradle
+        sed -i 's|<%= sanitized_name %>|$CM_KEY_ALIAS|g' build.gradle
+        sed -i 's|<%= keypass_debug %>|$CM_KEY_PASSWORD|g' build.gradle
     # Library local setup
     - &stepLibLocalSetup
       name: Set up local properties and permissions
@@ -104,6 +103,8 @@ workflows:
     instance_type: linux_x2
     environment:
       java: 17
+      groups:
+        - keystore_credentials
     triggering:
       events:
         - push
@@ -144,11 +145,13 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
-  merge-requests:
-    name: Merge requests
+  merge-requests-app:
+    name: Merge requests app
     instance_type: linux_x2
     environment:
       java: 17
+      groups:
+        - keystore_credentials
     triggering:
       events:
         - pull_request
@@ -164,6 +167,28 @@ workflows:
       - *stepAppRunTests
       - *stepStopEmulator
       - *stepAppBuildDebug
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false
+  merge-requests-lib:
+    name: Merge requests lib
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepLibLocalSetup
+      - *stepLibCheckCode
+      - *stepLibBuild
     publishing:
       email:
         recipients: *debugEmails
