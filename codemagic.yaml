@@ -62,8 +62,7 @@ definitions:
     - &stepRunCreatorScript
       name: Run project creator script and replace google-services.json and keystores in the generated project
       script: |
-        cd ci
-        sh script.sh
+        sh ci/script.sh
     # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
@@ -217,6 +216,7 @@ workflows:
     instance_type: linux_x2
     environment:
       java: 17
+      ruby: 2.6.10
       groups:
         - keystore_credentials_creatorapp
     triggering:
