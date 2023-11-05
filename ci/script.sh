@@ -25,3 +25,4 @@ sed -i "/signingConfigs {/,/buildTypes/c\ \
 	}\n \
 \n \
 	buildTypes {" build.gradle
+cat build.gradle

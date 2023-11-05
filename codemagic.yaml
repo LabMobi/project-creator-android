@@ -235,9 +235,9 @@ workflows:
       - *stepStopEmulator
       - *stepGeneratedAppBuildDebug
     artifacts: *generatedAppArtifacts
-    publishing:
-      email:
-        recipients: *debugEmails
+#    publishing:
+#      email:
+#        recipients: *debugEmails
   merge-requests-app:
     name: Merge requests app
     instance_type: linux_x2
