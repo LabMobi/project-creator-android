@@ -1,0 +1,225 @@
+# Has separate flows for develop branch (automatic builds) and
+# Merge Request (automatic builds)
+definitions:
+  app-artifacts: &appArtifacts # Section def
+    - emulator.log
+    - project/app/build/reports
+    - project/app/build/outputs/androidTest-results
+    - project/app/build/outputs/logs
+    - project/app/build/outputs/**/*.apk
+    - project/app/build/outputs/**/*.aab
+    - project/app/build/outputs/**/mapping.txt
+  lib-artifacts: &libArtifacts
+    - emulator.log
+    - projectlib/sample/build/reports
+    - projectlib/sample/outputs/androidTest-results
+    - projectlib/sample/build/outputs/logs
+    - projectlib/sample/build/outputs/**/*.apk
+    - projectlib/sample/build/outputs/**/*.aab
+    - projectlib/sample/build/outputs/**/mapping.txt
+    - projectlib/ProjectCodeName/build/reports
+    - projectlib/ProjectCodeName/build/outputs/androidTest-results
+    - projectlib/ProjectCodeName/build/outputs/logs
+    - projectlib/ProjectCodeName/build/outputs/**/*.aar
+    - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
+  debug-emails: &debugEmails
+    - lauris.kruusamae@lab.mobi
+    - harri.kirik@lab.mobi
+    - siret.jorro@lab.mobi
+  scripts:
+    # App local setup
+    - &stepAppLocalSetup
+      name: Set up local properties and permissons
+      script: |
+        cp google-services.json project/app
+        cd project
+        chmod +x gradlew
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
+        cd app
+        sed -i "s|signing/signing.keystore|$CM_KEYSTORE_PATH|g" build.gradle
+        sed -i "s|<%= storepass_release %>|$CM_KEYSTORE_PASSWORD|g" build.gradle
+        sed -i "s|<%= sanitized_name %>|$CM_KEY_ALIAS|g" build.gradle
+        sed -i "s|<%= keypass_release %>|$CM_KEY_PASSWORD|g" build.gradle
+        sed -i "s|signing/debug.keystore|$CM_KEYSTORE_PATH|g" build.gradle
+        sed -i "s|<%= storepass_debug %>|$CM_KEYSTORE_PASSWORD|g" build.gradle
+        sed -i "s|<%= sanitized_name %>|$CM_KEY_ALIAS|g" build.gradle
+        sed -i "s|<%= keypass_debug %>|$CM_KEY_PASSWORD|g" build.gradle
+    # Library local setup
+    - &stepLibLocalSetup
+      name: Set up local properties and permissions
+      script: |
+        cd projectlib
+        chmod +x gradlew
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
+    # Run app checkCode
+    - &stepAppCheckCode
+      name: Check code style and formatting
+      script: |
+        cd project
+        ./gradlew checkCode
+    # Run lib checkCode
+    - &stepLibCheckCode
+      name: Check code style and formatting
+      script: |
+        cd projectlib
+        ./gradlew checkCode
+    # Build app DEBUG
+    - &stepAppBuildDebug
+      name: Build Android
+      script: |
+        cd project
+        ./gradlew clean buildAllDebug
+    # Build library and sample app
+    - &stepLibBuild
+      name: Build library and sample app
+      script: |
+        cd projectlib
+        ./gradlew clean buildAll
+    # Start emulator
+    - &stepStartEmulator
+      name: Launch emulator
+      script: |
+        cd $ANDROID_HOME/tools
+        emulator -avd emulator &
+        adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+    # Stop emulator
+    - &stepStopEmulator
+      name: Stop emulator
+      script: |
+        cd $ANDROID_HOME/tools
+        adb emu kill
+    # Run app tests
+    - &stepAppRunTests
+      name: Test Android
+      script: |
+        cd project
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
+    # Run library sample app tests
+    - &stepLibAppRunTests
+      name: Test Android
+      script: |
+        cd projectlib
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
+
+# Flows
+workflows:
+  develop-app-builds:
+    name: Dev app builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+      groups:
+        - keystore_credentials
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepAppLocalSetup
+      - *stepAppCheckCode
+      - *stepStartEmulator
+      - *stepAppRunTests
+      - *stepStopEmulator
+      - *stepAppBuildDebug
+    artifacts: *appArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  develop-lib-builds:
+    name: Dev lib builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepLibLocalSetup
+      - *stepLibCheckCode
+      - *stepStartEmulator
+      - *stepLibAppRunTests
+      - *stepStopEmulator
+      - *stepLibBuild
+    artifacts: *libArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  merge-requests-app:
+    name: Merge requests app
+    instance_type: linux_x2
+    environment:
+      java: 17
+      groups:
+        - keystore_credentials
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepAppLocalSetup
+      - *stepAppCheckCode
+      - *stepStartEmulator
+      - *stepAppRunTests
+      - *stepStopEmulator
+      - *stepAppBuildDebug
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false
+  merge-requests-lib:
+    name: Merge requests lib
+    instance_type: linux_x2
+    environment:
+      java: 17
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepLibLocalSetup
+      - *stepLibCheckCode
+      - *stepStartEmulator
+      - *stepLibAppRunTests
+      - *stepStopEmulator
+      - *stepLibBuild
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false

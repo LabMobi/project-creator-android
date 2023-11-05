@@ -196,7 +196,9 @@ If that command has already been run then this is fine. Otherwise this can cause
 5. Create a pull request targeting the `develop` branch
    - A code review and approval from at least one other person from the community
    - Tag `Lauris Kruusamäe` and `Harri Kirik` in the request
-6. If the review is approved, then merge the merge request to `develop` and then feel free to merge `develop` into `main`
+   - Codemagic builds will be triggered automatically when creating a pull request, make sure those succeed
+     - If Mobi Lab employee then you can trigger the builds manually in Codemagic before creating a pull request if you want to be sure, just choose the branch you're working on and the appropriate workflow
+6. If the review is approved, then merge the pull request to `develop` and then feel free to merge `develop` into `main`
    - If you do not have the rights to merge then contact `Lauris Kruusamäe` or `Harri Kirik`
 7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made
 

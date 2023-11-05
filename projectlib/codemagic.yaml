@@ -1,4 +1,4 @@
-# Has a separate flows for develop branch (automatic builds),
+# Has separate flows for develop branch (automatic builds),
 # Merge Request (automatic builds) and master branch Release builds (manual builds).
 definitions:
   artifacts: &androidArtifacts # Section def
