@@ -30,6 +30,19 @@ definitions:
     - creatorapp/app/build/outputs/**/*.apk
     - creatorapp/app/build/outputs/**/*.aab
     - creatorapp/app/build/outputs/**/mapping.txt
+  generated-lib-artifacts: &generatedLibArtifacts
+    - emulator.log
+    - creatorlib/sample/build/reports
+    - creatorlib/sample/outputs/androidTest-results
+    - creatorlib/sample/build/outputs/logs
+    - creatorlib/sample/build/outputs/**/*.apk
+    - creatorlib/sample/build/outputs/**/*.aab
+    - creatorlib/sample/build/outputs/**/mapping.txt
+    - creatorlib/ProjectCodeName/build/reports
+    - creatorlib/ProjectCodeName/build/outputs/androidTest-results
+    - creatorlib/ProjectCodeName/build/outputs/logs
+    - creatorlib/ProjectCodeName/build/outputs/**/*.aar
+    - creatorlib/ProjectCodeName/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - lauris.kruusamae@lab.mobi
     - harri.kirik@lab.mobi
@@ -272,7 +285,7 @@ workflows:
       - *stepGeneratedLibRunTests
       - *stepStopEmulator
       - *stepGeneratedLibBuild
-    artifacts: *generatedAppArtifacts
+    artifacts: *generatedLibArtifacts
   #    publishing:
   #      email:
   #        recipients: *debugEmails
