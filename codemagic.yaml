@@ -1,5 +1,5 @@
-# Has a separate flows for develop branch (automatic builds),
-# Merge Request (automatic builds) and master branch Release builds (manual builds).
+# Has separate flows for develop branch (automatic builds) and
+# Merge Request (automatic builds)
 definitions:
   app-artifacts: &appArtifacts # Section def
     - emulator.log
@@ -214,6 +214,9 @@ workflows:
     scripts:
       - *stepLibLocalSetup
       - *stepLibCheckCode
+      - *stepStartEmulator
+      - *stepLibAppRunTests
+      - *stepStopEmulator
       - *stepLibBuild
     publishing:
       email:
