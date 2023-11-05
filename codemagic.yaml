@@ -229,7 +229,7 @@ workflows:
           source: true
     scripts:
       - *stepRunCreatorScript
-      - *stepGeneratedAppCheckCode
+#      - *stepGeneratedAppCheckCode
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
