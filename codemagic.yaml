@@ -37,21 +37,8 @@ definitions:
   scripts:
     # App local setup
     - &stepAppLocalSetup
-      name: Set up local properties and permissons
-      script: |
-        cp google-services.json project/app
-        cd project
-        chmod +x gradlew
-        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
-        cd app
-        sed -i "s|signing/signing.keystore|$CM_KEYSTORE_PATH|g" build.gradle
-        sed -i "s|<%= storepass_release %>|$CM_KEYSTORE_PASSWORD|g" build.gradle
-        sed -i "s|<%= sanitized_name %>|$CM_KEY_ALIAS|g" build.gradle
-        sed -i "s|<%= keypass_release %>|$CM_KEY_PASSWORD|g" build.gradle
-        sed -i "s|signing/debug.keystore|$CM_KEYSTORE_PATH|g" build.gradle
-        sed -i "s|<%= storepass_debug %>|$CM_KEYSTORE_PASSWORD|g" build.gradle
-        sed -i "s|<%= sanitized_name %>|$CM_KEY_ALIAS|g" build.gradle
-        sed -i "s|<%= keypass_debug %>|$CM_KEY_PASSWORD|g" build.gradle
+      name: Set up local properties and permissons and add google-services.json and keystores
+      script: sh ci/setup_project.sh
     # Library local setup
     - &stepLibLocalSetup
       name: Set up local properties and permissions
@@ -61,8 +48,7 @@ definitions:
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
     - &stepRunCreatorScript
       name: Run project creator script and replace google-services.json and keystores in the generated project
-      script: |
-        sh ci/script.sh
+      script: sh ci/run_creator.sh
     # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
@@ -117,47 +103,19 @@ definitions:
       name: Test Android
       script: |
         cd project
-        ./gradlew connectedAndroidTest
-        result=$?
-        adb logcat -d > emulator.log
-        if [ $result -eq 0 ]
-        then
-          echo "Tests executed successfully"
-        else
-          echo "Tests failed"
-          exit 1
-        fi
+        sh ../ci/run_tests.sh
     # Run library sample app tests
     - &stepLibAppRunTests
       name: Test Android
       script: |
         cd projectlib
-        ./gradlew connectedAndroidTest
-        result=$?
-        adb logcat -d > emulator.log
-        if [ $result -eq 0 ]
-        then
-          echo "Tests executed successfully"
-        else
-          echo "Tests failed"
-          exit 1
-        fi
-        # Run app tests
+        sh ../ci/run_tests.sh
     # Run generated app tests
     - &stepGeneratedAppRunTests
       name: Test Android
       script: |
         cd creatorapp
-        ./gradlew connectedAndroidTest
-        result=$?
-        adb logcat -d > emulator.log
-        if [ $result -eq 0 ]
-        then
-          echo "Tests executed successfully"
-        else
-          echo "Tests failed"
-          exit 1
-        fi
+        sh ../ci/run_tests.sh
 
 # Flows
 workflows:
@@ -229,7 +187,7 @@ workflows:
           source: true
     scripts:
       - *stepRunCreatorScript
-#      - *stepGeneratedAppCheckCode
+      - *stepGeneratedAppCheckCode
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
