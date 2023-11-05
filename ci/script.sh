@@ -17,7 +17,7 @@ sed -i "/signingConfigs {/,/buildTypes/c\ \
 			keyPassword \"$CM_KEY_PASSWORD_RELEASE\"\n \
 		}\n \
 		debugSigning {\n \
-			storeFile file(\"signing/release.keystore\")\n \
+			storeFile file(\"signing/debug.keystore\")\n \
 			storePassword \"$CM_KEYSTORE_PASSWORD_DEBUG\"\n \
 			keyAlias \"$CM_KEY_ALIAS\"\n \
 			keyPassword \"$CM_KEY_PASSWORD_DEBUG\"\n \
@@ -25,4 +25,3 @@ sed -i "/signingConfigs {/,/buildTypes/c\ \
 	}\n \
 \n \
 	buildTypes {" build.gradle
-cat build.gradle
