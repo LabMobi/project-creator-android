@@ -22,6 +22,14 @@ definitions:
     - projectlib/ProjectCodeName/build/outputs/logs
     - projectlib/ProjectCodeName/build/outputs/**/*.aar
     - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
+  generated-app-artifacts: &generatedAppArtifacts
+    - emulator.log
+    - creatorapp/app/build/reports
+    - creatorapp/app/build/outputs/androidTest-results
+    - creatorapp/app/build/outputs/logs
+    - creatorapp/app/build/outputs/**/*.apk
+    - creatorapp/app/build/outputs/**/*.aab
+    - creatorapp/app/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - lauris.kruusamae@lab.mobi
     - harri.kirik@lab.mobi
@@ -51,6 +59,11 @@ definitions:
         cd projectlib
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
+    - &stepRunCreatorScript
+      name: Run project creator script and replace google-services.json and keystores in the generated project
+      script: |
+        cd ci
+        sh script.sh
     # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
@@ -62,6 +75,12 @@ definitions:
       name: Check code style and formatting
       script: |
         cd projectlib
+        ./gradlew checkCode
+    # Run generated app checkCode
+    - &stepGeneratedAppCheckCode
+      name: Check code style and formatting
+      script: |
+        cd creatorapp
         ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
@@ -75,6 +94,12 @@ definitions:
       script: |
         cd projectlib
         ./gradlew clean buildAll
+    # Build generated app DEBUG
+    - &stepGeneratedAppBuildDebug
+      name: Build Android
+      script: |
+        cd creatorapp
+        ./gradlew clean buildAllDebug
     # Start emulator
     - &stepStartEmulator
       name: Launch emulator
@@ -108,6 +133,22 @@ definitions:
       name: Test Android
       script: |
         cd projectlib
+        ./gradlew connectedAndroidTest
+        result=$?
+        adb logcat -d > emulator.log
+        if [ $result -eq 0 ]
+        then
+          echo "Tests executed successfully"
+        else
+          echo "Tests failed"
+          exit 1
+        fi
+        # Run app tests
+    # Run generated app tests
+    - &stepGeneratedAppRunTests
+      name: Test Android
+      script: |
+        cd creatorapp
         ./gradlew connectedAndroidTest
         result=$?
         adb logcat -d > emulator.log
@@ -168,6 +209,32 @@ workflows:
       - *stepStopEmulator
       - *stepLibBuild
     artifacts: *libArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  develop-generated-app-builds:
+    name: Dev generated app builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+      groups:
+        - keystore_credentials_creatorapp
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepRunCreatorScript
+      - *stepGeneratedAppCheckCode
+      - *stepStartEmulator
+      - *stepGeneratedAppRunTests
+      - *stepStopEmulator
+      - *stepGeneratedAppBuildDebug
+    artifacts: *generatedAppArtifacts
     publishing:
       email:
         recipients: *debugEmails
