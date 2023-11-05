@@ -130,6 +130,18 @@ Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum J
 
 The script will ask you for a project relative path (like *../my-new-project-dir*). Next up the script will ask some more parameters, answer those to the best of your ability. After that, your new project will be created. To get it to run see Configuring Firebase section below.
 
+The relative path and project name can be passed as command line arguments as well:
+
+   ```bash
+   bundle exec cap android:create <relative_path> <project_name>
+   ```
+
+   ```bash
+   bundle exec cap android:create_library <relative_path> <project_name>
+   ```
+
+This method is used in CI builds but feel free to use it while creating your project as well, the limitation to this however is that you cannot change the package name (`mobi.lab` by default).
+
 #### Configuring Firebase
 
 The created project has Firebase Crashlytics and Analytics enabled by default. But, the project is missing the required `google-services.json` file. Firebase needs to be configured before the project can be run. 
