@@ -11,16 +11,17 @@ cd app
 sed -i '/signingConfigs/,/buildTypes/c\    signingConfigs { \
         releaseSigning { \
             storeFile file("signing/signing.keystore") \
-	    storePassword $CM_KEYSTORE_PASSWORD_RELEASE \
-	    keyAlias $CM_KEY_ALIAS \
+            storePassword $CM_KEYSTORE_PASSWORD_RELEASE \
+            keyAlias $CM_KEY_ALIAS \
             keyPassword $CM_KEY_PASSWORD_RELEASE \
         } \
         debugSigning { \
             storeFile file("signing/release.keystore") \
-            storePassword $CM_KEYSTORE_PASSWORD_DEBUG \
+            storePassword $CM_KEYSTORE_PASSWORD_DEBUG \
             keyAlias $CM_KEY_ALIAS \
             keyPassword $CM_KEY_PASSWORD_DEBUG \
         } \
     } \
  \
     buildTypes {' build.gradle
+cat build.gradle
