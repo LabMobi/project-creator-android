@@ -1,56 +1,7 @@
-# Android Project Creator
+![Mobi Lab](docs/assets/mobilab-header-logo.png)
+# Mobi Lab Android Template
 
-This is a script to simplify Android project creation. 
-
-## Changelog
-
-| Date       |  Developer  | Change                                                       |
-| ---------- | :---------: | :----------------------------------------------------------- |
-| 04.04.2018 | Harri Kirik | Moved the project creation script to Mobi Lab's Git Lab. Created this file. |
-| 07.09.2018 | Harri Kirik | Updated to a Kotlin version. Moved the Java one to "java" branch |
-| 07.09.2018 | Harri Kirik | Added examples for tests and instrumentation tests. Added the "lib_" prefix for the MVP library. |
-| 07.09.2018 | Harri Kirik | Updated this readme to make it clearer where the project is created. |
-| 19.11.0218 | Harri Kirik | INFRA-43: Added in the newer MVP library. Update tools.      |
-| 19.11.2018 | Harri Kirik | INFRA-43: Added in example usage of the MVP + UseCases architecture. |
-| 20.11.2018 | Harri Kirik | INFRA-43: Added an example tests for a Presenter and a UseCase. |
-| 06.08.2019 | Lauris Kruusamäe | INFRA-72: Added a more opinionated base project that leverages Clean Architecture ideas and MVVM on the UI side |
-| 12.09.2019 | Lauris Kruusamäe | P42-12: Added a Splash + Login + Main screen base implementation |
-| 01.10.2019 | Lauris Kruusamäe | P42-17: Added support for creating a new Android library project |
-| 16.12.2019 | Lauris Kruusamäe | P42: Updated project and dependency versioning logic |
-| 21.04.2020 | Harri Kirik | P42: Updated wording. Moved script dev section to the end of the readme. |
-| 07.10.2020 | Harri Kirik | Updated the section about the CI. We use Codemagic now. |
-| 11.11.2020 | Lauris Kruusamäe | Updated ProgressButton library. |
-| 18.12.2020 | Lauris Kruusamäe | Replace Gson with Moshi + Kotshi. |
-| 04.03.2021 | Harri Kirik | Update the minSDK to API 23 for both templates. |
-| 30.04.2021 | Lauris Kruusamäe | Updated dependencies. Removed generic Jcenter repository. Move to java.time.* for time handling. |
-| 21.07.2021 | Tarvi Liivak | Added tasks to build bundles for release. Updated dependencies |
-| 19.08.2021 | Kristofer Käosaar | Update build tooling and dependency versions. |
-| 19.08.2021 | Kristofer Käosaar | Update to API 31. |
-| 13.09.2021 | Tarvi Liivak | Created debug activity with options to see logs and create crash. Moved debug content outside release build |
-| 28.10.2021 | Lauris Kruusamäe | Dependency updates. Disabled jetifier, enabled non transitive R class |
-| 17.01.2022 | Sammy Calle | Update of dependencies , gradle version , gradle wrapper. Task dependencyUpdate added to library template |
-| 18.01.2022 | Lauris Kruusamäe | Cleaned up debug menu usage and code organization. Fixed Scrolls log posting dialog not appearing issue |
-| 20.01.2022 | Sammy Calle | Added the checkCode gradle task that will run ktlint and detekt |
-| 10.02.2022 | Lauris Kruusamäe | Changed how .aar dependencies are included to hide gradle warnings |
-| 21.02.2022 | Lauris Kruusamäe | Make Mvvm LiveData observables depend on Fragment's View lifecycle instead of Fragment's lifecycle |
-| 16.03.2022 | Lauris Kruusamäe | Cleanup BaseViewModel. Remove generic progress support and replace finish MutableLiveData with finish() function |
-| 28.04.2022 | Lauris Kruusamäe | Project template README improvements |
-| 19.05.2022 | Lauris Kruusamäe | Update project template module structure |
-| 26.05.2022 | Lauris Kruusamäe | Add checkCode as the next step after setup in CI |
-| 06.06.2022 | Lauris Kruusamäe | Integrate Gradle Version Catalogs feature into the template. Add a local Maven repo for local .aar dependencies |
-| 07.06.2022 | Lauris Kruusamäe | Replace RxSchedulers file with SchedulerProvider interface to provide RxJava Schedulers |
-| 06.07.2022 | Lauris Kruusamäe | Remove unnecessary pre android 23 NetworkUtil implementations |
-| 13.07.2022 | Lauris Kruusamäe | Update Timber ScrollsTree debug tag creation |
-| 20.09.2022 | Lauris Kruusamäe | Update dependencies. Change target to 33 and added support for the new splash screen |
-| 21.09.2022 | Lauris Kruusamäe | Add Espresso and Dagger support for instrumentation tests with examples |
-| 26.09.2022 | Lauris Kruusamäe | Remove local .aar dependency support and move MVVM lib into the project and replace ProgressButton with a ProgressDialog implementation |
-| 04.10.2022 | Lauris Kruusamäe | Remove BaseViewModel and and move BaseMvvmActivity(Fragment) functionality to BaseActivity and BaseFragment. Rename Text.P16 to Text.Body16 as Body is a common text style used in Material design, too.  |
-| 11.11.2022 | Harri Kirik | Fixed an issue with the MyErrorTransformer and NetworkUtil where the lack of network connection was not correctly detected. Added an additional check for UnknownHostException. |
-| 15.11.2022 | Lauris Kruusamäe | Instrumentation test improvements. Removed IdlingResource reusage and improved ConditionIdlingResource to check Conditions in the proper order. |
-| 17.04.2023 | Lauris Kruusamäe | Improve DI comments. Migrate to gradle plugin dsl. Various improvements. |
-| 22.05.2023 | Lauris Kruusamäe | Update Gradle and AGP to version 8+. Additional rules for R8 full mode (AGP 8). Addeded KSP instead of kapt for all depedencies except for Dagger. |
-| 31.09.2023 | Lauris Kruusamäe | Change MVVM to a local maven artefact instead of a submodule. Update dependencies |
-| 04.10.2023 | Lauris Kruusamäe | Removed unnecessary util and extension functions. Updated dependencies |
+This is a script to simplify Android project creation.
 
 ## Idea
 
@@ -69,7 +20,7 @@ View models are powered by Google's ViewModel and LiveData classes. Communicatio
 
 Dependencies are injected with Dagger. Constructor injection (@Inject annotated constructors) is preferred where possible. See `di` packages in modules and Injector class in the application module.
 
-The bootstrapper also includes updated Scrolls library that allows posting to email and chats (without the need of the backend), Gradle tasks for Nevercode, and pre-configured unit and instrumentation tests.
+The bootstrapper also includes updated Scrolls library that allows posting to email and chats (without the need of the backend), Gradle tasks for Codemagic, and pre-configured unit and instrumentation tests.
 
 See the example in the new project created by the bootstrapper for more information. 
 
@@ -116,13 +67,13 @@ The library project contains a module for main library implementation and a `sam
 
 Notice 1: The project does not create a git repository automatically.
 
-Notice 2: The template includes a README.md file for your new project. Please take some time and fill it in.
+Notice 2: The template includes a `README.md` file for your new project. Please take some time and fill it in.
 
-Notice 3: The template includes a RELEASE_GUIDE.md for your new project. Please take some time to review and update it.
+Notice 3: The template includes a `RELEASE_GUIDE.md` for your new project. Please take some time to review and update it.
 
 Notice 4: The template includes a `codemagic.yaml` fail to configure your build at Codemagic CI. Please take some time to review it.
 
-Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum java version is 11.
+Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum Java version is 17.
 
 ## Usage
 
@@ -134,8 +85,6 @@ Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum jav
 
  * Bundler Ruby gem installed. Use "gem install bundler" if not.
 
- * Access to Mobi Lab's Git Lab installation, to clone this project.
-
  * Either a UNIX operating system (Linux, OS X) or Windows 10 v1607 or newer with "Ubuntu on Windows" installed.
 
 #### Getting and updating the creation script
@@ -143,14 +92,14 @@ Notice 5: The template uses Android Gradle Plugin 7.0, for which the minimum jav
  * Getting: 
 
    ```bash
-   git clone git@git.lab.mobi:mobilab/project-creator-android.git
+   git clone git@github.com:LabMobi/project-creator-android.git
    ```
 
  * Updating: 
 
    ```bash
-   git checkout master
-   git pull origin master
+   git checkout main
+   git pull origin main
    ```
 
 #### Running the script to create a new project
@@ -185,7 +134,7 @@ The script will ask you for a project relative path (like *../my-new-project-dir
 
 The created project has Firebase Crashlytics and Analytics enabled by default. But, the project is missing the required `google-services.json` file. Firebase needs to be configured before the project can be run. 
 
-If you do not know where the Firebase project is set up then contact your Project Manager for more information and access.
+For Mobi Lab employees, if you do not know where the Firebase project is set up then contact your Project Manager for more information and access.
 
 If you already have access to the Firebase Console for this application then add or update the application (both debug and release key hash values, these are different) at the Firebase Console project (https://firebase.google.com/docs/android/setup#register-app) and download the `google-services.json` configuration file to the main module directly. 
 
@@ -203,7 +152,9 @@ https://github.com/ben-manes/gradle-versions-plugin
 
 #### Creating a build job in CI
 
-By default we use Codemagic. 
+Disclaimer: This section assumes you are an employee of Mobi Lab and have access to the company's account in Codemagic CI.
+
+By default we use Codemagic.
 
 The build configuration file for it is already included, see `codemagic.yaml` and https://confluence.lab.mobi/display/DEV/Codemagic
 
@@ -238,9 +189,16 @@ If that command has already been run then this is fine. Otherwise this can cause
 
 ### Developing and updating the template itself
 
-Make sure you are in the `develop` branch. 
-
-When your merge request is approved and is merged into `develop`, feel free to merge `develop` into `master`
+1. Clone the repository
+2. Create a new branch using Mobi Lab's [branching strategy](https://labmobi.atlassian.net/wiki/spaces/DEV/pages/15991186/Git+branching+strategy)
+3. Make changes to the project
+4. Document the changes in `CHANGELOG.md` in the project's root directory
+5. Create a pull request targeting the `develop` branch
+   - A code review and approval from at least one other person from the community
+   - Tag `Lauris Kruusamäe` and `Harri Kirik` in the request
+6. If the review is approved, then merge the merge request to `develop` and then feel free to merge `develop` into `main`
+   - If you do not have the rights to merge then contact `Lauris Kruusamäe` or `Harri Kirik`
+7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made
 
 #### Set up the Google services for development
 
