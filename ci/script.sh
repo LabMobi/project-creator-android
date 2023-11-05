@@ -8,7 +8,8 @@ cd creatorapp
 chmod +x gradlew
 echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
 cd app
-sed -i "/signingConfigs/,/buildTypes/c\    signingConfigs {\n \
+sed -i "/signingConfigs {/,/buildTypes/c\ \
+    signingConfigs {\n \
         releaseSigning {\n \
             storeFile file("signing/signing.keystore")\n \
             storePassword $CM_KEYSTORE_PASSWORD_RELEASE\n \
@@ -24,4 +25,3 @@ sed -i "/signingConfigs/,/buildTypes/c\    signingConfigs {\n \
     }\n \
 \n \
     buildTypes {" build.gradle
-cat build.gradle
