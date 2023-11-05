@@ -46,9 +46,19 @@ definitions:
         cd projectlib
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
-    - &stepRunCreatorScript
+    # Generating app with creator script
+    - &stepRunCreatorScriptApp
       name: Run project creator script and replace google-services.json and keystores in the generated project
       script: sh ci/run_creator.sh
+    # Generating lib with creator script
+    - &stepRunCreatorScriptLib
+      name: Run project creator script and replace google-services.json and keystores in the generated project
+      script: |
+        bundle install
+        bundle exec cap android:create_library creatorlib creatorlib
+        cd creatorlib
+        chmod +x gradlew
+        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
     # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
@@ -66,6 +76,12 @@ definitions:
       name: Check code style and formatting
       script: |
         cd creatorapp
+        ./gradlew checkCode
+    # Run generated lib checkCode
+    - &stepGeneratedLibCheckCode
+      name: Check code style and formatting
+      script: |
+        cd creatorlib
         ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
@@ -91,6 +107,12 @@ definitions:
       script: |
         cd creatorapp
         ./gradlew clean buildAllRelease
+    # Build generated library and sample app
+    - &stepGeneratedLibBuild
+      name: Build library and sample app
+      script: |
+        cd creatorlib
+        ./gradlew clean buildAll
     # Start emulator
     - &stepStartEmulator
       name: Launch emulator
@@ -121,6 +143,12 @@ definitions:
       name: Test Android
       script: |
         cd creatorapp
+        sh ../ci/run_tests.sh
+        # Run generated app tests
+    - &stepGeneratedLibRunTests
+      name: Test Android
+      script: |
+        cd creatorlib
         sh ../ci/run_tests.sh
 
 # Flows
@@ -186,7 +214,7 @@ workflows:
     scripts:
       - name: Check 'main' branch
         script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
-      - *stepRunCreatorScript
+      - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
@@ -213,7 +241,7 @@ workflows:
           include: true
           source: true
     scripts:
-      - *stepRunCreatorScript
+      - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
@@ -223,6 +251,31 @@ workflows:
 #    publishing:
 #      email:
 #        recipients: *debugEmails
+  develop-generated-lib-builds:
+    name: Dev generated lib builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+      ruby: 2.6.10
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+    scripts:
+      - *stepRunCreatorScriptLib
+      - *stepGeneratedLibCheckCode
+      - *stepStartEmulator
+      - *stepGeneratedLibRunTests
+      - *stepStopEmulator
+      - *stepGeneratedLibBuild
+    artifacts: *generatedAppArtifacts
+  #    publishing:
+  #      email:
+  #        recipients: *debugEmails
   merge-requests-app:
     name: Merge requests app
     instance_type: linux_x2
@@ -270,6 +323,60 @@ workflows:
       - *stepLibAppRunTests
       - *stepStopEmulator
       - *stepLibBuild
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false
+  merge-requests-generated_app:
+    name: Merge requests generated app
+    instance_type: linux_x2
+    environment:
+      java: 17
+      ruby: 2.6.10
+      groups:
+        - keystore_credentials_creatorapp
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepRunCreatorScriptApp
+      - *stepGeneratedAppCheckCode
+      - *stepStartEmulator
+      - *stepGeneratedAppRunTests
+      - *stepStopEmulator
+      - *stepGeneratedAppBuildDebug
+    publishing:
+      email:
+        recipients: *debugEmails
+        notify:
+          success: false
+  merge-requests-generated_lib:
+    name: Merge requests generated lib
+    instance_type: linux_x2
+    environment:
+      java: 17
+      ruby: 2.6.10
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - *stepRunCreatorScriptLib
+      - *stepGeneratedLibCheckCode
+      - *stepStartEmulator
+      - *stepGeneratedLibRunTests
+      - *stepStopEmulator
+      - *stepGeneratedLibBuild
     publishing:
       email:
         recipients: *debugEmails
