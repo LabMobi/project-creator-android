@@ -85,6 +85,12 @@ definitions:
       script: |
         cd creatorapp
         ./gradlew clean buildAllDebug
+    # Build generated app RELEASE
+    - &stepGeneratedAppBuildRelease
+      name: Build Android
+      script: |
+        cd creatorapp
+        ./gradlew clean buildAllRelease
     # Start emulator
     - &stepStartEmulator
       name: Launch emulator
@@ -166,6 +172,27 @@ workflows:
       - *stepStopEmulator
       - *stepLibBuild
     artifacts: *libArtifacts
+    publishing:
+      email:
+        recipients: *debugEmails
+  release-generated-app-builds:
+    name: Release builds
+    instance_type: linux_x2
+    environment:
+      java: 17
+      ruby: 2.6.10
+      groups:
+        - keystore_credentials_creatorapp
+    scripts:
+      - name: Check 'main' branch
+        script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
+      - *stepRunCreatorScript
+      - *stepGeneratedAppCheckCode
+      - *stepStartEmulator
+      - *stepGeneratedAppRunTests
+      - *stepStopEmulator
+      - *stepGeneratedAppBuildRelease
+    artifacts: *generatedAppArtifacts
     publishing:
       email:
         recipients: *debugEmails
