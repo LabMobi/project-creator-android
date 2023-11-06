@@ -9,7 +9,7 @@ sed -i "s|signing/signing.keystore|../../ProjectCodeName-debug.keystore|g" build
 sed -i "s|<%= storepass_release %>|androiddebug|g" build.gradle
 sed -i "s|<%= sanitized_name %>|androiddebug|g" build.gradle
 sed -i "s|<%= keypass_release %>|androiddebug|g" build.gradle
-sed -i "s|signing/debug.keystore|androiddebug|g" build.gradle
+sed -i "s|signing/debug.keystore|../../ProjectCodeName-debug.keystore|g" build.gradle
 sed -i "s|<%= storepass_debug %>|androiddebug|g" build.gradle
 sed -i "s|<%= sanitized_name %>|androiddebug|g" build.gradle
 sed -i "s|<%= keypass_debug %>|androiddebug|g" build.gradle
