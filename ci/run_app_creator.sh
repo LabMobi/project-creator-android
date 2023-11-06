@@ -12,15 +12,15 @@ sed -i "/signingConfigs {/,/buildTypes/c\ \
     signingConfigs {\n \
         releaseSigning {\n \
             storeFile file(\"signing/signing.keystore\")\n \
-            storePassword \"$CM_KEYSTORE_PASSWORD_RELEASE\"\n \
-            keyAlias \"$CM_KEY_ALIAS\"\n \
-            keyPassword \"$CM_KEY_PASSWORD_RELEASE\"\n \
+            storePassword \"FQQLjhEOVAsgBlWvaFjrOOQVrGtPdYAnqitjgJxSopQpgimQhv\"\n \
+            keyAlias \"p42app\"\n \
+            keyPassword \"GDvTLAgjOntFFnECJoAmgGzhPpwTgpQjiSeDNjbCYxNEkVhKzH\"\n \
         }\n \
         debugSigning {\n \
             storeFile file(\"signing/debug.keystore\")\n \
-            storePassword \"$CM_KEYSTORE_PASSWORD_DEBUG\"\n \
-            keyAlias \"$CM_KEY_ALIAS\"\n \
-            keyPassword \"$CM_KEY_PASSWORD_DEBUG\"\n \
+            storePassword \"tHDueHvbqoqajlqYSmEvfTGcaYoFUCnsKCUymURFcunhNYysgb\"\n \
+            keyAlias \"p42app\"\n \
+            keyPassword \"VomPDReTqFcwqjdeInPHEbbgvudUHvOczOrlRCxBlneaLpWBWi\"\n \
         }\n \
     }\n \
 \n \

@@ -166,8 +166,6 @@ workflows:
     instance_type: linux_x2
     environment:
       java: 17
-      groups:
-        - keystore_credentials_project
     triggering:
       events:
         - push
@@ -217,8 +215,6 @@ workflows:
     environment:
       java: 17
       ruby: 2.6.10
-      groups:
-        - keystore_credentials_p42app
     scripts:
       - name: Check 'main' branch
         script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
@@ -238,8 +234,6 @@ workflows:
     environment:
       java: 17
       ruby: 2.6.10
-      groups:
-        - keystore_credentials_p42app
     triggering:
       events:
         - push
@@ -289,8 +283,6 @@ workflows:
     instance_type: linux_x2
     environment:
       java: 17
-      groups:
-        - keystore_credentials_project
     triggering:
       events:
         - pull_request
@@ -342,8 +334,6 @@ workflows:
     environment:
       java: 17
       ruby: 2.6.10
-      groups:
-        - keystore_credentials_p42app
     triggering:
       events:
         - pull_request
