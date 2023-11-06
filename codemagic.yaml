@@ -336,7 +336,7 @@ workflows:
         recipients: *debugEmails
         notify:
           success: false
-  merge-requests-generated_app:
+  merge-requests-generated-app:
     name: Merge requests generated app
     instance_type: linux_x2
     environment:
@@ -364,7 +364,7 @@ workflows:
         recipients: *debugEmails
         notify:
           success: false
-  merge-requests-generated_lib:
+  merge-requests-generated-lib:
     name: Merge requests generated lib
     instance_type: linux_x2
     environment:

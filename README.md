@@ -237,3 +237,21 @@ Open the template from `project` folder with Android Studio. Now you can directl
 Note 1: If you make changes to the code of the project make sure the project still compiles with `buildAllRelease`. 
 
 Note 2: If you make changes to the project creation script them make sure that the script still runs.
+
+#### CI
+
+The following workflows are configured:
+
+| Workflow | What it does | Trigger | Artifacts | Notes |
+|----------|--------------|---------|-----------|-------|
+| develop-app-builds | builds the debug version of app in `project` directory | push to `develop` | yes | |
+| develop-lib-builds | builds the library and sample app in `projectlib` directory | push to `develop` | yes | |
+| develop-generated-app-builds | runs the project creator script and builds the debug version of generated app | push to `develop` | yes | App name is p42app in Firebase |
+| develop-generated-lib-builds | runs the project creator script and builds the generated library and sample app | push to `develop` | yes | |
+| release-generated-app-builds | runs the project creator script and builds the release version of generated app |  | yes | App name is p42app in Firebase, `main` branch only |
+| merge-requests-app | builds the debug version of app in `project` directory | pull request to `develop` | no | |
+| merge-requests-lib | builds the library and sample app in `projectlib` directory | pull request to `develop` | no | |
+| merge-requests-generated-app | runs the project creator script and builds the debug version of generated app | pull request to `develop` | no | |
+| merge-requests-generated-lib | runs the project creator script and builds the generated library and sample app | pull request to `develop` | no | |
+
+See `codemagic.yaml` for extra information.
