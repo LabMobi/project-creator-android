@@ -49,7 +49,7 @@ definitions:
     - siret.jorro@lab.mobi
   scripts:
     # App local setup
-    - &stepAppLocalSetup
+    - &stepTemplateLocalSetup
       name: Set up local properties and permissons and add google-services.json and keystores
       script: sh ci/setup_project.sh
     # Library local setup
@@ -68,7 +68,7 @@ definitions:
       name: Run project creator script
       script: sh ci/run_lib_creator.sh
     # Run app checkCode
-    - &stepAppCheckCode
+    - &stepTemplateCheckCode
       name: Check code style and formatting
       script: |
         cd project
@@ -92,7 +92,7 @@ definitions:
         cd p42lib
         ./gradlew checkCode
     # Build app DEBUG
-    - &stepAppBuildDebug
+    - &stepTemplateBuildDebug
       name: Build Android
       script: |
         cd project
@@ -135,7 +135,7 @@ definitions:
         cd $ANDROID_HOME/tools
         adb emu kill
     # Run app tests
-    - &stepAppRunTests
+    - &stepTemplateRunTests
       name: Test Android
       script: |
         cd project
@@ -161,8 +161,8 @@ definitions:
 
 # Flows
 workflows:
-  develop-app-builds:
-    name: Dev app builds
+  develop-template-builds:
+    name: Dev template builds
     instance_type: linux_x2
     environment:
       java: 17
@@ -175,12 +175,12 @@ workflows:
           include: true
           source: true
     scripts:
-      - *stepAppLocalSetup
-      - *stepAppCheckCode
+      - *stepTemplateLocalSetup
+      - *stepTemplateCheckCode
       - *stepStartEmulator
-      - *stepAppRunTests
+      - *stepTemplateRunTests
       - *stepStopEmulator
-      - *stepAppBuildDebug
+      - *stepTemplateBuildDebug
     artifacts: *appArtifacts
     publishing:
       email:
@@ -278,8 +278,8 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
-  merge-requests-app:
-    name: Merge requests app
+  merge-requests-template:
+    name: Merge requests template
     instance_type: linux_x2
     environment:
       java: 17
@@ -292,12 +292,12 @@ workflows:
           source: false
       cancel_previous_builds: true
     scripts:
-      - *stepAppLocalSetup
-      - *stepAppCheckCode
+      - *stepTemplateLocalSetup
+      - *stepTemplateCheckCode
       - *stepStartEmulator
-      - *stepAppRunTests
+      - *stepTemplateRunTests
       - *stepStopEmulator
-      - *stepAppBuildDebug
+      - *stepTemplateBuildDebug
     publishing:
       email:
         recipients: *debugEmails
