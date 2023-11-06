@@ -209,25 +209,6 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
-  release-generated-app-builds:
-    name: Release builds
-    instance_type: linux_x2
-    environment:
-      java: 17
-      ruby: 2.6.10
-    scripts:
-      - name: Check 'main' branch
-        script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
-      - *stepRunCreatorScriptApp
-      - *stepGeneratedAppCheckCode
-      - *stepStartEmulator
-      - *stepGeneratedAppRunTests
-      - *stepStopEmulator
-      - *stepGeneratedAppBuildRelease
-    artifacts: *generatedAppArtifacts
-    publishing:
-      email:
-        recipients: *debugEmails
   develop-generated-app-builds:
     name: Dev generated app builds
     instance_type: linux_x2
@@ -248,7 +229,7 @@ workflows:
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
-      - *stepGeneratedAppBuildDebug
+      - *stepGeneratedAppBuildRelease
     artifacts: *generatedAppArtifacts
     publishing:
       email:
