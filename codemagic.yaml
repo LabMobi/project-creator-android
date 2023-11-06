@@ -144,7 +144,7 @@ definitions:
     - &stepLibAppRunTests
       name: Test Android
       script: |
-        cd p42lib
+        cd projectlib
         sh ../ci/run_tests.sh
     # Run generated app tests
     - &stepGeneratedAppRunTests
