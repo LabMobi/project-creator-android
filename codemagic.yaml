@@ -24,25 +24,25 @@ definitions:
     - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
   generated-app-artifacts: &generatedAppArtifacts
     - emulator.log
-    - templateapp/app/build/reports
-    - templateapp/app/build/outputs/androidTest-results
-    - templateapp/app/build/outputs/logs
-    - templateapp/app/build/outputs/**/*.apk
-    - templateapp/app/build/outputs/**/*.aab
-    - templateapp/app/build/outputs/**/mapping.txt
+    - p42app/app/build/reports
+    - p42app/app/build/outputs/androidTest-results
+    - p42app/app/build/outputs/logs
+    - p42app/app/build/outputs/**/*.apk
+    - p42app/app/build/outputs/**/*.aab
+    - p42app/app/build/outputs/**/mapping.txt
   generated-lib-artifacts: &generatedLibArtifacts
     - emulator.log
-    - templatelib/sample/build/reports
-    - templatelib/sample/outputs/androidTest-results
-    - templatelib/sample/build/outputs/logs
-    - templatelib/sample/build/outputs/**/*.apk
-    - templatelib/sample/build/outputs/**/*.aab
-    - templatelib/sample/build/outputs/**/mapping.txt
-    - templatelib/ProjectCodeName/build/reports
-    - templatelib/ProjectCodeName/build/outputs/androidTest-results
-    - templatelib/ProjectCodeName/build/outputs/logs
-    - templatelib/ProjectCodeName/build/outputs/**/*.aar
-    - templatelib/ProjectCodeName/build/outputs/**/mapping.txt
+    - p42lib/sample/build/reports
+    - p42lib/sample/outputs/androidTest-results
+    - p42lib/sample/build/outputs/logs
+    - p42lib/sample/build/outputs/**/*.apk
+    - p42lib/sample/build/outputs/**/*.aab
+    - p42lib/sample/build/outputs/**/mapping.txt
+    - p42lib/ProjectCodeName/build/reports
+    - p42lib/ProjectCodeName/build/outputs/androidTest-results
+    - p42lib/ProjectCodeName/build/outputs/logs
+    - p42lib/ProjectCodeName/build/outputs/**/*.aar
+    - p42lib/ProjectCodeName/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - lauris.kruusamae@lab.mobi
     - harri.kirik@lab.mobi
@@ -83,13 +83,13 @@ definitions:
     - &stepGeneratedAppCheckCode
       name: Check code style and formatting
       script: |
-        cd templateapp
+        cd p42app
         ./gradlew checkCode
     # Run generated lib checkCode
     - &stepGeneratedLibCheckCode
       name: Check code style and formatting
       script: |
-        cd templatelib
+        cd p42lib
         ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
@@ -107,19 +107,19 @@ definitions:
     - &stepGeneratedAppBuildDebug
       name: Build Android
       script: |
-        cd templateapp
+        cd p42app
         ./gradlew clean buildAllDebug
     # Build generated app RELEASE
     - &stepGeneratedAppBuildRelease
       name: Build Android
       script: |
-        cd templateapp
+        cd p42app
         ./gradlew clean buildAllRelease
     # Build generated library and sample app
     - &stepGeneratedLibBuild
       name: Build library and sample app
       script: |
-        cd templatelib
+        cd p42lib
         ./gradlew clean buildAll
     # Start emulator
     - &stepStartEmulator
@@ -144,19 +144,19 @@ definitions:
     - &stepLibAppRunTests
       name: Test Android
       script: |
-        cd templatelib
+        cd p42lib
         sh ../ci/run_tests.sh
     # Run generated app tests
     - &stepGeneratedAppRunTests
       name: Test Android
       script: |
-        cd templateapp
+        cd p42app
         sh ../ci/run_tests.sh
     # Run generated lib sample app tests
     - &stepGeneratedLibRunTests
       name: Test Android
       script: |
-        cd templatelib
+        cd p42lib
         sh ../ci/run_tests.sh
 
 # Flows
@@ -218,7 +218,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_templateapp
+        - keystore_credentials_p42app
     scripts:
       - name: Check 'main' branch
         script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
@@ -239,7 +239,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_templateapp
+        - keystore_credentials_p42app
     triggering:
       events:
         - push
@@ -343,7 +343,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_templateapp
+        - keystore_credentials_p42app
     triggering:
       events:
         - pull_request

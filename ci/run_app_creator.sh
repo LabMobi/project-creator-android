@@ -1,10 +1,10 @@
 #!/bin/bash
 
 bundle install
-bundle exec cap android:create templateapp templateapp
-cp ci/google-services.json templateapp/app
-cp ci/debug.keystore ci/signing.keystore templateapp/app/signing
-cd templateapp
+bundle exec cap android:create p42app p42app
+cp google-services.json p42app/app
+cp ci/debug.keystore ci/signing.keystore p42app/app/signing
+cd p42app
 chmod +x gradlew
 echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
 cd app
