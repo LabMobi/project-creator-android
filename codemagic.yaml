@@ -38,11 +38,11 @@ definitions:
     - p42lib/sample/build/outputs/**/*.apk
     - p42lib/sample/build/outputs/**/*.aab
     - p42lib/sample/build/outputs/**/mapping.txt
-    - p42lib/ProjectCodeName/build/reports
-    - p42lib/ProjectCodeName/build/outputs/androidTest-results
-    - p42lib/ProjectCodeName/build/outputs/logs
-    - p42lib/ProjectCodeName/build/outputs/**/*.aar
-    - p42lib/ProjectCodeName/build/outputs/**/mapping.txt
+    - p42lib/p42lib/build/reports
+    - p42lib/p42lib/build/outputs/androidTest-results
+    - p42lib/p42lib/build/outputs/logs
+    - p42lib/p42lib/build/outputs/**/*.aar
+    - p42lib/p42lib/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - lauris.kruusamae@lab.mobi
     - harri.kirik@lab.mobi
@@ -256,9 +256,9 @@ workflows:
       - *stepStopEmulator
       - *stepGeneratedAppBuildDebug
     artifacts: *generatedAppArtifacts
-#    publishing:
-#      email:
-#        recipients: *debugEmails
+    publishing:
+      email:
+        recipients: *debugEmails
   develop-generated-lib-builds:
     name: Dev generated lib builds
     instance_type: linux_x2
@@ -281,9 +281,9 @@ workflows:
       - *stepStopEmulator
       - *stepGeneratedLibBuild
     artifacts: *generatedLibArtifacts
-  #    publishing:
-  #      email:
-  #        recipients: *debugEmails
+    publishing:
+      email:
+        recipients: *debugEmails
   merge-requests-app:
     name: Merge requests app
     instance_type: linux_x2
