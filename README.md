@@ -130,17 +130,17 @@ Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum J
 
 The script will ask you for a project relative path (like *../my-new-project-dir*). Next up the script will ask some more parameters, answer those to the best of your ability. After that, your new project will be created. To get it to run see Configuring Firebase section below.
 
-The relative path and project name can be passed as command line arguments as well:
+The necessary arguments can be passed as command line arguments as well:
 
    ```bash
-   bundle exec cap android:create <relative_path> <project_name>
+   bundle exec cap android:create <relative_path> <project_name> <package_name>
    ```
 
    ```bash
-   bundle exec cap android:create_library <relative_path> <project_name>
+   bundle exec cap android:create_library <relative_path> <project_name> <package_name>
    ```
 
-This method is used in CI builds but feel free to use it while creating your project as well, the limitation to this however is that you cannot change the package name (`mobi.lab` by default).
+The `package_name` argument is optional, if not passed then default package name `mobi.lab` will be used.
 
 #### Configuring Firebase
 

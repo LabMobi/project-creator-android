@@ -13,11 +13,42 @@ end
 
 namespace :android do
   task :ask_stuff do
-    if ARGV.length == 3
+    if ARGV.length >= 3
+      should_exit = false
+
+      if ARGV[1].strip.empty?
+        puts "Path cannot be blank!"
+        should_exit = true
+      end
+      if ARGV[2].strip.empty?
+        puts "Project name cannot be blank!"
+        should_exit = true
+      end
+
+      if should_exit
+        exit
+      end
+
       set :output_folder, ARGV[1]
       project_name = ARGV[2]
       sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
-      package = "mobi.lab.#{sanitized_name.downcase}"
+      if ARGV[3] != nil
+          if ARGV[3].strip.empty?
+            puts "Package cannot be blank!"
+            exit
+          else
+            package = ARGV[3]
+          end
+      else
+        puts "Using default package name"
+        package = "mobi.lab.#{sanitized_name.downcase}"
+      end
+
+      puts "You have chosen the project name #{project_name}"
+      puts "Names are:\n"
+      puts "package:     #{package}"
+      puts "sanitized:   #{sanitized_name}"
+      puts "name:        #{project_name}"
       set :project_name, project_name
       set :sanitized_name, sanitized_name
       set :package, package
@@ -39,7 +70,7 @@ namespace :android do
 
       ok = false
       while not ok
-        puts "You have chosen the name #{project_name}"
+        puts "You have chosen the project name #{project_name}"
         puts "Current names are:\n"
         puts "package:     #{package}"
         puts "sanitized:   #{sanitized_name}"
