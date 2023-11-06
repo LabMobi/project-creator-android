@@ -24,25 +24,25 @@ definitions:
     - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
   generated-app-artifacts: &generatedAppArtifacts
     - emulator.log
-    - creatorapp/app/build/reports
-    - creatorapp/app/build/outputs/androidTest-results
-    - creatorapp/app/build/outputs/logs
-    - creatorapp/app/build/outputs/**/*.apk
-    - creatorapp/app/build/outputs/**/*.aab
-    - creatorapp/app/build/outputs/**/mapping.txt
+    - templateapp/app/build/reports
+    - templateapp/app/build/outputs/androidTest-results
+    - templateapp/app/build/outputs/logs
+    - templateapp/app/build/outputs/**/*.apk
+    - templateapp/app/build/outputs/**/*.aab
+    - templateapp/app/build/outputs/**/mapping.txt
   generated-lib-artifacts: &generatedLibArtifacts
     - emulator.log
-    - creatorlib/sample/build/reports
-    - creatorlib/sample/outputs/androidTest-results
-    - creatorlib/sample/build/outputs/logs
-    - creatorlib/sample/build/outputs/**/*.apk
-    - creatorlib/sample/build/outputs/**/*.aab
-    - creatorlib/sample/build/outputs/**/mapping.txt
-    - creatorlib/ProjectCodeName/build/reports
-    - creatorlib/ProjectCodeName/build/outputs/androidTest-results
-    - creatorlib/ProjectCodeName/build/outputs/logs
-    - creatorlib/ProjectCodeName/build/outputs/**/*.aar
-    - creatorlib/ProjectCodeName/build/outputs/**/mapping.txt
+    - templatelib/sample/build/reports
+    - templatelib/sample/outputs/androidTest-results
+    - templatelib/sample/build/outputs/logs
+    - templatelib/sample/build/outputs/**/*.apk
+    - templatelib/sample/build/outputs/**/*.aab
+    - templatelib/sample/build/outputs/**/mapping.txt
+    - templatelib/ProjectCodeName/build/reports
+    - templatelib/ProjectCodeName/build/outputs/androidTest-results
+    - templatelib/ProjectCodeName/build/outputs/logs
+    - templatelib/ProjectCodeName/build/outputs/**/*.aar
+    - templatelib/ProjectCodeName/build/outputs/**/mapping.txt
   debug-emails: &debugEmails
     - lauris.kruusamae@lab.mobi
     - harri.kirik@lab.mobi
@@ -59,19 +59,14 @@ definitions:
         cd projectlib
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
-    # Generating app with creator script
+    # Generate app with creator script
     - &stepRunCreatorScriptApp
       name: Run project creator script and replace google-services.json and keystores in the generated project
-      script: sh ci/run_creator.sh
-    # Generating lib with creator script
+      script: sh ci/run_app_creator.sh
+    # Generate lib with creator script
     - &stepRunCreatorScriptLib
-      name: Run project creator script and replace google-services.json and keystores in the generated project
-      script: |
-        bundle install
-        bundle exec cap android:create_library creatorlib creatorlib
-        cd creatorlib
-        chmod +x gradlew
-        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
+      name: Run project creator script
+      script: sh ci/run_lib_creator.sh
     # Run app checkCode
     - &stepAppCheckCode
       name: Check code style and formatting
@@ -88,13 +83,13 @@ definitions:
     - &stepGeneratedAppCheckCode
       name: Check code style and formatting
       script: |
-        cd creatorapp
+        cd templateapp
         ./gradlew checkCode
     # Run generated lib checkCode
     - &stepGeneratedLibCheckCode
       name: Check code style and formatting
       script: |
-        cd creatorlib
+        cd templatelib
         ./gradlew checkCode
     # Build app DEBUG
     - &stepAppBuildDebug
@@ -112,19 +107,19 @@ definitions:
     - &stepGeneratedAppBuildDebug
       name: Build Android
       script: |
-        cd creatorapp
+        cd templateapp
         ./gradlew clean buildAllDebug
     # Build generated app RELEASE
     - &stepGeneratedAppBuildRelease
       name: Build Android
       script: |
-        cd creatorapp
+        cd templateapp
         ./gradlew clean buildAllRelease
     # Build generated library and sample app
     - &stepGeneratedLibBuild
       name: Build library and sample app
       script: |
-        cd creatorlib
+        cd templatelib
         ./gradlew clean buildAll
     # Start emulator
     - &stepStartEmulator
@@ -149,19 +144,19 @@ definitions:
     - &stepLibAppRunTests
       name: Test Android
       script: |
-        cd projectlib
+        cd templatelib
         sh ../ci/run_tests.sh
     # Run generated app tests
     - &stepGeneratedAppRunTests
       name: Test Android
       script: |
-        cd creatorapp
+        cd templateapp
         sh ../ci/run_tests.sh
-        # Run generated app tests
+    # Run generated lib sample app tests
     - &stepGeneratedLibRunTests
       name: Test Android
       script: |
-        cd creatorlib
+        cd templatelib
         sh ../ci/run_tests.sh
 
 # Flows
@@ -172,7 +167,7 @@ workflows:
     environment:
       java: 17
       groups:
-        - keystore_credentials
+        - keystore_credentials_project
     triggering:
       events:
         - push
@@ -223,7 +218,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_creatorapp
+        - keystore_credentials_templateapp
     scripts:
       - name: Check 'main' branch
         script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
@@ -244,7 +239,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_creatorapp
+        - keystore_credentials_templateapp
     triggering:
       events:
         - push
@@ -295,7 +290,7 @@ workflows:
     environment:
       java: 17
       groups:
-        - keystore_credentials
+        - keystore_credentials_project
     triggering:
       events:
         - pull_request
@@ -348,7 +343,7 @@ workflows:
       java: 17
       ruby: 2.6.10
       groups:
-        - keystore_credentials_creatorapp
+        - keystore_credentials_templateapp
     triggering:
       events:
         - pull_request

@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:995488694657:android:077773f3a2cd6f52baa880",
+        "mobilesdk_app_id": "1:995488694657:android:685321043586ae50",
         "android_client_info": {
-          "package_name": "mobi.lab.creatorapp"
+          "package_name": "mobi.lab.sample"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "995488694657-56p5umqc5vl22ej979hhheas8m4lnvue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobi.lab.sample",
+            "certificate_hash": "c84f8e78dce86b4528e84dbf2d2efc98e565d18f"
+          }
+        },
         {
           "client_id": "995488694657-j4qptgas1b1n2agsvb6k6vs4mkcb2923.apps.googleusercontent.com",
           "client_type": 3
@@ -37,20 +45,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:995488694657:android:685321043586ae50",
+        "mobilesdk_app_id": "1:995488694657:android:44d0b02a159f1cc6baa880",
         "android_client_info": {
-          "package_name": "mobi.lab.sample"
+          "package_name": "mobi.lab.templateapp"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "995488694657-56p5umqc5vl22ej979hhheas8m4lnvue.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "mobi.lab.sample",
-            "certificate_hash": "c84f8e78dce86b4528e84dbf2d2efc98e565d18f"
-          }
-        },
         {
           "client_id": "995488694657-j4qptgas1b1n2agsvb6k6vs4mkcb2923.apps.googleusercontent.com",
           "client_type": 3
