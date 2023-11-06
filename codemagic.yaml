@@ -161,6 +161,7 @@ definitions:
 
 # Flows
 workflows:
+  # Builds the debug version of app in project directory
   develop-template-builds:
     name: Dev template builds
     instance_type: linux_x2
@@ -185,6 +186,7 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
+  # Builds the library and sample app in projectlib directory
   develop-lib-builds:
     name: Dev lib builds
     instance_type: linux_x2
@@ -209,6 +211,7 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
+  # Runs the project creator script and builds the debug and release versions of generated app
   develop-generated-app-builds:
     name: Dev generated app builds
     instance_type: linux_x2
@@ -234,6 +237,7 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
+  # Runs the project creator script and builds the generated library and sample app
   develop-generated-lib-builds:
     name: Dev generated lib builds
     instance_type: linux_x2
@@ -259,6 +263,7 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
+  # Builds the debug version of app in project directory
   merge-requests-template:
     name: Merge requests template
     instance_type: linux_x2
@@ -284,6 +289,7 @@ workflows:
         recipients: *debugEmails
         notify:
           success: false
+  # Builds the library and sample app in projectlib directory
   merge-requests-lib:
     name: Merge requests lib
     instance_type: linux_x2
@@ -309,6 +315,7 @@ workflows:
         recipients: *debugEmails
         notify:
           success: false
+  # Runs the project creator script and builds the debug version of generated app
   merge-requests-generated-app:
     name: Merge requests generated app
     instance_type: linux_x2
@@ -335,6 +342,7 @@ workflows:
         recipients: *debugEmails
         notify:
           success: false
+  # Runs the project creator script and builds the generated library and sample app
   merge-requests-generated-lib:
     name: Merge requests generated lib
     instance_type: linux_x2
