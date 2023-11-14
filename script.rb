@@ -13,84 +13,46 @@ end
 
 namespace :android do
   task :ask_stuff do
-    if ARGV.length >= 3
-      should_exit = false
+    output_folder = fetch(:path, nil)
+    project_name = fetch(:name, nil)
+    sanitized_name = fetch(:sanitized, nil)
+    package = fetch(:package, nil)
 
-      if ARGV[1].strip.empty?
-        puts "Path cannot be blank!"
-        should_exit = true
-      end
-      if ARGV[2].strip.empty?
-        puts "Project name cannot be blank!"
-        should_exit = true
-      end
-
-      if should_exit
-        exit
-      end
-
-      set :output_folder, ARGV[1]
-      project_name = ARGV[2]
-      sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
-      if ARGV[3] != nil
-          if ARGV[3].strip.empty?
-            puts "Package cannot be blank!"
-            exit
-          else
-            package = ARGV[3]
-          end
+    loop do
+      if (output_folder or "").strip.empty?
+        puts "Relative path to output is required!"
+        output_folder = i.ask('Relative path to output? ')
       else
-        puts "Using default package name"
-        package = "mobi.lab.#{sanitized_name.downcase}"
-      end
-
-      puts "You have chosen the project name #{project_name}"
-      puts "Names are:\n"
-      puts "package:     #{package}"
-      puts "sanitized:   #{sanitized_name}"
-      puts "name:        #{project_name}"
-      set :project_name, project_name
-      set :sanitized_name, sanitized_name
-      set :package, package
-    else
-      set :output_folder, i.ask('Relative path to output? ')
-
-      project_name = nil
-      loop do
-        project_name = i.ask('Project name? (no trailing -android) ')
-        if project_name.empty?
-          puts "Name is required!"
-        else
-          break
-        end
-      end
-
-      sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
-      package = "mobi.lab.#{sanitized_name.downcase}"
-
-      ok = false
-      while not ok
-        puts "You have chosen the project name #{project_name}"
-        puts "Current names are:\n"
-        puts "package:     #{package}"
-        puts "sanitized:   #{sanitized_name}"
-        puts "name:        #{project_name}"
-
-        i.choose do |menu|
-          menu.prompt = 'This looks ok to you?  '
-          menu.choice(:yes) do
-            puts 'Cool.'
-            ok = true
-          end
-          menu.choice(:no) do
-            package = i.ask('Package: ') { |q| q.default = package }
-            sanitized_name = i.ask('Sanitized name: ') { |q| q.default = sanitized_name }
-            project_name = i.ask('Project name: ') { |q| q.default = project_name }
-          end
-        end
+        break
       end
     end
 
+    loop do
+      if (project_name or "").strip.empty?
+        puts "Project name is required!"
+        project_name = i.ask('Project name? (no trailing -android) ')
+      else
+        break
+      end
+    end
+
+    if (sanitized_name or "").strip.empty?
+      sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
+    end
+
+    if (package or "").strip.empty?
+      puts "Using default package name"
+      package = "mobi.lab.#{sanitized_name.downcase}"
+    end
+
+    puts "You have chosen the project name #{project_name}"
+    puts "Output folder is: #{output_folder}"
+    puts "Names are:\n"
+    puts "package:     #{package}"
+    puts "sanitized:   #{sanitized_name}"
+    puts "name:        #{project_name}"
+
+    set :output_folder, output_folder
     set :project_name, project_name
     set :sanitized_name, sanitized_name
     set :package, package

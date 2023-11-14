@@ -117,30 +117,18 @@ Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum J
    in the script's working directory to grab updated dependencies.
 
 * For a new Android project run: 
-  
+
    ```bash
-   bundle exec cap android:create
+   bundle exec cap android:create -s path=<relative_path> -s name=<project_name> -s sanitized=<sanitized_name> -s package=<package_name>
    ```
    
 * For a new Android library project run:
-   ```bash
-   bundle exec cap android:create_library
-   ```
-   
-
-The script will ask you for a project relative path (like *../my-new-project-dir*). Next up the script will ask some more parameters, answer those to the best of your ability. After that, your new project will be created. To get it to run see Configuring Firebase section below.
-
-The necessary arguments can be passed as command line arguments as well:
 
    ```bash
-   bundle exec cap android:create <relative_path> <project_name> <package_name>
+   bundle exec cap android:create_library -s path=<relative_path> -s name=<project_name> -s sanitized=<sanitized_name> -s package=<package_name>
    ```
 
-   ```bash
-   bundle exec cap android:create_library <relative_path> <project_name> <package_name>
-   ```
-
-The `package_name` argument is optional, if not passed then default package name `mobi.lab` will be used.
+The `sanitized` and `package` arguments are optional, if not passed then the script will sanitize the name and default package name `mobi.lab` will be used.
 
 #### Configuring Firebase
 
