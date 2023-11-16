@@ -20,7 +20,6 @@ namespace :android do
 
     loop do
       if (output_folder or "").strip.empty?
-        puts "Relative path to output is required!"
         output_folder = i.ask('Relative path to output? ')
       else
         break
@@ -29,7 +28,6 @@ namespace :android do
 
     loop do
       if (project_name or "").strip.empty?
-        puts "Project name is required!"
         project_name = i.ask('Project name? (no trailing -android) ')
       else
         break
@@ -41,16 +39,30 @@ namespace :android do
     end
 
     if (package or "").strip.empty?
-      puts "Using default package name"
       package = "mobi.lab.#{sanitized_name.downcase}"
     end
 
-    puts "You have chosen the project name #{project_name}"
-    puts "Output folder is: #{output_folder}"
-    puts "Names are:\n"
-    puts "package:     #{package}"
-    puts "sanitized:   #{sanitized_name}"
-    puts "name:        #{project_name}"
+    ok = false
+    while not ok
+      puts "You have chosen the name #{project_name}"
+      puts "Current names are:\n"
+      puts "package:     #{package}"
+      puts "sanitized:   #{sanitized_name}"
+      puts "name:        #{project_name}"
+
+      i.choose do |menu|
+        menu.prompt = 'This looks ok to you?  '
+        menu.choice(:yes) do
+          puts 'Cool.'
+          ok = true
+        end
+        menu.choice(:no) do
+          package = i.ask('Package: ') { |q| q.default = package }
+          sanitized_name = i.ask('Sanitized name: ') { |q| q.default = sanitized_name }
+          project_name = i.ask('Project name: ') { |q| q.default = project_name }
+        end
+      end
+    end
 
     set :output_folder, output_folder
     set :project_name, project_name

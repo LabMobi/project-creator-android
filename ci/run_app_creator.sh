@@ -1,7 +1,7 @@
 #!/bin/bash
 
 bundle install
-bundle exec cap android:create -s path=p42app -s name=p42app
+printf 1 | bundle exec cap android:create -s path=p42app -s name=p42app
 cp google-services.json p42app/app
 cp ci/debug.keystore ci/signing.keystore p42app/app/signing
 cd p42app
