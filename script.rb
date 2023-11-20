@@ -13,20 +13,34 @@ end
 
 namespace :android do
   task :ask_stuff do
-    set :output_folder, i.ask('Relative path to output? ')
+    output_folder = fetch(:path, nil)
+    project_name = fetch(:name, nil)
+    sanitized_name = fetch(:sanitized, nil)
+    package = fetch(:package, nil)
 
-    project_name = nil
     loop do
-      project_name = i.ask('Project name? (no trailing -android) ')
-      if project_name.empty?
-        puts "Name is required!"
+      if (output_folder or "").strip.empty?
+        output_folder = i.ask('Relative path to output? ')
       else
         break
       end
     end
 
-    sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
-    package = "mobi.lab.#{sanitized_name.downcase}"
+    loop do
+      if (project_name or "").strip.empty?
+        project_name = i.ask('Project name? (no trailing -android) ')
+      else
+        break
+      end
+    end
+
+    if (sanitized_name or "").strip.empty?
+      sanitized_name = project_name.gsub(/[^A-Za-z0-9]/, '')
+    end
+
+    if (package or "").strip.empty?
+      package = "mobi.lab.#{sanitized_name.downcase}"
+    end
 
     ok = false
     while not ok
@@ -50,6 +64,7 @@ namespace :android do
       end
     end
 
+    set :output_folder, output_folder
     set :project_name, project_name
     set :sanitized_name, sanitized_name
     set :package, package
