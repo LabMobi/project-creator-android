@@ -1,34 +1,12 @@
 # Has separate flows for develop branch (automatic builds) and
 # Merge Request (automatic builds)
 definitions:
-  app-artifacts: &appArtifacts # Section def
-    - emulator.log
-    - project/app/build/reports
-    - project/app/build/outputs/androidTest-results
-    - project/app/build/outputs/logs
-    - project/app/build/outputs/**/*.apk
-    - project/app/build/outputs/**/*.aab
-    - project/app/build/outputs/**/mapping.txt
-  lib-artifacts: &libArtifacts
-    - emulator.log
-    - projectlib/sample/build/reports
-    - projectlib/sample/outputs/androidTest-results
-    - projectlib/sample/build/outputs/logs
-    - projectlib/sample/build/outputs/**/*.apk
-    - projectlib/sample/build/outputs/**/*.aab
-    - projectlib/sample/build/outputs/**/mapping.txt
-    - projectlib/ProjectCodeName/build/reports
-    - projectlib/ProjectCodeName/build/outputs/androidTest-results
-    - projectlib/ProjectCodeName/build/outputs/logs
-    - projectlib/ProjectCodeName/build/outputs/**/*.aar
-    - projectlib/ProjectCodeName/build/outputs/**/mapping.txt
   generated-app-artifacts: &generatedAppArtifacts
     - emulator.log
     - p42app/app/build/reports
     - p42app/app/build/outputs/androidTest-results
     - p42app/app/build/outputs/logs
     - p42app/app/build/outputs/**/*.apk
-    - p42app/app/build/outputs/**/*.aab
     - p42app/app/build/outputs/**/mapping.txt
   generated-lib-artifacts: &generatedLibArtifacts
     - emulator.log
@@ -36,7 +14,6 @@ definitions:
     - p42lib/sample/outputs/androidTest-results
     - p42lib/sample/build/outputs/logs
     - p42lib/sample/build/outputs/**/*.apk
-    - p42lib/sample/build/outputs/**/*.aab
     - p42lib/sample/build/outputs/**/mapping.txt
     - p42lib/p42lib/build/reports
     - p42lib/p42lib/build/outputs/androidTest-results
@@ -48,17 +25,6 @@ definitions:
     - harri.kirik@lab.mobi
     - siret.jorro@lab.mobi
   scripts:
-    # App local setup
-    - &stepTemplateLocalSetup
-      name: Set up local properties and permissons and add google-services.json and keystores
-      script: sh ci/setup_project.sh
-    # Library local setup
-    - &stepLibLocalSetup
-      name: Set up local properties and permissions
-      script: |
-        cd projectlib
-        chmod +x gradlew
-        echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
     # Generate app with creator script
     - &stepRunCreatorScriptApp
       name: Run project creator script and replace google-services.json and keystores in the generated project
@@ -67,18 +33,6 @@ definitions:
     - &stepRunCreatorScriptLib
       name: Run project creator script
       script: sh ci/run_lib_creator.sh
-    # Run app checkCode
-    - &stepTemplateCheckCode
-      name: Check code style and formatting
-      script: |
-        cd project
-        ./gradlew checkCode
-    # Run lib checkCode
-    - &stepLibCheckCode
-      name: Check code style and formatting
-      script: |
-        cd projectlib
-        ./gradlew checkCode
     # Run generated app checkCode
     - &stepGeneratedAppCheckCode
       name: Check code style and formatting
@@ -91,26 +45,8 @@ definitions:
       script: |
         cd p42lib
         ./gradlew checkCode
-    # Build app DEBUG
-    - &stepTemplateBuildDebug
-      name: Build Android
-      script: |
-        cd project
-        ./gradlew clean buildAllDebug
-    # Build library and sample app
-    - &stepLibBuild
-      name: Build library and sample app
-      script: |
-        cd projectlib
-        ./gradlew clean buildAll
-    # Build generated app DEBUG
-    - &stepGeneratedAppBuildDebug
-      name: Build Android
-      script: |
-        cd p42app
-        ./gradlew clean buildAllDebug
-    # Build generated app RELEASE
-    - &stepGeneratedAppBuildRelease
+    # Build generated app
+    - &stepGeneratedAppBuild
       name: Build Android
       script: |
         cd p42app
@@ -134,18 +70,6 @@ definitions:
       script: |
         cd $ANDROID_HOME/tools
         adb emu kill
-    # Run app tests
-    - &stepTemplateRunTests
-      name: Test Android
-      script: |
-        cd project
-        sh ../ci/run_tests.sh
-    # Run library sample app tests
-    - &stepLibAppRunTests
-      name: Test Android
-      script: |
-        cd projectlib
-        sh ../ci/run_tests.sh
     # Run generated app tests
     - &stepGeneratedAppRunTests
       name: Test Android
@@ -161,56 +85,6 @@ definitions:
 
 # Flows
 workflows:
-  # Builds the debug version of app in project directory
-  develop-template-builds:
-    name: Dev template builds
-    instance_type: linux_x2
-    environment:
-      java: 17
-    triggering:
-      events:
-        - push
-        - pull_request
-      branch_patterns:
-        - pattern: 'develop'
-          include: true
-          source: true
-    scripts:
-      - *stepTemplateLocalSetup
-      - *stepTemplateCheckCode
-      - *stepStartEmulator
-      - *stepTemplateRunTests
-      - *stepStopEmulator
-      - *stepTemplateBuildDebug
-    artifacts: *appArtifacts
-    publishing:
-      email:
-        recipients: *debugEmails
-  # Builds the library and sample app in projectlib directory
-  develop-lib-builds:
-    name: Dev lib builds
-    instance_type: linux_x2
-    environment:
-      java: 17
-    triggering:
-      events:
-        - push
-        - pull_request
-      branch_patterns:
-        - pattern: 'develop'
-          include: true
-          source: true
-    scripts:
-      - *stepLibLocalSetup
-      - *stepLibCheckCode
-      - *stepStartEmulator
-      - *stepLibAppRunTests
-      - *stepStopEmulator
-      - *stepLibBuild
-    artifacts: *libArtifacts
-    publishing:
-      email:
-        recipients: *debugEmails
   # Runs the project creator script and builds the debug and release versions of generated app
   develop-generated-app-builds:
     name: Dev generated app builds
@@ -226,13 +100,14 @@ workflows:
         - pattern: 'develop'
           include: true
           source: true
+      cancel_previous_builds: true
     scripts:
       - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
-      - *stepGeneratedAppBuildRelease
+      - *stepGeneratedAppBuild
     artifacts: *generatedAppArtifacts
     publishing:
       email:
@@ -252,6 +127,7 @@ workflows:
         - pattern: 'develop'
           include: true
           source: true
+      cancel_previous_builds: true
     scripts:
       - *stepRunCreatorScriptLib
       - *stepGeneratedLibCheckCode
@@ -263,58 +139,6 @@ workflows:
     publishing:
       email:
         recipients: *debugEmails
-  # Builds the debug version of app in project directory
-  merge-requests-template:
-    name: Merge requests template
-    instance_type: linux_x2
-    environment:
-      java: 17
-    triggering:
-      events:
-        - pull_request
-      branch_patterns:
-        - pattern: 'develop'
-          include: true
-          source: false
-      cancel_previous_builds: true
-    scripts:
-      - *stepTemplateLocalSetup
-      - *stepTemplateCheckCode
-      - *stepStartEmulator
-      - *stepTemplateRunTests
-      - *stepStopEmulator
-      - *stepTemplateBuildDebug
-    publishing:
-      email:
-        recipients: *debugEmails
-        notify:
-          success: false
-  # Builds the library and sample app in projectlib directory
-  merge-requests-lib:
-    name: Merge requests lib
-    instance_type: linux_x2
-    environment:
-      java: 17
-    triggering:
-      events:
-        - pull_request
-      branch_patterns:
-        - pattern: 'develop'
-          include: true
-          source: false
-      cancel_previous_builds: true
-    scripts:
-      - *stepLibLocalSetup
-      - *stepLibCheckCode
-      - *stepStartEmulator
-      - *stepLibAppRunTests
-      - *stepStopEmulator
-      - *stepLibBuild
-    publishing:
-      email:
-        recipients: *debugEmails
-        notify:
-          success: false
   # Runs the project creator script and builds the debug version of generated app
   merge-requests-generated-app:
     name: Merge requests generated app
@@ -336,7 +160,7 @@ workflows:
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
-      - *stepGeneratedAppBuildDebug
+      - *stepGeneratedAppBuild
     publishing:
       email:
         recipients: *debugEmails
