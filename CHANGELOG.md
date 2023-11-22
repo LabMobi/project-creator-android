@@ -2,12 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
-## 06.11.2023
+## 22.11.2023
 
 ### Changed
 
-- Updated dependencies
+- Updated dependencies.
 - Change `LiveData.onEachEvent` usages to return Boolean values.
+- Removed Codemagic workflows that directly build the template projects.
 
 ## 06.11.2023
 
