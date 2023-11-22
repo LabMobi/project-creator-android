@@ -34,6 +34,7 @@ class PrototypeActivity : BaseActivity() {
                 is PrototypeViewModel.Action.OpenWebLinkAndClose -> openBrowserAndClose(action.url)
                 PrototypeViewModel.Action.Close -> close()
             }
+            return@onEachEvent true
         }
     }
 

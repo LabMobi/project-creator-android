@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## 06.11.2023
 
+### Changed
+
+- Updated dependencies
+- Change `LiveData.onEachEvent` usages to return Boolean values.
+
+## 06.11.2023
+
 ### Added
 
 Added CI builds.

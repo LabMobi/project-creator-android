@@ -60,7 +60,7 @@ androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
 
 # Lab design components
 lab-components = "mobi.lab.labcomponents:labcomponents:0.0.10"
-lab-mvvm = "mobi.lab.mvvm:mvvm:2.1.0"
+lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
 # RxJava
 rxjava = "io.reactivex.rxjava3:rxjava:3.1.8"
