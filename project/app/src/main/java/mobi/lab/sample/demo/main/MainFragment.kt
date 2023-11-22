@@ -1,5 +1,6 @@
 package mobi.lab.sample.demo.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,11 +52,17 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
          * Init ViewModel in onViewCreated as they are connected to View's lifecycle.
          */
         viewModel.action.onEachEvent { event ->
-            when (event) {
-                is MainViewModel.Action.OpenWebLink -> openPrototype(event.url)
-                is MainViewModel.Action.RestartApplication -> restartApplication()
-                is MainViewModel.Action.OpenDebug -> openDebug()
+            val context = context
+            if (context == null) {
+                return@onEachEvent false
             }
+
+            when (event) {
+                is MainViewModel.Action.OpenWebLink -> openPrototype(context, event.url)
+                is MainViewModel.Action.RestartApplication -> restartApplication(context)
+                is MainViewModel.Action.OpenDebug -> openDebug(context)
+            }
+            return@onEachEvent true
         }
     }
 
@@ -86,18 +93,18 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
         }
     }
 
-    private fun openPrototype(url: String) {
+    private fun openPrototype(context: Context, url: String) {
         // Open PrototypeActivity to demonstrate assisted injection with runtime arguments
-        context?.let { startActivity(PrototypeActivity.getIntent(it, url)) }
+        startActivity(PrototypeActivity.getIntent(context, url))
     }
 
-    private fun restartApplication() {
-        context?.let { NavUtil.restartApplication(it) }
+    private fun restartApplication(context: Context) {
+        NavUtil.restartApplication(context)
     }
 
-    private fun openDebug() {
+    private fun openDebug(context: Context) {
         // Open DebugActivity
-        context?.let { debugActions.launchDebugActivity(it) }
+        debugActions.launchDebugActivity(context)
     }
 
     companion object {

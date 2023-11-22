@@ -64,12 +64,18 @@ class LoginFragment : BaseFragment(), ViewBindingHolder<DemoFragmentLoginBinding
 
     private fun initViewModel() {
         viewModel.action.onEachEvent { action ->
-            if (action == LoginViewModel.Action.OpenApplication) {
-                activity?.let {
-                    startActivity(MainActivity.getIntent(it))
-                    it.finishAffinity()
+            val activity = activity
+            if (activity == null) {
+                return@onEachEvent false
+            }
+
+            when (action) {
+                LoginViewModel.Action.OpenApplication -> {
+                    startActivity(MainActivity.getIntent(activity))
+                    activity.finishAffinity()
                 }
             }
+            return@onEachEvent true
         }
         viewModel.state.onEachNotNull { state ->
             when (state) {

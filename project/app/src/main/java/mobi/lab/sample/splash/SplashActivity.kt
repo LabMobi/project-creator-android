@@ -57,6 +57,7 @@ class SplashActivity : BaseActivity() {
             }
             startActivity(intent)
             finish()
+            return@onEachEvent true
         }
     }
 }

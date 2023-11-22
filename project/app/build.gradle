@@ -154,7 +154,8 @@ dependencies {
     implementation libs.androidx.viewmodel
     coreLibraryDesugaring libs.jdk.desugar
 
-    // Analytics
+    // Firebase
+    implementation platform(libs.firebase.bom)
     implementation libs.firebase.analytics
     implementation libs.firebase.crashlytics
 

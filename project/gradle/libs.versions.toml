@@ -4,14 +4,14 @@ android-sdk-min = "23"
 android-sdk-target = "33"
 android-sdk-compile = "android-34"
 
-android-gradle-plugin = "8.1.2"
+android-gradle-plugin = "8.1.4"
 
-kotlin = "1.9.10"
+kotlin = "1.9.20"
 dagger = "2.48.1"
 retrofit = "2.9.0"
 glide = "4.16.0"
 moshi = "1.15.0"
-kotshi = "2.13.1"
+kotshi = "2.14.0"
 
 [plugins]
 
@@ -21,14 +21,14 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.10-1.0.13" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.20-1.0.14" }
 
 # NB! Make sure to update the kltint version set in the root build.gradle file. subprojects / ktlint / version
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
 ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "11.6.1" }
-gradleVersions = { id = "com.github.ben-manes.versions", version = "0.49.0" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.1" }
+gradleVersions = { id = "com.github.ben-manes.versions", version = "0.50.0" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.3" }
 
 google-services = { id = "com.google.gms.google-services", version = "4.4.0"}
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
@@ -37,11 +37,12 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.
 
 # Language
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-jdk-desugar = "com.android.tools:desugar_jdk_libs:2.0.3"
+jdk-desugar = "com.android.tools:desugar_jdk_libs:2.0.4"
 
-# Reporting
-firebase-analytics = "com.google.firebase:firebase-analytics:21.3.0"
-firebase-crashlytics = "com.google.firebase:firebase-crashlytics:18.4.3"
+# Firebase
+firebase-bom = "com.google.firebase:firebase-bom:32.6.0"
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
 material = "com.google.android.material:material:1.10.0"
@@ -50,7 +51,7 @@ material-dialogs = "com.afollestad.material-dialogs:core:3.3.0"
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-core = "androidx.core:core:1.12.0"
-androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.1"
+androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
 androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
 androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
 androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
@@ -59,7 +60,7 @@ androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
 
 # Lab design components
 lab-components = "mobi.lab.labcomponents:labcomponents:0.0.10"
-lab-mvvm = "mobi.lab.mvvm:mvvm:2.1.0"
+lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
 # RxJava
 rxjava = "io.reactivex.rxjava3:rxjava:3.1.8"
@@ -84,7 +85,7 @@ kotshi-compiler = { module = "se.ansman.kotshi:compiler", version.ref = "kotshi"
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
-okhttp-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.11.0"
+okhttp-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.12.0"
 
 # Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -94,7 +95,7 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.6.0"
+test-mockito-core = "org.mockito:mockito-core:5.7.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
 
