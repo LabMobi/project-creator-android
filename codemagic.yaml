@@ -50,13 +50,13 @@ definitions:
       name: Build Android
       script: |
         cd p42app
-        ./gradlew clean buildAllRelease
+        ./gradlew buildAllRelease
     # Build generated library and sample app
     - &stepGeneratedLibBuild
       name: Build library and sample app
       script: |
         cd p42lib
-        ./gradlew clean buildAll
+        ./gradlew buildAll
     # Start emulator
     - &stepStartEmulator
       name: Launch emulator
@@ -104,10 +104,10 @@ workflows:
     scripts:
       - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
+      - *stepGeneratedAppBuild
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
-      - *stepGeneratedAppBuild
     artifacts: *generatedAppArtifacts
     publishing:
       email:
@@ -131,10 +131,10 @@ workflows:
     scripts:
       - *stepRunCreatorScriptLib
       - *stepGeneratedLibCheckCode
+      - *stepGeneratedLibBuild
       - *stepStartEmulator
       - *stepGeneratedLibRunTests
       - *stepStopEmulator
-      - *stepGeneratedLibBuild
     artifacts: *generatedLibArtifacts
     publishing:
       email:
@@ -157,10 +157,10 @@ workflows:
     scripts:
       - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
+      - *stepGeneratedAppBuild
       - *stepStartEmulator
       - *stepGeneratedAppRunTests
       - *stepStopEmulator
-      - *stepGeneratedAppBuild
     publishing:
       email:
         recipients: *debugEmails
@@ -184,10 +184,10 @@ workflows:
     scripts:
       - *stepRunCreatorScriptLib
       - *stepGeneratedLibCheckCode
+      - *stepGeneratedLibBuild
       - *stepStartEmulator
       - *stepGeneratedLibRunTests
       - *stepStopEmulator
-      - *stepGeneratedLibBuild
     publishing:
       email:
         recipients: *debugEmails
