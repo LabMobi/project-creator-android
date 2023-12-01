@@ -4,9 +4,9 @@ android-sdk-min = "23"
 android-sdk-target = "33"
 android-sdk-compile = "android-33"
 
-android-gradle-plugin = "8.0.2"
+android-gradle-plugin = "8.2.0"
 
-kotlin = "1.8.21"
+kotlin = "1.9.20"
 
 [plugins]
 
@@ -19,8 +19,8 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "11.3.2" }
-gradleVersions = { id = "com.github.ben-manes.versions", version = "0.46.0" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.0" }
+gradleVersions = { id = "com.github.ben-manes.versions", version = "0.50.0" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.3" }
 
 [libraries]
 

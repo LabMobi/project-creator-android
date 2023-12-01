@@ -4,7 +4,7 @@ android-sdk-min = "23"
 android-sdk-target = "33"
 android-sdk-compile = "android-34"
 
-android-gradle-plugin = "8.1.4"
+android-gradle-plugin = "8.2.0"
 
 kotlin = "1.9.20"
 dagger = "2.48.1"
