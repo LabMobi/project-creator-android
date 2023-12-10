@@ -53,7 +53,6 @@ android {
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         applicationId = "mobi.lab.sample"
-        testInstrumentationRunner = "mobi.lab.sample.util.CustomTestRunner"
 
         versionCode = project.ext.versionCode
         versionName = project.ext.versionName
