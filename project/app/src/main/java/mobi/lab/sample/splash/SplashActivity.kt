@@ -6,24 +6,17 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.common.BaseActivity
-import mobi.lab.sample.common.ViewModelFactory
 import mobi.lab.sample.demo.login.LoginActivity
 import mobi.lab.sample.demo.main.MainActivity
-import mobi.lab.sample.di.Injector
-import javax.inject.Inject
 
 // We want the custom SplashActivity here for routing purposes
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : BaseActivity() {
 
-    @Inject lateinit var factory: ViewModelFactory
-
-    private val viewModel: SplashViewModel by viewModels { factory }
-
-    init {
-        Injector.inject(this)
-    }
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSplash()

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import mobi.lab.mvvm.SingleEvent
 import mobi.lab.mvvm.asLiveData
 import timber.log.Timber
@@ -17,6 +18,7 @@ import timber.log.Timber
  *
  * NB! Note @AssistedInject annotation for the constructor and @Assisted annotation for the assisted argument.
  */
+@HiltViewModel(assistedFactory = PrototypeViewModel.Factory::class)
 class PrototypeViewModel @AssistedInject constructor(
     @Assisted private val prototypeUrl: String
 ) : ViewModel() {
@@ -40,6 +42,6 @@ class PrototypeViewModel @AssistedInject constructor(
 
     sealed class Action {
         data class OpenWebLinkAndClose(val url: String) : Action()
-        object Close : Action()
+        data object Close : Action()
     }
 }
