@@ -13,8 +13,8 @@ ext.libsHelper = [
             handler.testImplementation libs.test.androidx.archtesting
         },
 
-        addDaggerDependencies: { handler ->
-            handler.implementation libs.dagger
-            handler.kapt libs.dagger.compiler
+        addDependencyInjectionDependencies: { handler ->
+            handler.implementation libs.hilt
+            handler.kapt libs.hilt.compiler
         }
 ]

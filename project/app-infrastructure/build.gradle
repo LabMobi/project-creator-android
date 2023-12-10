@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -48,6 +49,14 @@ android {
     }
 }
 
+hilt {
+    enableAggregatingTask = true
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
 // Set kapt jvm version. https://youtrack.jetbrains.com/issue/KT-55947/Unable-to-set-kapt-jvm-target-version
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
@@ -57,7 +66,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 
 dependencies {
     libsHelper.addUnitTestDependencies(it)
-    libsHelper.addDaggerDependencies(it)
+    libsHelper.addDependencyInjectionDependencies(it)
 
     implementation libs.kotlin
     coreLibraryDesugaring libs.jdk.desugar

@@ -6,31 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.BuildConfig
 import mobi.lab.sample.R
 import mobi.lab.sample.common.BaseFragment
 import mobi.lab.sample.common.FragmentBindingHolder
 import mobi.lab.sample.common.ViewBindingHolder
-import mobi.lab.sample.common.ViewModelFactory
 import mobi.lab.sample.common.debug.DebugActions
 import mobi.lab.sample.common.platform.LogoutMonitor
 import mobi.lab.sample.common.util.NavUtil
 import mobi.lab.sample.databinding.DemoFragmentMainBinding
 import mobi.lab.sample.demo.prototype.PrototypeActivity
-import mobi.lab.sample.di.Injector
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> by FragmentBindingHolder() {
 
     @Inject lateinit var debugActions: DebugActions
 
-    @Inject lateinit var factory: ViewModelFactory
-
-    private val viewModel: MainViewModel by viewModels { factory }
-
-    init {
-        Injector.inject(this)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

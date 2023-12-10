@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    // Needed for Dagger
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -43,6 +43,14 @@ android {
     }
 }
 
+hilt {
+    enableAggregatingTask = true
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
 // Set kapt jvm version. https://youtrack.jetbrains.com/issue/KT-55947/Unable-to-set-kapt-jvm-target-version
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
@@ -53,8 +61,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 dependencies {
     // Testing
     libsHelper.addUnitTestDependencies(it)
-    // Dagger
-    libsHelper.addDaggerDependencies(it)
+    // DI
+    libsHelper.addDependencyInjectionDependencies(it)
 
     implementation libs.kotlin
     coreLibraryDesugaring libs.jdk.desugar
