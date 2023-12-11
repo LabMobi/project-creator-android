@@ -152,7 +152,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 dependencies {
-    // Dagger
     libsHelper.addDependencyInjectionDependencies(it)
     libsHelper.addUnitTestDependencies(it)
 
