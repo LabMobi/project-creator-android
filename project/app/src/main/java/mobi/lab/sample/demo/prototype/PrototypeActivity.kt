@@ -3,24 +3,19 @@ package mobi.lab.sample.demo.prototype
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import mobi.lab.mvvm.assistedViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.common.BaseActivity
+import mobi.lab.sample.common.assistedViewModels
 import mobi.lab.sample.common.util.NavUtil
-import mobi.lab.sample.di.Injector
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class PrototypeActivity : BaseActivity() {
 
-    // Not the usual ViewModelFactory. We use assisted injection here and need to reference the assisted factory instead
-    @Inject
-    lateinit var factory: PrototypeViewModel.Factory
-
-    private val viewModel: PrototypeViewModel by assistedViewModels {
-        factory.create(intent.getStringExtra(EXTRA_PROTOTYPE_URL) ?: "")
-    }
-
-    init {
-        Injector.inject(this)
+    /**
+     * Use the assistedViewModels extension function for convenience to just invoke the AssistedInject factory.
+     */
+    private val viewModel: PrototypeViewModel by assistedViewModels(PrototypeViewModel.Factory::class) {
+        it.create(intent.getStringExtra(EXTRA_PROTOTYPE_URL) ?: "")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

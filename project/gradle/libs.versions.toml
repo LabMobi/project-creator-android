@@ -6,8 +6,8 @@ android-sdk-compile = "android-34"
 
 android-gradle-plugin = "8.2.0"
 
-kotlin = "1.9.20"
-dagger = "2.48.1"
+kotlin = "1.9.21"
+hilt = "2.49"
 retrofit = "2.9.0"
 glide = "4.16.0"
 moshi = "1.15.0"
@@ -21,14 +21,16 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.20-1.0.14" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.21-1.0.15" }
+
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # NB! Make sure to update the kltint version set in the root build.gradle file. subprojects / ktlint / version
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "11.6.1" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.0.2" }
 gradleVersions = { id = "com.github.ben-manes.versions", version = "0.50.0" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.3" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.4" }
 
 google-services = { id = "com.google.gms.google-services", version = "4.4.0"}
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
@@ -66,9 +68,9 @@ lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 rxjava = "io.reactivex.rxjava3:rxjava:3.1.8"
 rxjava-android = "io.reactivex.rxjava3:rxandroid:3.0.2"
 
-# Dagger
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+# Dagger / Hilt
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 
 # Utilities
 scrolls = "mobi.lab.scrolls:scrolls:2.0.9"
@@ -95,7 +97,6 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.7.0"
+test-mockito-core = "org.mockito:mockito-core:5.8.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
-

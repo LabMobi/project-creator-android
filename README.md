@@ -18,7 +18,7 @@ The Android project template uses MVVM for UI and Use Cases for business logic.
 
 View models are powered by Google's ViewModel and LiveData classes. Communication between Use Cases and models is done with RxJava. An event bus is used for communication originating from dialogs.
 
-Dependencies are injected with Dagger. Constructor injection (@Inject annotated constructors) is preferred where possible. See `di` packages in modules and Injector class in the application module.
+Dependencies are injected with Hilt. Constructor injection (@Inject annotated constructors) is preferred where possible. See `di` packages in modules.
 
 The bootstrapper also includes updated Scrolls library that allows posting to email and chats (without the need of the backend), Gradle tasks for Codemagic, and pre-configured unit and instrumentation tests.
 
@@ -35,7 +35,7 @@ See the example in the new project created by the bootstrapper for more informat
 - Scrolls logging library
 - Firebase Analytics integration
 - Firebase Crashlytics integration
-- Dagger2 setup completed
+- Hilt setup completed
 - Base activities and Fragments for MVVM and general usage
 - BaseFragmentActivity for an easier showing of fragments
 - MyNotificationManager to init Notification channels and show notifications

@@ -2,6 +2,8 @@ package mobi.lab.sample.infrastructure.di
 
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import mobi.lab.sample.domain.storage.SessionStorage
 import mobi.lab.sample.infrastructure.auth.remote.AuthResource
 import mobi.lab.sample.infrastructure.common.http.ErrorTransformer
@@ -17,6 +19,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object ResourceModule {
 
     @Provides

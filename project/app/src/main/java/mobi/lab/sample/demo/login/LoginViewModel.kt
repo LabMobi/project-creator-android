@@ -4,9 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.parcelize.Parcelize
@@ -15,25 +13,21 @@ import mobi.lab.mvvm.asLiveData
 import mobi.lab.sample.common.rx.SchedulerProvider
 import mobi.lab.sample.common.rx.dispose
 import mobi.lab.sample.common.util.errorCode
-import mobi.lab.sample.demo.prototype.PrototypeViewModel
 import mobi.lab.sample.domain.entities.ErrorCode
 import mobi.lab.sample.domain.usecases.auth.LoginUseCase
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
- * A ViewModel that gets a SavedStateHandle via AssistedFactory. This can be combined with additional @Assisted arguments.
- * @see PrototypeViewModel for generic AssistedInject usage
+ * A ViewModel that uses a SavedStateHandle. HiltViewModel knows how to inject
+ * the SavedStateHandle into the constructor without assisted injection.
  */
-class LoginViewModel @AssistedInject constructor(
-    @Assisted private val handle: SavedStateHandle,
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    handle: SavedStateHandle,
     private val loginUseCase: LoginUseCase,
     private val schedulers: SchedulerProvider,
 ) : ViewModel() {
-
-    @AssistedFactory
-    interface Factory {
-        fun create(handle: SavedStateHandle): LoginViewModel
-    }
 
     private val _action = MutableLiveData<SingleEvent<Action>>()
     val action = _action.asLiveData()
@@ -75,8 +69,8 @@ class LoginViewModel @AssistedInject constructor(
     }
 
     sealed class State : Parcelable {
-        @Parcelize object Default : State()
-        @Parcelize object Progress : State()
+        @Parcelize data object Default : State()
+        @Parcelize data object Progress : State()
         @Parcelize data class Error(val errorCode: ErrorCode) : State()
     }
 

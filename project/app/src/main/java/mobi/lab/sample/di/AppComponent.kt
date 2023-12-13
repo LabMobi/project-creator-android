@@ -1,7 +1,6 @@
 package mobi.lab.sample.di
 
 import dagger.Component
-import mobi.lab.sample.domain.di.UseCaseModule
 import mobi.lab.sample.infrastructure.di.GatewayModule
 import mobi.lab.sample.infrastructure.di.MapperModule
 import mobi.lab.sample.infrastructure.di.PlatformModule
@@ -10,24 +9,23 @@ import mobi.lab.sample.infrastructure.di.StorageModule
 import javax.inject.Singleton
 
 /**
- * Default implementation of [BaseAppComponent].
- *
- * @see [BaseAppComponent]
+ * Default Hilt component.
  */
 @Singleton
 @Component(
     modules = [
         ResourceModule::class,
-        UseCaseModule::class,
         GatewayModule::class,
         MapperModule::class,
         StorageModule::class,
         AppModule::class,
         SchedulerModule::class,
-        PlatformModule::class
+        PlatformModule::class,
+        /**
+         * BuildVariantModule that can be overridden per build variant. No default implementation exists.
+         * Instead, different build variants (flavours, build types) can provide a different implementation.
+         */
+        BuildVariantModule::class
     ]
 )
-interface AppComponent : BaseAppComponent
-/**
- * DO NOT ADD METHODS HERE. Add methods to [BaseAppComponent].
- */
+interface AppComponent
