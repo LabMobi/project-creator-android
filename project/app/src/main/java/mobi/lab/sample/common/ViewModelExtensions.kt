@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  * There is a new CreationExtras feature that allows to pass in a callback when the ViewModel needs to be created.
  * HiltViewModels use this feature to provide a hook to invoke the custom AssistedInjection factory interface.
  *
- * These extension functions are just convenience functions around the extrasProducer field and make the API less verbove.
+ * These extension functions are just convenience functions around the extrasProducer field and make the API less verbose.
  *
  * NB! Similar extension functions are available in the https://github.com/LabMobi/mvvm-android. In hindsight, it wasn't the best
  * idea to include those extension functions into the MVVM library as they are specific to our project template's Dagger usage and
