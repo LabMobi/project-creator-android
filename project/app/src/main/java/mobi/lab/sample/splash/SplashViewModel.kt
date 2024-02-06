@@ -2,6 +2,7 @@ package mobi.lab.sample.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import mobi.lab.mvvm.SingleEvent
 import mobi.lab.mvvm.asLiveData
@@ -11,6 +12,7 @@ import mobi.lab.sample.domain.usecases.auth.HasValidSessionUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltViewModel
 class SplashViewModel @Inject constructor(
     private val checkSessionUseCase: HasValidSessionUseCase,
     private val schedulers: SchedulerProvider,
@@ -44,7 +46,7 @@ class SplashViewModel @Inject constructor(
     }
 
     sealed class Action {
-        object LaunchApplication : Action()
-        object LaunchLogin : Action()
+        data object LaunchApplication : Action()
+        data object LaunchLogin : Action()
     }
 }

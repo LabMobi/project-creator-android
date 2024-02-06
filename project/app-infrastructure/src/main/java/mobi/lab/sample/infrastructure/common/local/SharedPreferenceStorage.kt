@@ -2,6 +2,7 @@ package mobi.lab.sample.infrastructure.common.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import mobi.lab.sample.app.common.isStringEmpty
 import mobi.lab.sample.infrastructure.common.json.Json
 import mobi.lab.sample.infrastructure.common.json.fromJson
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 internal class SharedPreferenceStorage @Inject constructor(
-    context: Context,
+    @ApplicationContext context: Context,
     private val json: Json,
 ) {
 

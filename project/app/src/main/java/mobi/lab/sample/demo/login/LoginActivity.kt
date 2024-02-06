@@ -3,8 +3,10 @@ package mobi.lab.sample.demo.login
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.common.BaseFragmentActivity
 
+@AndroidEntryPoint
 class LoginActivity : BaseFragmentActivity() {
 
     override val tag: String

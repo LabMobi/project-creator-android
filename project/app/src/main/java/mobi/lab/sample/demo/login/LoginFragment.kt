@@ -5,8 +5,9 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
-import mobi.lab.mvvm.assistedSavedStateViewModels
+import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.R
 import mobi.lab.sample.common.BaseFragment
 import mobi.lab.sample.common.FragmentBindingHolder
@@ -17,30 +18,12 @@ import mobi.lab.sample.common.util.DialogUtil
 import mobi.lab.sample.common.util.formatErrorCode
 import mobi.lab.sample.databinding.DemoFragmentLoginBinding
 import mobi.lab.sample.demo.main.MainActivity
-import mobi.lab.sample.di.Injector
 import mobi.lab.sample.domain.entities.ErrorCode
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment(), ViewBindingHolder<DemoFragmentLoginBinding> by FragmentBindingHolder() {
 
-    @Inject lateinit var factory: LoginViewModel.Factory
-
-    /**
-     * Create the [LoginViewModel] via [LoginViewModel.Factory] by providing the [androidx.lifecycle.SavedStateHandle].
-     * assistedSavedStateViewModels wraps a call to [androidx.lifecycle.AbstractSavedStateViewModelFactory] with this Fragment's
-     * context and using the factory method here to create the actual ViewModel.
-     *
-     * Optionally, the assistedSavedStateViewModels takes a second argument in the form () -> Bundle?.
-     * This can be used to provide an initial state for the [androidx.lifecycle.SavedStateHandle]
-     * and is passed to [androidx.lifecycle.AbstractSavedStateViewModelFactory].
-     */
-    private val viewModel: LoginViewModel by assistedSavedStateViewModels { handle ->
-        factory.create(handle)
-    }
-
-    init {
-        Injector.inject(this)
-    }
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun getLifecycleOwner(): LifecycleOwner {
         return this

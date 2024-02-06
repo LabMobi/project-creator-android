@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.hilt)
 }
 
 ext {
@@ -52,7 +53,6 @@ android {
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         applicationId = "mobi.lab.sample"
-        testInstrumentationRunner = "mobi.lab.sample.util.CustomTestRunner"
 
         versionCode = project.ext.versionCode
         versionName = project.ext.versionName
@@ -136,6 +136,18 @@ android {
     }
 }
 
+hilt {
+    // This flag reduces incremental compilation times by reducing how often an incremental change causes a rebuild of the Dagger components.
+    // See https://dagger.dev/hilt/gradle-setup.html#aggregating-task
+    enableAggregatingTask = true
+}
+
+kapt {
+    // If Hilt is used in a Kotlin project, then Kapt should be configured to keep the correct error types.
+    // See https://dagger.dev/hilt/gradle-setup.html#using-hilt-with-kotlin
+   correctErrorTypes = true
+}
+
 // Set kapt jvm version. https://youtrack.jetbrains.com/issue/KT-55947/Unable-to-set-kapt-jvm-target-version
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
@@ -144,8 +156,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 }
 
 dependencies {
-    // Dagger
-    libsHelper.addDaggerDependencies(it)
+    libsHelper.addDependencyInjectionDependencies(it)
     libsHelper.addUnitTestDependencies(it)
 
     implementation libs.kotlin

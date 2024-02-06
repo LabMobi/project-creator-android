@@ -7,6 +7,7 @@ import android.os.Process
 import android.os.StrictMode
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import dagger.hilt.android.HiltAndroidApp
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import mobi.lab.sample.common.logging.CrashlyticsTree
 import mobi.lab.sample.common.logging.ScrollsTree
@@ -14,7 +15,6 @@ import mobi.lab.sample.common.platform.LogoutMonitor
 import mobi.lab.sample.common.platform.MyNotificationManager
 import mobi.lab.sample.common.util.isDebugBuild
 import mobi.lab.sample.common.util.isFirebaseDataCollectionEnabled
-import mobi.lab.sample.di.Injector
 import mobi.lab.sample.domain.storage.SessionStorage
 import mobi.lab.sample.domain.usecases.auth.DeleteSessionUseCase
 import mobi.lab.sample.infrastructure.common.platform.AppEnvironment
@@ -25,6 +25,7 @@ import mobi.lab.scrolls.LogPostImpl
 import timber.log.Timber
 import javax.inject.Inject
 
+@HiltAndroidApp
 open class App : Application() {
 
     @Inject lateinit var environment: AppEnvironment
@@ -46,16 +47,10 @@ open class App : Application() {
         initLogging()
         initFirebase()
         initStrictMode()
-        initDependencyInjection()
-        Injector.inject(this)
 
         LogoutMonitor.init(this, deleteSessionUseCase)
         MyNotificationManager.newInstance(this).createChannels()
         ImageLoader.configure(this, environment, sessionStorage)
-    }
-
-    protected open fun initDependencyInjection() {
-        Injector.buildGraph(this)
     }
 
     private fun initRxJavaErrorHandler() {

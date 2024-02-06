@@ -2,6 +2,20 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 05.02.2024
+
+### Changed
+
+- Updated dependencies.
+
+## 10.12.2023
+
+### Changed
+
+- Updated dependencies.
+- Migrated from Dagger to Hilt.
+- Added new assisted injection extension functions to `package mobi.lab.sample.common.assistedViewModels()`.
+
 ## 22.11.2023
 
 ### Changed
