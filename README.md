@@ -24,6 +24,36 @@ The bootstrapper also includes updated Scrolls library that allows posting to em
 
 See the example in the new project created by the bootstrapper for more information. 
 
+#### Modules
+
+There are currently 4 modules in the project:
+
+- app - Main Android application and UI
+- app-common - Code shared between different modules
+- app-infrastructure - Communications with the outside world. Data storage, network, etc
+- app-domain - Core application classes and logic
+
+These modules are a starting point but not an actual best practice to follow in every project. 
+The current structure is effectively the same as having separate packages within a single Gradle module. Different modules make it easier to not depend on the wrong classes in the wrong places. 
+
+What's a wrong class? There is not right or wrong to be honest, but a goal to keep in mind is potential modularisation in the future. Creating dependencies on certain classes (infrastructure classes in the app module for example) can make it difficult to split existing modules.
+
+ 
+An effective approach to modularisation is splitting by feature. This means that all the infra, domain and potentially UI code lives in a single (or multiple if needed) feature-specific modules.
+Why? because separating by feature makes building the project more effective.   
+For example, adding a new screen, logic and a network request for feature A would have the following changes:
+
+1. Split by type (current "modularisation")
+    1. `app` - new UI
+    2. `domain` - new internal logic
+    3. `infrastructure` - new api request
+2. Split by feature
+    1. `app` - Either the new UI or just opening the screen
+    2. `feature-A` - New feature module
+
+The same applies to making changes to existing features. Splitting by type is less effective as changing a feature usually means making changes to almost all of the modules. Splitting by feature contains changes to the specific feature module. 
+
+
 #### Features packaged with the project
 
 **App**
