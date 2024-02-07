@@ -26,12 +26,12 @@ See the example in the new project created by the bootstrapper for more informat
 
 #### Modules
 
-There are currently 4 modules in the project:
+There are 4 modules in the project:
 
-- app - Main Android application and UI
-- app-common - Code shared between different modules
+- app - Main Android application and UI. Activities, Fragments, ViewModels, related utilities, etc
+- app-common - Code shared between different modules. Utilities, extensions, etc
 - app-infrastructure - Communications with the outside world. Data storage, network, etc
-- app-domain - Core application classes and logic
+- app-domain - Application domain logic. Use-cases, entities, gateways, etc.
 
 These modules are a starting point but not an actual best practice to follow in every project. 
 The current structure is effectively the same as having separate packages within a single Gradle module. Different modules make it easier to not depend on the wrong classes in the wrong places. 
