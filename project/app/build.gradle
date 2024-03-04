@@ -129,8 +129,8 @@ android {
         fatal("StopShip")
     }
 
-    android.applicationVariants.all { variant ->
-        variant.outputs.all { output ->
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
             output.outputFileName = "${rootProject.name}-${variant.name}-${variant.versionName}.apk"
         }
     }
