@@ -1,14 +1,14 @@
 [versions]
 
 android-sdk-min = "23"
-android-sdk-target = "33"
+android-sdk-target = "34"
 android-sdk-compile = "android-34"
 
-android-gradle-plugin = "8.2.2"
+android-gradle-plugin = "8.3.1"
 
-kotlin = "1.9.22"
-hilt = "2.50"
-retrofit = "2.9.0"
+kotlin = "1.9.23"
+hilt = "2.51"
+retrofit = "2.10.0"
 glide = "4.16.0"
 moshi = "1.15.1"
 kotshi = "2.15.0"
@@ -21,7 +21,7 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.23-1.0.19" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
@@ -42,7 +42,7 @@ kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin"
 jdk-desugar = "com.android.tools:desugar_jdk_libs:2.0.4"
 
 # Firebase
-firebase-bom = "com.google.firebase:firebase-bom:32.7.2"
+firebase-bom = "com.google.firebase:firebase-bom:32.7.4"
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
@@ -97,6 +97,6 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.10.0"
+test-mockito-core = "org.mockito:mockito-core:5.11.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
