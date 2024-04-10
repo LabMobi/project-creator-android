@@ -8,8 +8,10 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import mobi.lab.sample.app.common.test.Idler
 import mobi.lab.sample.common.rx.SchedulerProvider
+import timber.log.Timber
 
 class TestSchedulerProvider(private val idler: Idler) : SchedulerProvider() {
+
     override val main = AndroidSchedulers.mainThread()
     override val computation = Schedulers.computation()
     override val io = Schedulers.io()
@@ -47,12 +49,12 @@ class TestSchedulerProvider(private val idler: Idler) : SchedulerProvider() {
     }
 
     private fun busy(key: Any) {
+        Timber.v("Idler busy with $key")
         idler.increment()
-//        BusyBee.singleton().busyWith(key)
     }
 
     private fun done(key: Any) {
+        Timber.v("Idler done with $key")
         idler.decrement()
-//        BusyBee.singleton().completed(key)
     }
 }
