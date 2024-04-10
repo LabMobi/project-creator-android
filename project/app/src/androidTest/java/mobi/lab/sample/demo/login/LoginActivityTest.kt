@@ -3,7 +3,6 @@ package mobi.lab.sample.demo.login
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
@@ -70,7 +69,7 @@ class LoginActivityTest {
 
     @Test
     fun show_input_error_when_only_username_is_filled_rxidler() {
-        onView(withId(R.id.edit_text_email)).perform(typeText("asd"), closeSoftKeyboard())
+        onView(withId(R.id.edit_text_email)).perform(typeText("asd"))
         onView(withId(R.id.button_login)).perform(click())
 
         onView(withId(R.id.input_layout_email)).check(matches(hasNoTextInputLayoutError()))
@@ -81,7 +80,7 @@ class LoginActivityTest {
 
     @Test
     fun show_input_error_when_only_password_is_filled_rxidler() {
-        onView(withId(R.id.edit_text_password)).perform(typeText("asd"), closeSoftKeyboard())
+        onView(withId(R.id.edit_text_password)).perform(typeText("asd"))
         onView(withId(R.id.button_login)).perform(click())
 
         onView(withId(R.id.input_layout_email)).check(matches(hasTextInputLayoutError(TEXT_ID_REQUIRED)))
@@ -92,8 +91,8 @@ class LoginActivityTest {
 
     @Test
     fun login_success_when_fields_are_filled_rxidler() {
-        onView(withId(R.id.edit_text_email)).perform(typeText("asd"), closeSoftKeyboard())
-        onView(withId(R.id.edit_text_password)).perform(typeText("asd"), closeSoftKeyboard())
+        onView(withId(R.id.edit_text_email)).perform(typeText("asd"))
+        onView(withId(R.id.edit_text_password)).perform(typeText("asd"))
         onView(withId(R.id.button_login)).perform(click())
 
         Intents.intended(IntentMatchers.hasComponent(MainActivity::class.java.name))
@@ -102,8 +101,8 @@ class LoginActivityTest {
     @Test
     fun show_error_dialog_when_login_fails_rxidler() {
         // "test" is a keyword to trigger an error response. See LoginUseCase implementation
-        onView(withId(R.id.edit_text_email)).perform(typeText("test"), closeSoftKeyboard())
-        onView(withId(R.id.edit_text_password)).perform(typeText("asd"), closeSoftKeyboard())
+        onView(withId(R.id.edit_text_email)).perform(typeText("test"))
+        onView(withId(R.id.edit_text_password)).perform(typeText("asd"))
         onView(withId(R.id.button_login)).perform(click())
 
         // Validate the dialog and close it
