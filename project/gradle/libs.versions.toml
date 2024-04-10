@@ -71,6 +71,8 @@ rxjava-android = "io.reactivex.rxjava3:rxandroid:3.0.2"
 # Dagger / Hilt
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
 # Utilities
 scrolls = "mobi.lab.scrolls:scrolls:2.0.9"
@@ -100,3 +102,10 @@ test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 test-mockito-core = "org.mockito:mockito-core:5.11.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
+
+# UI Testing
+test-androidx-testrunner = "androidx.test:runner:1.5.2"
+test-androidx-junit = "androidx.test.ext:junit-ktx:1.1.5"
+test-androidx-core = "androidx.test:core-ktx:1.5.0"
+test-androidx-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
+test-androidx-espresso-intents = "androidx.test.espresso:espresso-intents:3.5.1"

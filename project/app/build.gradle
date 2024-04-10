@@ -53,6 +53,7 @@ android {
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         applicationId = "mobi.lab.sample"
+        testInstrumentationRunner = "mobi.lab.sample.util.CustomTestRunner"
 
         versionCode = project.ext.versionCode
         versionName = project.ext.versionName
@@ -158,6 +159,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
 dependencies {
     libsHelper.addDependencyInjectionDependencies(it)
     libsHelper.addUnitTestDependencies(it)
+    libsHelper.addInstrumentationTestDependencies(it)
 
     implementation libs.kotlin
     implementation libs.androidx.legacy
