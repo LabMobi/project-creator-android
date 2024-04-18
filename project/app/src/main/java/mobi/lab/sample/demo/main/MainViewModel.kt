@@ -42,8 +42,8 @@ class MainViewModel @Inject constructor(
         disposable = logoutUseCase.execute()
             .compose(schedulers.completable())
             .subscribe(
-                { _action.value = SingleEvent(Action.RestartApplication) }, // Success
-                { // Error
+                { _action.value = SingleEvent(Action.RestartApplication) },
+                {
                     Timber.e(it, "logout error")
                     _action.value = SingleEvent(Action.RestartApplication)
                 }
