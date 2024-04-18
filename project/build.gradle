@@ -21,24 +21,29 @@ subprojects {
     // KTLint (Kotlin code style enforcer)
     apply(plugin: libs.plugins.ktlint.gradle.get().pluginId)
     ktlint {
-        version = "0.50.0"
         outputToConsole = true
     }
 
     // Detekt (Kotlin static analyser)
     apply(plugin: libs.plugins.detekt.get().pluginId)
     detekt {
-        allRules = true // Include all rules
-        buildUponDefaultConfig = true // preconfigure defaults (see the rule set file below for explanations)
-        config = files("${project.rootDir}/config/detekt/detekt-config.yaml") // point to your custom config defining rules to run, overwriting default behavior
+        // Include all rules
+        allRules = true
+        // preconfigure defaults (see the rule set file below for explanations)
+        buildUponDefaultConfig = true
+        // point to your custom config defining rules to run, overwriting default behavior
+        config.setFrom("${project.rootDir}/config/detekt/detekt-config.yaml")
+    }
 
+    tasks.named("detekt").configure {
+        jvmTarget = "1.8"
         reports {
-            html.enabled = true // Create a HTML report
-            xml.enabled = false // XML report not needed
-            txt.enabled = false // txt report not needed
+            html.required.set(true)
+            xml.required.set(false)
+            txt.required.set(false)
         }
     }
-    tasks.detekt.jvmTarget = "1.8"
+
     afterEvaluate {
         // Make sure detekt is executed with all the other linters for all modules
         check.dependsOn "detekt"

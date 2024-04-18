@@ -39,6 +39,10 @@ style:
   MagicNumber:
     ignoreLocalVariableDeclaration: true
 
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable'] # Composable functions use PascalCase
+
 complexity:
   TooManyFunctions: # The default limit to functions is 3. This is too little
     thresholdInFiles: 50

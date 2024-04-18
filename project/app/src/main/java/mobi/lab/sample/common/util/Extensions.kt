@@ -37,6 +37,6 @@ fun Throwable.errorCode(): ErrorCode {
     return if (this is DomainException) code else ErrorCode.UNKNOWN
 }
 
-fun ErrorCode.formatErrorCode(context: Context?, @StringRes default: Int = R.string.demo_error_generic): String {
+fun ErrorCode.formatErrorCode(context: Context?, @StringRes default: Int = R.string.error_generic): String {
     return formatErrorCode(context, this, default)
 }
