@@ -39,12 +39,12 @@ fun showToast(ctx: Context?, @StringRes resId: Int) {
     }
 }
 
-fun formatErrorCode(context: Context?, error: ErrorCode?, @StringRes default: Int = R.string.demo_error_generic): String {
+fun formatErrorCode(context: Context?, error: ErrorCode?, @StringRes default: Int = R.string.error_generic): String {
     if (context == null) {
         return ""
     }
     val resId = when (error) {
-        ErrorCode.LOCAL_NO_NETWORK -> R.string.demo_error_no_network
+        ErrorCode.LOCAL_NO_NETWORK -> R.string.error_no_network
         else -> default
     }
     return context.getString(resId)

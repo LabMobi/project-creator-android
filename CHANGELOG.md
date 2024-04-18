@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 18.04.2024
+
+### Changed
+
+- Updated ktlint and detekt to get along with Compose. Updated SchedulerProvider to get along with the version in example/ui-tests branch. This makes adding instrumentation tests easier.
+
 ## 05.02.2024
 
 ### Changed
