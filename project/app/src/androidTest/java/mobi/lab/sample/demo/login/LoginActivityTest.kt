@@ -7,6 +7,7 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -106,7 +107,9 @@ class LoginActivityTest {
         onView(withId(R.id.button_login)).perform(click())
 
         // Validate the dialog and close it
-        onView(withText(R.string.error_generic)).check(matches(isDisplayed()))
+        onView(withText(R.string.error_generic))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
         Espresso.pressBack()
 
         onView(withId(R.id.input_layout_email)).check(matches(hasNoTextInputLayoutError()))
