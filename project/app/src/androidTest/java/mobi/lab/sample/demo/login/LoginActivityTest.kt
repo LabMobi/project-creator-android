@@ -106,7 +106,7 @@ class LoginActivityTest {
         onView(withId(R.id.button_login)).perform(click())
 
         // Validate the dialog and close it
-        onView(withText(R.string.demo_error_generic)).check(matches(isDisplayed()))
+        onView(withText(R.string.error_generic)).check(matches(isDisplayed()))
         Espresso.pressBack()
 
         onView(withId(R.id.input_layout_email)).check(matches(hasNoTextInputLayoutError()))
