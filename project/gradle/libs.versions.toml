@@ -61,7 +61,7 @@ androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
 androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
 
 # Lab design components
-lab-components = "mobi.lab.labcomponents:labcomponents:0.0.12"
+lab-components = "mobi.lab.labcomponents:labcomponents:0.0.13"
 lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
 # RxJava
