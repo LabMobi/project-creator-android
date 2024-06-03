@@ -16,7 +16,7 @@ object StorageModule {
 
     @Module
     @InstallIn(SingletonComponent::class)
-    internal interface Definitions {
+    interface Definitions {
         @Binds fun bindSessionStorage(impl: SessionPreferenceStorage): SessionStorage
     }
 }

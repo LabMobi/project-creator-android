@@ -13,7 +13,7 @@ object GatewayModule {
 
     @Module
     @InstallIn(SingletonComponent::class)
-    internal interface Definitions {
+    interface Definitions {
         @Binds fun bindAuthGateway(impl: AuthProvider): AuthGateway
     }
 }

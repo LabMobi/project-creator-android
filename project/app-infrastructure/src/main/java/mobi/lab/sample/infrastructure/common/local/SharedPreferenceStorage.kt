@@ -12,7 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class SharedPreferenceStorage @Inject constructor(
+class SharedPreferenceStorage @Inject constructor(
     @ApplicationContext context: Context,
     private val json: Json,
 ) {

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class SessionPreferenceStorage @Inject constructor(
+class SessionPreferenceStorage @Inject constructor(
     private val sharedPrefs: SharedPreferenceStorage,
     private val mapper: DbSessionMapper
 ) : SessionStorage {

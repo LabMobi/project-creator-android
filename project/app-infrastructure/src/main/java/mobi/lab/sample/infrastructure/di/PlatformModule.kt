@@ -21,15 +21,15 @@ object PlatformModule {
 
     @Provides
     @Singleton
-    internal fun provideJson(): Json = MoshiJson(MoshiFactory.get())
+    fun provideJson(): Json = MoshiJson(MoshiFactory.get())
 
     @Provides
     @Singleton
-    internal fun provideNetworkMonitor(@ApplicationContext context: Context): NetworkMonitor = NetworkMonitor(context)
+    fun provideNetworkMonitor(@ApplicationContext context: Context): NetworkMonitor = NetworkMonitor(context)
 
     @Provides
     @Singleton
-    internal fun provideErrorTransformer(networkMonitor: NetworkMonitor, errorMapper: ApiErrorResponseMapper, json: Json): ErrorTransformer {
+    fun provideErrorTransformer(networkMonitor: NetworkMonitor, errorMapper: ApiErrorResponseMapper, json: Json): ErrorTransformer {
         return MyErrorTransformer(networkMonitor, errorMapper, json)
     }
 }

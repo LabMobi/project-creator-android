@@ -3,7 +3,7 @@ package mobi.lab.sample.infrastructure.common.http
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-internal class RetrofitFactory(private val errorTransformer: ErrorTransformer) {
+class RetrofitFactory(private val errorTransformer: ErrorTransformer) {
 
     fun newInstance(
         baseUrl: String,
