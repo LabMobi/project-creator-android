@@ -1,11 +1,13 @@
 package mobi.lab.sample.infrastructure.common.json
 
+import androidx.annotation.Keep
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import timber.log.Timber
 import java.io.IOException
 import java.lang.reflect.Type
 
+@Keep
 class MoshiJson(private val moshi: Moshi) : Json {
 
     private fun <T> createAdapter(typeToken: Type): JsonAdapter<T> {
