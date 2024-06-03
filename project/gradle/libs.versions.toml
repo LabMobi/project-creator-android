@@ -49,7 +49,6 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 # Android + UI
 material = "com.google.android.material:material:1.11.0"
 material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
-material-dialogs = "com.afollestad.material-dialogs:core:3.3.0"
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
 androidx-core = "androidx.core:core:1.13.1"
