@@ -16,5 +16,23 @@ ext.libsHelper = [
         addDependencyInjectionDependencies: { handler ->
             handler.implementation libs.hilt
             handler.kapt libs.hilt.compiler
-        }
+        },
+
+        addInstrumentationTestDependencies: { handler ->
+            handler.androidTestImplementation libs.test.junit
+            handler.androidTestImplementation libs.test.junit.kotlin
+            handler.androidTestImplementation libs.test.mockito.core
+            handler.androidTestImplementation libs.test.mockito.kotlin
+
+            handler.androidTestImplementation libs.test.androidx.junit // Junit runner
+            handler.androidTestImplementation libs.test.androidx.archtesting
+            handler.androidTestImplementation libs.test.androidx.testrunner
+            handler.androidTestImplementation libs.test.androidx.core
+            handler.androidTestImplementation libs.test.androidx.espresso.core
+            handler.androidTestImplementation libs.test.androidx.espresso.intents
+
+            handler.androidTestImplementation libs.hilt.android.testing
+            handler.androidTestAnnotationProcessor libs.hilt.android.compiler
+            handler.kaptAndroidTest libs.hilt.android.compiler
+        },
 ]
