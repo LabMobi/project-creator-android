@@ -5,7 +5,7 @@ import mobi.lab.sample.infrastructure.common.platform.AppEnvironment
 import retrofit2.Retrofit
 import kotlin.reflect.KClass
 
-internal class RetrofitResourceFactory(
+class RetrofitResourceFactory(
     env: AppEnvironment,
     httpFactory: HttpClientFactory,
     retrofitFactory: RetrofitFactory,

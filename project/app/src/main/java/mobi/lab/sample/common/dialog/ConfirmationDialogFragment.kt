@@ -4,25 +4,41 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.afollestad.materialdialogs.MaterialDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mobi.lab.sample.common.eventbus.Bus
 
 class ConfirmationDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = requireContext()
-        val dialog = MaterialDialog(context)
-        arguments?.let {
-            it.getString(ARG_TITLE)?.let { value -> dialog.title(text = value) }
-            it.getString(ARG_MESSAGE)?.let { value -> dialog.message(text = value) }
-            it.getString(ARG_BUTTON_POS)?.let { value ->
-                dialog.positiveButton(text = value) { sendEvent(DialogEvent.Action.BUTTON_POSITIVE) }
-            }
-            it.getString(ARG_BUTTON_NEG)?.let { value ->
-                dialog.negativeButton(text = value) { sendEvent(DialogEvent.Action.BUTTON_NEGATIVE) }
+
+        var builder = MaterialAlertDialogBuilder(context)
+
+        val title = arguments?.getString(ARG_TITLE)
+        if (title != null) {
+            builder = builder.setTitle(title)
+        }
+
+        val message = arguments?.getString(ARG_MESSAGE)
+        if (message != null) {
+            builder = builder.setMessage(message)
+        }
+
+        val buttonPos = arguments?.getString(ARG_BUTTON_POS)
+        if (buttonPos != null) {
+            builder = builder.setPositiveButton(buttonPos) { _, _ ->
+                sendEvent(DialogEvent.Action.BUTTON_POSITIVE)
             }
         }
-        return dialog
+
+        val buttonNeg = arguments?.getString(ARG_BUTTON_NEG)
+        if (buttonNeg != null) {
+            builder = builder.setNegativeButton(buttonNeg) { _, _ ->
+                sendEvent(DialogEvent.Action.BUTTON_NEGATIVE)
+            }
+        }
+
+        return builder.create()
     }
 
     override fun onCancel(dialog: DialogInterface) {

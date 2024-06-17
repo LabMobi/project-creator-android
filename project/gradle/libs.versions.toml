@@ -4,9 +4,9 @@ android-sdk-min = "23"
 android-sdk-target = "34"
 android-sdk-compile = "android-34"
 
-android-gradle-plugin = "8.3.2"
+android-gradle-plugin = "8.4.1"
 
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 hilt = "2.51.1"
 retrofit = "2.11.0"
 glide = "4.16.0"
@@ -21,19 +21,19 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version = "1.9.23-1.0.20" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.21" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # NB! Make sure to update the kltint version set in the root build.gradle file. subprojects / ktlint / version
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.0" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.1" }
 gradleVersions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
 
-google-services = { id = "com.google.gms.google-services", version = "4.4.1"}
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "2.9.9" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.2"}
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.1" }
 
 [libraries]
 
@@ -42,26 +42,25 @@ kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin"
 jdk-desugar = "com.android.tools:desugar_jdk_libs:2.0.4"
 
 # Firebase
-firebase-bom = "com.google.firebase:firebase-bom:32.8.1"
+firebase-bom = "com.google.firebase:firebase-bom:33.1.0"
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
-material = "com.google.android.material:material:1.11.0"
+material = "com.google.android.material:material:1.12.0"
 material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
-material-dialogs = "com.afollestad.material-dialogs:core:3.3.0"
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
-androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-core = "androidx.core:core:1.13.0"
-androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.6.2"
+androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
+androidx-core = "androidx.core:core:1.13.1"
+androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.7.1"
 androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
 androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
-androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
-androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0"
+androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.8.1"
+androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1"
 androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
 
 # Lab design components
-lab-components = "mobi.lab.labcomponents:labcomponents:0.0.12"
+lab-components = "mobi.lab.labcomponents:labcomponents:0.0.14"
 lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
 # RxJava
@@ -99,7 +98,7 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.11.0"
+test-mockito-core = "org.mockito:mockito-core:5.12.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
 

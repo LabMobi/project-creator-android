@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-internal object HttpClientFactory {
+object HttpClientFactory {
 
     private const val TIMEOUT_MINUTES = 1L
 

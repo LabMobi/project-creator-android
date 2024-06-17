@@ -2,6 +2,14 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 03.06.2024
+
+### Changed
+
+- Removed deprecated material dialogs lib and migrated to use material dialogs from Google's material lib.
+- Updated the project to Kotlin 2.0
+
+
 ## 18.04.2024
 
 ### Changed

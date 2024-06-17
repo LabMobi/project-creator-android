@@ -4,7 +4,7 @@ import mobi.lab.sample.domain.entities.DomainException
 import mobi.lab.sample.domain.entities.ErrorCode
 import retrofit2.HttpException
 
-internal class ApiErrorResponseMapper {
+class ApiErrorResponseMapper {
 
     fun toEntity(error: HttpException, item: ApiErrorResponse): DomainException {
         val domainException = DomainException(ErrorCode.parse(item.code))

@@ -14,7 +14,7 @@ object MapperModule {
     // Uses HttpException not available outside the package
     @Provides
     @Singleton
-    internal fun provideErrorMapper(): ApiErrorResponseMapper = ApiErrorResponseMapper()
+    fun provideErrorMapper(): ApiErrorResponseMapper = ApiErrorResponseMapper()
 
     /**
      * Use constructor injection for other mappers to avoid unnecessary boilerplate

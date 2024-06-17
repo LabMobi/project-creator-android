@@ -1,9 +1,11 @@
 package mobi.lab.sample.infrastructure.common.json
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Moshi
 import java.time.Instant
 import java.time.OffsetDateTime
 
+@Keep
 object MoshiFactory {
 
     private val engine: Moshi by lazy {

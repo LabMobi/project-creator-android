@@ -189,7 +189,6 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.material
     implementation libs.material.progressbar
-    implementation libs.material.dialogs
 
     // Lab
     implementation libs.lab.components

@@ -4,7 +4,7 @@ import mobi.lab.sample.infrastructure.common.platform.AppEnvironment
 import retrofit2.Retrofit
 import kotlin.reflect.KClass
 
-internal class RetrofitUnauthorizedResourceFactory(
+class RetrofitUnauthorizedResourceFactory(
     env: AppEnvironment,
     httpFactory: HttpClientFactory,
     retrofitFactory: RetrofitFactory,

@@ -8,7 +8,7 @@ import mobi.lab.sample.infrastructure.auth.remote.ApiSessionMapper
 import mobi.lab.sample.infrastructure.auth.remote.AuthResource
 import javax.inject.Inject
 
-internal class AuthProvider @Inject constructor(
+class AuthProvider @Inject constructor(
     private val res: AuthResource,
     private val sessionMapper: ApiSessionMapper
 ) : AuthGateway {

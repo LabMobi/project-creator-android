@@ -9,7 +9,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.net.UnknownHostException
 
-internal class MyErrorTransformer(
+class MyErrorTransformer(
     private val networkMonitor: NetworkMonitor,
     private val errorMapper: ApiErrorResponseMapper,
     private val json: Json

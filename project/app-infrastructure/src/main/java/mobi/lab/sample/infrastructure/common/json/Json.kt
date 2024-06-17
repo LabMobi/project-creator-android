@@ -1,7 +1,9 @@
 package mobi.lab.sample.infrastructure.common.json
 
+import androidx.annotation.Keep
 import java.lang.reflect.Type
 
+@Keep
 interface Json {
     fun <T : Any> toJson(item: T?, typeToken: Type): String
     fun <T : Any> fromJson(rawJson: String, typeToken: Type): T?

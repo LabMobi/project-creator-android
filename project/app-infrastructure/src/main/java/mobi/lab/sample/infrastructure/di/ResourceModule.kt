@@ -24,7 +24,7 @@ object ResourceModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofitConverterFactoryProvider(): RetrofitConverterFactoryProvider {
+    fun provideRetrofitConverterFactoryProvider(): RetrofitConverterFactoryProvider {
         return object : RetrofitConverterFactoryProvider {
             override fun get(): Converter.Factory {
                 return MoshiConverterFactory.create(MoshiFactory.get())
@@ -34,14 +34,14 @@ object ResourceModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofitFactory(errorTransformer: ErrorTransformer): RetrofitFactory = RetrofitFactory(errorTransformer)
+    fun provideRetrofitFactory(errorTransformer: ErrorTransformer): RetrofitFactory = RetrofitFactory(errorTransformer)
 
     /**
      * A Retrofit API resource factory with a built in request authentication interceptor
      */
     @Provides
     @Singleton
-    internal fun provideResourceFactory(
+    fun provideResourceFactory(
         env: AppEnvironment,
         sessionStorage: SessionStorage,
         retrofitFactory: RetrofitFactory,
@@ -61,7 +61,7 @@ object ResourceModule {
      */
     @Provides
     @Singleton
-    internal fun provideUnauthorizedResourceFactory(
+    fun provideUnauthorizedResourceFactory(
         env: AppEnvironment,
         retrofitFactory: RetrofitFactory,
         converterFactoryProvider: RetrofitConverterFactoryProvider,
@@ -69,5 +69,5 @@ object ResourceModule {
 
     @Provides
     @Singleton
-    internal fun provideAuthResource(resFactory: RetrofitResourceFactory): AuthResource = resFactory.create(AuthResource::class)
+    fun provideAuthResource(resFactory: RetrofitResourceFactory): AuthResource = resFactory.create(AuthResource::class)
 }
