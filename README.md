@@ -1,7 +1,7 @@
 ![Mobi Lab](docs/assets/mobilab-header-logo.png)
 # Mobi Lab Android Template
 
-This is a script to simplify Android project creation.
+This is a script to simplify Android project creation. It can be used for projects that need to match Mobi Lab's general native Android development standards.
 
 ## Idea
 
@@ -38,7 +38,7 @@ The current structure is effectively the same as having separate packages within
 
 What's a wrong class? There is not right or wrong to be honest, but a goal to keep in mind is potential modularisation in the future. Creating dependencies on certain classes (infrastructure classes in the app module for example) can make it difficult to split existing modules.
 
- 
+
 An effective approach to modularisation is splitting by feature. This means that all the infra, domain and potentially UI code lives in a single (or multiple if needed) feature-specific modules.
 Why? because separating by feature makes building the project more effective.   
 For example, adding a new screen, logic and a network request for feature A would have the following changes:
@@ -156,7 +156,7 @@ Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum J
    ```bash
    bundle exec cap android:create_library
    ```
-  
+
 The script will ask you for a project relative path (like *../my-new-project-dir*). Next up the script will ask some more parameters, answer those to the best of your ability. After that, your new project will be created. To get it to run see Configuring Firebase section below.
 
 The necessary arguments can be passed as command line arguments as well:
