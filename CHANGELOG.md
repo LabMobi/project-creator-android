@@ -2,6 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 19.02.2025
+
+### Changed
+
+- Updated min SDK to 28
+- Updated project dependencies
+
 ## 03.06.2024
 
 ### Changed
