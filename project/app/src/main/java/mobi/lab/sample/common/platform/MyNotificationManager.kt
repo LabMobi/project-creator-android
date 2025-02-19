@@ -14,10 +14,6 @@ class MyNotificationManager private constructor(private val context: Context) {
         as android.app.NotificationManager
 
     fun createChannels() {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
-            // Ignore, this is not available on older versions
-            return
-        }
         createUploadChannel()
     }
 

@@ -29,10 +29,6 @@
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 ## SearchView
 
-## ViewInflater
--keep class mobi.lab.sample.common.ui.CustomMaterialComponentViewInflater { *; }
-## ViewInflater
-
 ## Greenrobot EventBus
 -keepattributes *Annotation*
 -keepclassmembers class * {

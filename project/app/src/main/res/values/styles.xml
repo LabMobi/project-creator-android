@@ -42,13 +42,13 @@
     <style name="Text.Heading1">
         <item name="android:textSize">@dimen/text_32</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:lineHeight" tools:targetApi="p">@dimen/text_48</item>
+        <item name="android:lineHeight">@dimen/text_48</item>
         <item name="lineHeight">@dimen/text_48</item>
     </style>
 
     <style name="Text.Body16">
         <item name="android:textSize">@dimen/text_16</item>
-        <item name="android:lineHeight" tools:targetApi="p">@dimen/text_24</item>
+        <item name="android:lineHeight">@dimen/text_24</item>
         <item name="lineHeight">@dimen/text_24</item>
     </style>
 
