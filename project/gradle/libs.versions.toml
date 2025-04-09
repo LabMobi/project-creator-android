@@ -14,6 +14,9 @@ glide = "4.16.0"
 moshi = "1.15.2"
 kotshi = "3.0.0"
 
+jvmTarget = "17"
+javaCompatibility = "VERSION_17"
+
 [plugins]
 
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }

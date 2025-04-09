@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.infrastructure.common.platform
 
 import android.annotation.SuppressLint
