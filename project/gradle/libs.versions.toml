@@ -4,7 +4,7 @@ android-sdk-min = "28"
 android-sdk-target = "35"
 android-sdk-compile = "35"
 
-android-gradle-plugin = "8.8.1"
+android-gradle-plugin = "8.9.1"
 
 kotlin = "2.1.10"
 hilt = "2.55"
