@@ -6,28 +6,29 @@ plugins {
 android {
     namespace = "mobi.lab.sample"
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
+        targetCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 
     defaultConfig {
-        compileSdkVersion(libs.versions.android.sdk.compile.get())
+        compileSdk = libs.versions.android.sdk.compile.get().toInteger()
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         version = rootProject.ext.libraryVersion
     }
 
-    libraryVariants.all { variant ->
+    libraryVariants.configureEach { variant ->
         variant.outputs.all { output ->
+
             if (variant.buildType.getName().contains("release")) {
                 // Don"t add the variant name to release artefacts
-                outputFileName = "${archivesBaseName}-${rootProject.ext.libraryVersion}.aar"
+                outputFileName = "${base.archivesName.get()}-${rootProject.ext.libraryVersion}.aar"
             } else {
-                outputFileName = "${archivesBaseName}-${variant.name}-${rootProject.ext.libraryVersion}.aar"
+                outputFileName = "${base.archivesName.get()}-${variant.name}-${rootProject.ext.libraryVersion}.aar"
             }
         }
     }
@@ -55,11 +56,10 @@ dependencies {
     testImplementation libs.test.junit.kotlin
 }
 
-task buildAll(dependsOn: [
-        "clean",
-        ":sample:build",
-        "build"
-])
-buildAll.group = "Build"
-buildAll.description = "Build the library and the sample application"
+tasks.register('buildAll') {
+    group = "Build"
+    description = "Build the library and the sample application"
+    dependsOn ":sample:build", "build"
+}
+
 build.mustRunAfter(clean)

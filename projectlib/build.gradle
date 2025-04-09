@@ -30,7 +30,7 @@ subprojects {
     }
 
     tasks.named("detekt").configure {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
         reports {
             html.required.set(true)
             xml.required.set(false)
@@ -43,13 +43,17 @@ subprojects {
         check.dependsOn "detekt"
     }
 
-    task checkCode(dependsOn: ["detekt", "ktlintCheck"])
-    checkCode.group = "Verification"
-    checkCode.description = "Run detekt and ktlint"
+    tasks.register('checkCode') {
+        group = "Verification"
+        description = "Run detekt and ktlint."
+        dependsOn "detekt", "ktlintCheck"
+    }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    group = "Build"
+    description = "Delete the build directory. Useful if you need to make a clean build."
+    delete rootProject.layout.buildDirectory
 }
 
 // Don't show non stable updates for current stable versions

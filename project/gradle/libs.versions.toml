@@ -6,7 +6,7 @@ android-sdk-compile = "35"
 
 android-gradle-plugin = "8.9.1"
 
-kotlin = "2.1.20" #
+kotlin = "2.1.20"
 kotlin-ksp = "2.1.20-2.0.0" # This one needs a compatible ksp version code https://github.com/google/ksp/releases
 hilt = "2.56.1"
 retrofit = "2.11.0"
