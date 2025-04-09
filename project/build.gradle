@@ -49,14 +49,16 @@ subprojects {
         check.dependsOn "detekt"
     }
 
-    //noinspection ConfigurationAvoidance
-    task checkCode(dependsOn: ["detekt", "ktlintCheck"])
-    checkCode.group = "Verification"
-    checkCode.description = "Run detekt and ktlint"
+    tasks.register('checkCode') {
+        group = "Verification"
+        description = "Run detekt and ktlint."
+        dependsOn "detekt", "ktlintCheck"
+    }
 }
 
-//noinspection ConfigurationAvoidance
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
+    group = "Build"
+    description = "Delete the build directory. Useful if you need to make a clean build."
     delete rootProject.layout.buildDirectory
 }
 

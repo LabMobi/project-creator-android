@@ -200,20 +200,17 @@ dependencies {
 
 def GROUP_CI_BUILD_TASKS = "Build"
 
-//noinspection ConfigurationAvoidance
-task buildAllDebug(dependsOn: [
-        ":app-common:build",
-        ":app-domain:build",
-        ":app-infrastructure:build",
-        "build"
-])
-buildAllDebug.group = GROUP_CI_BUILD_TASKS
-buildAllDebug.description = "Build the debug version"
+tasks.register('buildAllDebug') {
+    group = GROUP_CI_BUILD_TASKS
+    description = "Build the debug version"
+    dependsOn ":app-common:build", ":app-domain:build", ":app-infrastructure:build", "build"
+}
 
-//noinspection ConfigurationAvoidance
-task buildAllRelease(dependsOn: ["buildAllDebug", "bundleRelease"])
-buildAllRelease.group = GROUP_CI_BUILD_TASKS
-buildAllRelease.description = "Build the release version"
+tasks.register('buildAllRelease') {
+    group = GROUP_CI_BUILD_TASKS
+    description = "Build the release version (APKs and AABs)"
+    dependsOn "buildAllDebug", "bundleRelease"
+}
 
 def initVersioning() {
     // versionMajor is not limited
