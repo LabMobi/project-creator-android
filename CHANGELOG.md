@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## 09.04.2025
+
+- Updated project and projectlib build scripts
+- Updated project and projectlib dependencies
+- Removed some minor lint warnings
+
 ## 19.02.2025
 
 ### Changed
