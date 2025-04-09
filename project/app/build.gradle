@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -49,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        compileSdkVersion(libs.versions.android.sdk.compile.get())
+        compileSdk = libs.versions.android.sdk.compile.get().toInteger()
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         applicationId = "mobi.lab.sample"
@@ -148,7 +150,7 @@ kapt {
 }
 
 // Set kapt jvm version. https://youtrack.jetbrains.com/issue/KT-55947/Unable-to-set-kapt-jvm-target-version
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -198,6 +200,7 @@ dependencies {
 
 def GROUP_CI_BUILD_TASKS = "Build"
 
+//noinspection ConfigurationAvoidance
 task buildAllDebug(dependsOn: [
         ":app-common:build",
         ":app-domain:build",
@@ -207,6 +210,7 @@ task buildAllDebug(dependsOn: [
 buildAllDebug.group = GROUP_CI_BUILD_TASKS
 buildAllDebug.description = "Build the debug version"
 
+//noinspection ConfigurationAvoidance
 task buildAllRelease(dependsOn: ["buildAllDebug", "bundleRelease"])
 buildAllRelease.group = GROUP_CI_BUILD_TASKS
 buildAllRelease.description = "Build the release version"
