@@ -28,3 +28,6 @@ captures/
 
 # Allow sharing inspection profiles
 !.idea/inspectionProfiles/
+
+# kotlin temp files
+.kotlin
