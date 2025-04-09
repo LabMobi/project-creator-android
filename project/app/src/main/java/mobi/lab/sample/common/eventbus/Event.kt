@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package mobi.lab.sample.common.eventbus
 
 open class Event {

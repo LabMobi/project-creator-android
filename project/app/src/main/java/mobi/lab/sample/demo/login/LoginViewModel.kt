@@ -75,7 +75,7 @@ class LoginViewModel @Inject constructor(
     }
 
     sealed class Action {
-        object OpenApplication : Action()
+        data object OpenApplication : Action()
     }
 
     companion object {

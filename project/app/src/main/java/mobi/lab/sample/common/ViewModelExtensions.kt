@@ -44,7 +44,7 @@ inline fun <reified VM : ViewModel, VMF : Any> ComponentActivity.assistedViewMod
  *
  * The extra assistedViewModelFactoryClass argument is needed so we can invoke the assistedViewModelFactory with a properly typed argument.
  */
-@Suppress("UNUSED_PARAMETER")
+@Suppress("UNUSED_PARAMETER", "unused")
 inline fun <reified VM : ViewModel, VMF : Any> Fragment.assistedViewModels(
     assistedViewModelFactoryClass: KClass<VMF>,
     crossinline assistedViewModelFactory: (VMF) -> VM

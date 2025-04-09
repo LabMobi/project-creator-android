@@ -18,7 +18,7 @@ definitions:
   scripts:
     # Local setup
     - &stepLocalSetup
-      name: Set up local properties and permissons
+      name: Set up local properties and permissions
       script: |
         chmod +x gradlew
         echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/local.properties"
@@ -64,8 +64,8 @@ definitions:
 
 # Flows
 workflows:
-  play-store-release-builds:
-    name: Play Store Release builds
+  store-release-builds:
+    name: Store Release builds (APKs and AABs)
     instance_type: linux_x2
     environment:
       java: 17
@@ -83,7 +83,7 @@ workflows:
         recipients: *releaseEmails
     artifacts: *androidArtifacts
   develop-builds:
-    name: Dev builds
+    name: Develop builds
     instance_type: linux_x2
     environment:
       java: 17

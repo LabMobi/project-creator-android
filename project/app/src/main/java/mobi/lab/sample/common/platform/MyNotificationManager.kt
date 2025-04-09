@@ -31,7 +31,7 @@ class MyNotificationManager private constructor(private val context: Context) {
         notificationManager.createNotificationChannel(channel)
     }
 
-    @Suppress("UnusedPrivateMember") // A convenience function to create notifications. Not used in the template
+    @Suppress("UnusedPrivateMember", "unused") // A convenience function to create notifications. Not used in the template
     private fun createNotification(message: String, priority: Int = NotificationCompat.PRIORITY_DEFAULT): Notification {
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(context.getString(R.string.app_name))

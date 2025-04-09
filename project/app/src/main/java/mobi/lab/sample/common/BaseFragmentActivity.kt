@@ -27,6 +27,7 @@ abstract class BaseFragmentActivity : BaseActivity {
         }
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     protected fun showFragment(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment, tag)
