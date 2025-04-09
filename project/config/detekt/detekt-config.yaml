@@ -24,8 +24,6 @@ style:
     multiLine: 'always'
   MandatoryBracesLoops:
     active: true # Too hard to read without braces
-  OptionalWhenBraces: # Disable the rule, because it still affects the outcome even though it is deprecated
-    active: false
   BracesOnWhenStatements: # Let the writes choose but force consistency
     active: true
     singleLine: 'consistent'
