@@ -6,8 +6,9 @@ android-sdk-compile = "35"
 
 android-gradle-plugin = "8.9.1"
 
-kotlin = "2.1.10"
-hilt = "2.55"
+kotlin = "2.1.20" #
+kotlin-ksp = "2.1.20-2.0.0" # This one needs a compatible ksp version code https://github.com/google/ksp/releases
+hilt = "2.56.1"
 retrofit = "2.11.0"
 glide = "4.16.0"
 moshi = "1.15.2"
@@ -21,16 +22,16 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.1.10-1.0.30" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # NB! Make sure to update the kltint version set in the root build.gradle file. subprojects / ktlint / version
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.2" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.2.0" }
 gradleVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.7" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 
 google-services = { id = "com.google.gms.google-services", version = "4.4.2"}
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.3" }
@@ -39,17 +40,17 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.
 
 # Language
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-jdk-desugar = "com.android.tools:desugar_jdk_libs:2.1.4"
+jdk-desugar = "com.android.tools:desugar_jdk_libs:2.1.5"
 
 # Firebase
-firebase-bom = "com.google.firebase:firebase-bom:33.9.0"
+firebase-bom = "com.google.firebase:firebase-bom:33.12.0"
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
 material = "com.google.android.material:material:1.12.0"
 material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.0"
+constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
 androidx-core = "androidx.core:core:1.15.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.6"
@@ -96,6 +97,6 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.15.2"
+test-mockito-core = "org.mockito:mockito-core:5.17.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"
