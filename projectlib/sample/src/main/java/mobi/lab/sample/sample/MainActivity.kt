@@ -17,16 +17,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.content)) { view, insets ->
             val bars = insets.getInsets(
                 WindowInsetsCompat.Type.systemBars()
                     or WindowInsetsCompat.Type.displayCutout()
             )
-            v.updatePadding(
-                left = bars.left,
-                top = bars.top,
-                right = bars.right,
-                bottom = bars.bottom,
+            view.updatePadding(
+                view.paddingLeft.coerceAtLeast(bars.left),
+                view.paddingTop.coerceAtLeast(bars.top),
+                view.paddingRight.coerceAtLeast(bars.right),
+                view.paddingBottom.coerceAtLeast(bars.bottom)
             )
             WindowInsetsCompat.CONSUMED
         }

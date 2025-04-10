@@ -4,8 +4,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## 09.04.2025
 
-- Updated project and projectlib build scripts
-- Updated project and projectlib dependencies
+- Updated project and projectlib template build scripts
+- Updated project and projectlib template dependencies
+- Updated project and projectlib templates to target API 36
 - Removed some minor lint warnings
 
 ## 19.02.2025
