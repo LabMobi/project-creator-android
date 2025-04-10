@@ -15,6 +15,7 @@ import mobi.lab.sample.common.ViewBindingHolder
 import mobi.lab.sample.common.dialog.ConfirmationDialogFragment
 import mobi.lab.sample.common.dialog.ProgressDialogFragment
 import mobi.lab.sample.common.util.DialogUtil
+import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import mobi.lab.sample.common.util.formatErrorCode
 import mobi.lab.sample.databinding.DemoFragmentLoginBinding
 import mobi.lab.sample.demo.main.MainActivity

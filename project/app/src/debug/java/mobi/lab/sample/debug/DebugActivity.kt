@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import mobi.lab.sample.common.BaseActivity
 import mobi.lab.sample.common.platform.LogoutMonitor
+import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import mobi.lab.sample.databinding.ActivityDebugBinding
 import mobi.lab.scrolls.LogImplFile
 import mobi.lab.scrolls.LogViewBuilder
@@ -20,6 +21,8 @@ class DebugActivity : BaseActivity() {
     }
 
     private fun ActivityDebugBinding.initUi() {
+        EdgeToEdgeUtil.setAllInsetsForBarsAndCutout(targetView = this.root)
+        EdgeToEdgeUtil.setLightStatusBarIcons(window = window)
         buttonLogout.setOnClickListener { LogoutMonitor.logout() }
         buttonCrash.setOnClickListener { throw RuntimeException() }
         buttonScrolls.setOnClickListener {

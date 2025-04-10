@@ -14,6 +14,7 @@ import mobi.lab.sample.common.FragmentBindingHolder
 import mobi.lab.sample.common.ViewBindingHolder
 import mobi.lab.sample.common.debug.DebugActions
 import mobi.lab.sample.common.platform.LogoutMonitor
+import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import mobi.lab.sample.common.util.NavUtil
 import mobi.lab.sample.databinding.DemoFragmentMainBinding
 import mobi.lab.sample.demo.prototype.PrototypeActivity
@@ -99,6 +100,12 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
     private fun openDebug(context: Context) {
         // Open DebugActivity
         debugActions.launchDebugActivity(context)
+    }
+
+    override fun setEdgeToEdgeInsets() {
+        // Let the image go under the navigation bars
+        EdgeToEdgeUtil.setLeftTopRightInsetsForBarsAndCutout(requireView())
+        EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
     companion object {
