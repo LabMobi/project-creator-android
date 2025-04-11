@@ -22,7 +22,7 @@ class DebugActivity : BaseActivity() {
     }
 
     private fun ActivityDebugBinding.initUi() {
-        EdgeToEdgeUtil.setInsetsForBarsAndCutout(targetView = this.root, EdgeToEdgeSpec.AVOID_ALL_SET_ALL)
+        EdgeToEdgeUtil.setInsetsForBarsAndCutout(targetView = this.root, EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = window)
         buttonLogout.setOnClickListener { LogoutMonitor.logout() }
         buttonCrash.setOnClickListener { throw RuntimeException() }

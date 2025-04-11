@@ -81,7 +81,7 @@ data class EdgeToEdgeSpec(
     val setBottom: Boolean,
 ) {
     companion object {
-        val AVOID_ALL_SET_ALL = EdgeToEdgeSpec(
+        val AVOID_BAR_AND_CUTOUT_SET_ALL = EdgeToEdgeSpec(
             avoidBars = true,
             avoidCutout = true,
             setLeft = true,
@@ -89,7 +89,7 @@ data class EdgeToEdgeSpec(
             setRight = true,
             setBottom = true,
         )
-        val AVOID_ALL_SET_LEFT_TOP_RIGHT = EdgeToEdgeSpec(
+        val AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT = EdgeToEdgeSpec(
             avoidBars = true,
             avoidCutout = true,
             setLeft = true,
