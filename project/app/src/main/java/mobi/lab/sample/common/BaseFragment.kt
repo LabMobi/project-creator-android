@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import mobi.lab.mvvm.MvvmLiveDataExtensions
+import mobi.lab.sample.common.util.EdgeToEdgeSpec
 import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import timber.log.Timber
 
@@ -43,7 +44,7 @@ open class BaseFragment : Fragment, MvvmLiveDataExtensions {
      */
     @Suppress("MemberVisibilityCanBePrivate")
     protected open fun setEdgeToEdgeInsets() {
-        EdgeToEdgeUtil.setAllInsetsForBarsAndCutout(targetView = requireView())
+        EdgeToEdgeUtil.setInsetsForBarsAndCutout(targetView = requireView(), EdgeToEdgeSpec.AVOID_ALL_SET_ALL)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
