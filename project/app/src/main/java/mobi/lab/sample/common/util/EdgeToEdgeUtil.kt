@@ -2,6 +2,7 @@ package mobi.lab.sample.common.util
 
 import android.view.View
 import android.view.Window
+import androidx.annotation.VisibleForTesting
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -9,10 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 
 object EdgeToEdgeUtil {
 
-    fun setInsetsForBarsAndCutout(targetView: View, spec: EdgeToEdgeSpec) {
+    fun applyPaddings(targetView: View, spec: EdgeToEdgeSpec) {
         ViewCompat.setOnApplyWindowInsetsListener(targetView) { view, insets ->
 
-            val typeMask = generateMaskFromSpec(spec)
+            val typeMask = generateWindowInsetMaskFromSpec(spec)
             val systemPaddings = insets.getInsets(
                 typeMask,
             )
@@ -23,6 +24,11 @@ object EdgeToEdgeUtil {
         }
     }
 
+    fun setLightStatusBarIcons(window: Window) {
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
+    }
+
+    @VisibleForTesting
     internal fun applySystemPaddingsBySpec(
         currentViewPaddings: ViewPaddings,
         systemPaddings: Insets,
@@ -54,7 +60,8 @@ object EdgeToEdgeUtil {
         applyParams(paddings)
     }
 
-    internal fun generateMaskFromSpec(spec: EdgeToEdgeSpec): Int {
+    @VisibleForTesting
+    internal fun generateWindowInsetMaskFromSpec(spec: EdgeToEdgeSpec): Int {
         require(spec.avoidBars or spec.avoidCutout) { "At least one avoid type must be true in spec $spec" }
 
         val typeMask = if (spec.avoidBars && spec.avoidCutout) {
@@ -65,10 +72,6 @@ object EdgeToEdgeUtil {
             WindowInsetsCompat.Type.displayCutout()
         }
         return typeMask
-    }
-
-    fun setLightStatusBarIcons(window: Window) {
-        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
     }
 }
 

@@ -16,7 +16,7 @@ import mobi.lab.sample.common.debug.DebugActions
 import mobi.lab.sample.common.platform.LogoutMonitor
 import mobi.lab.sample.common.util.EdgeToEdgeSpec
 import mobi.lab.sample.common.util.EdgeToEdgeUtil
-import mobi.lab.sample.common.util.EdgeToEdgeUtil.setInsetsForBarsAndCutout
+import mobi.lab.sample.common.util.EdgeToEdgeUtil.applyPaddings
 import mobi.lab.sample.common.util.NavUtil
 import mobi.lab.sample.databinding.DemoFragmentMainBinding
 import mobi.lab.sample.demo.prototype.PrototypeActivity
@@ -106,7 +106,7 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
 
     override fun setEdgeToEdgeInsets() {
         // Let the image go under the navigation bars
-        setInsetsForBarsAndCutout(targetView = requireView(), spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT)
+        applyPaddings(targetView = requireView(), spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 

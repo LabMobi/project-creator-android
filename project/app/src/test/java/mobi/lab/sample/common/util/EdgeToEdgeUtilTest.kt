@@ -8,16 +8,16 @@ import kotlin.test.assertEquals
 class EdgeToEdgeUtilTest {
 
     @Test
-    fun generateMaskFromSpec_AVOID_BARS_AND_CUTOUT() {
-        val mask = EdgeToEdgeUtil.generateMaskFromSpec(
+    fun generateWindowInsetMaskFromSpec_AVOID_BARS_AND_CUTOUT() {
+        val mask = EdgeToEdgeUtil.generateWindowInsetMaskFromSpec(
             spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL
         )
         assertEquals(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(), mask)
     }
 
     @Test
-    fun generateMaskFromSpec_AVOID_BARS() {
-        val mask = EdgeToEdgeUtil.generateMaskFromSpec(
+    fun generateWindowInsetMaskFromSpec_AVOID_BARS() {
+        val mask = EdgeToEdgeUtil.generateWindowInsetMaskFromSpec(
             spec = EdgeToEdgeSpec(
                 avoidBars = true,
                 avoidCutout = false,
@@ -31,8 +31,8 @@ class EdgeToEdgeUtilTest {
     }
 
     @Test
-    fun generateMaskFromSpec_AVOID_CUTOUT() {
-        val mask = EdgeToEdgeUtil.generateMaskFromSpec(
+    fun generateWindowInsetMaskFromSpec_AVOID_CUTOUT() {
+        val mask = EdgeToEdgeUtil.generateWindowInsetMaskFromSpec(
             spec = EdgeToEdgeSpec(
                 avoidBars = false,
                 avoidCutout = true,
@@ -46,8 +46,8 @@ class EdgeToEdgeUtilTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun generateMaskFromSpec_AVOID_NOTHING() {
-        EdgeToEdgeUtil.generateMaskFromSpec(
+    fun generateWindowInsetMaskFromSpec_AVOID_NOTHING() {
+        EdgeToEdgeUtil.generateWindowInsetMaskFromSpec(
             spec = EdgeToEdgeSpec(
                 avoidBars = false,
                 avoidCutout = false,

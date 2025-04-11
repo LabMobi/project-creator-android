@@ -44,7 +44,7 @@ open class BaseFragment : Fragment, MvvmLiveDataExtensions {
      */
     @Suppress("MemberVisibilityCanBePrivate")
     protected open fun setEdgeToEdgeInsets() {
-        EdgeToEdgeUtil.setInsetsForBarsAndCutout(targetView = requireView(), EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL)
+        EdgeToEdgeUtil.applyPaddings(targetView = requireView(), EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
