@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 
 object EdgeToEdgeUtil {
 
-    fun applyPaddings(targetView: View, spec: EdgeToEdgeSpec, consume: Boolean = false) {
+    fun applyPaddings(targetView: View, spec: EdgeToEdgeSpec, consume: Boolean) {
         ViewCompat.setOnApplyWindowInsetsListener(targetView) { view, insets ->
 
             val typeMask = generateWindowInsetMaskFromSpec(spec)

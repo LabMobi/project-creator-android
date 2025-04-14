@@ -22,7 +22,7 @@ class DebugActivity : BaseActivity() {
     }
 
     private fun ActivityDebugBinding.initUi() {
-        EdgeToEdgeUtil.applyPaddings(targetView = this.root, EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL)
+        EdgeToEdgeUtil.applyPaddings(targetView = this.root, EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL, true)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = window)
         buttonLogout.setOnClickListener { LogoutMonitor.logout() }
         buttonCrash.setOnClickListener { throw RuntimeException() }

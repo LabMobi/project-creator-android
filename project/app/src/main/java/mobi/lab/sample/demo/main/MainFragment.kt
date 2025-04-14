@@ -106,7 +106,7 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
 
     override fun setEdgeToEdgeInsets() {
         // Let the image go under the navigation bars
-        applyPaddings(targetView = requireView(), spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT)
+        applyPaddings(targetView = requireView(), spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT, true)
         EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
