@@ -1,16 +1,18 @@
 package mobi.lab.sample.common.util
 
+import android.os.Build
 import android.view.View
 import android.view.Window
 import androidx.annotation.VisibleForTesting
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 
 object EdgeToEdgeUtil {
 
-    fun applyPaddings(targetView: View, spec: EdgeToEdgeSpec) {
+    fun applyPaddings(targetView: View, spec: EdgeToEdgeSpec, consume: Boolean = false) {
         ViewCompat.setOnApplyWindowInsetsListener(targetView) { view, insets ->
 
             val typeMask = generateWindowInsetMaskFromSpec(spec)
@@ -20,7 +22,17 @@ object EdgeToEdgeUtil {
             applySystemPaddingsBySpec(ViewPaddings.fromView(view), systemPaddings, spec) { paddings ->
                 view.setPadding(paddings.left, paddings.top, paddings.right, paddings.bottom)
             }
-            WindowInsetsCompat.CONSUMED
+            if (consume) {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                    // https://developer.android.com/develop/ui/views/layout/edge-to-edge#backward-compatible-dispatching
+                    ViewGroupCompat.installCompatInsetsDispatch(targetView)
+                }
+                // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+                WindowInsetsCompat.CONSUMED
+            } else {
+                // Pass down
+                insets
+            }
         }
     }
 
