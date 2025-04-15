@@ -30,8 +30,12 @@ ext {
     initVersioning()
 }
 
+// Note: flavor and variant info is added later and after that you will get stuff like
+// name-0.0.1-flavor-debug.apk, name-0.0.1-flavor-release.aab, ..
+project.base.archivesName.set("${rootProject.name}-${versionName}")
+
 android {
-    namespace "mobi.lab.sample"
+    namespace = "mobi.lab.sample"
 
     buildFeatures {
         viewBinding = true
@@ -58,11 +62,6 @@ android {
 
         versionCode = project.ext.versionCode
         versionName = project.ext.versionName
-
-
-        // Note: flavor and variant info is added later and after that you will get stuff like
-        // name-0.0.1-flavor-debug.apk, name-0.0.1-flavor-release.aab, ..
-        setProperty("archivesBaseName", "${rootProject.name}-${versionName}")
 
         println "CONF: versionName is set to: " + versionName
         println "CONF: versionCode is set to: " + versionCode

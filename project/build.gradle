@@ -54,6 +54,21 @@ subprojects {
         description = "Run detekt and ktlint."
         dependsOn "detekt", "ktlintCheck"
     }
+
+    // Mockito
+    // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+    // https://github.com/gradle/gradle/issues/2298
+    // Also see dependencies.gradle for additional configuration
+    configurations {
+        mockitoAgent
+    }
+    tasks {
+        tasks.withType(Test).tap {
+            configureEach {
+                jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+            }
+        }
+    }
 }
 
 tasks.register('clean', Delete) {

@@ -9,6 +9,13 @@ ext.libsHelper = [
             handler.testImplementation libs.test.junit
             handler.testImplementation libs.test.junit.kotlin
             handler.testImplementation libs.test.mockito.core
+            // Mockito
+            // https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+            // https://github.com/gradle/gradle/issues/2298
+            // Also see root build.gradle for additional configuration
+            handler.mockitoAgent(libs.test.mockito.core) {
+                transitive = false
+            }
             handler.testImplementation libs.test.mockito.kotlin
             handler.testImplementation libs.test.androidx.archtesting
         },
