@@ -6,16 +6,16 @@ plugins {
 android {
     namespace = "mobi.lab.sample.sample"
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
+        targetCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 
     defaultConfig {
-        compileSdkVersion(libs.versions.android.sdk.compile.get())
+        compileSdk = libs.versions.android.sdk.compile.get().toInteger()
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
         applicationId = "mobi.lab.sample.sample"
@@ -37,5 +37,7 @@ android {
 dependencies {
     implementation libs.kotlin
     implementation libs.androidx.appcompat
+    implementation libs.androidx.activity
+    implementation libs.material
     implementation project(":ProjectCodeName")
 }

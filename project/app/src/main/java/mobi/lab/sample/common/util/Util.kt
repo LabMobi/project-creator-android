@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.common.util
 
 import android.Manifest

@@ -1,6 +1,7 @@
 package mobi.lab.sample.common
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import mobi.lab.sample.R
@@ -14,6 +15,8 @@ abstract class BaseFragmentActivity : BaseActivity {
     protected abstract fun createFragment(): Fragment?
 
     public override fun onCreate(savedInstanceState: Bundle?) {
+        // Enable edge-to-edge in a backward-compatible way
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.demo_activity_base_fragment)
         if (savedInstanceState == null) {
@@ -27,6 +30,7 @@ abstract class BaseFragmentActivity : BaseActivity {
         }
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     protected fun showFragment(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment, tag)

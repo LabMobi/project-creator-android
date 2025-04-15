@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.app.common
 
 fun isStringEmpty(string: CharSequence?): Boolean {
@@ -9,10 +11,10 @@ fun stringEquals(a: CharSequence?, b: CharSequence?): Boolean {
     if (a === b) return true
     val length = a?.length ?: 0
     if (a != null && b != null && length == b.length) {
-        if (a is String && b is String) {
-            return a == b
+        return if (a is String && b is String) {
+            a == b
         } else {
-            return charSequenceEqualsCharByChar(length, a, b)
+            charSequenceEqualsCharByChar(length, a, b)
         }
     }
     return false

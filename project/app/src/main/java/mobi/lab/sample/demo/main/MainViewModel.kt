@@ -30,7 +30,7 @@ class MainViewModel @Inject constructor(
 
     fun onOpenPrototypeClicked() {
         // TODO add proper url here
-        _action.value = SingleEvent(Action.OpenWebLink("https://www.google.com"))
+        _action.value = SingleEvent(Action.OpenWebLink("https://lab.mobi"))
     }
 
     fun onDebugClicked() {

@@ -6,6 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import mobi.lab.mvvm.MvvmLiveDataExtensions
+import mobi.lab.sample.common.util.EdgeToEdgeSpec
+import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import timber.log.Timber
 
 open class BaseFragment : Fragment, MvvmLiveDataExtensions {
@@ -33,7 +35,17 @@ open class BaseFragment : Fragment, MvvmLiveDataExtensions {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setEdgeToEdgeInsets()
         log("onViewCreated this=$this")
+    }
+
+    /**
+     * Override this if you want to set smarter insets for your fragment.
+     */
+    @Suppress("MemberVisibilityCanBePrivate")
+    protected open fun setEdgeToEdgeInsets() {
+        EdgeToEdgeUtil.applyPaddings(targetView = requireView(), EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL, true)
+        EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
     override fun onDestroyView() {

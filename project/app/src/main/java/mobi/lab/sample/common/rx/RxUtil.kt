@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.common.rx
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable

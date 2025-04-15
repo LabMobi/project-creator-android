@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package mobi.lab.sample.common.dialog
 
 import android.os.Bundle
@@ -6,14 +8,17 @@ import mobi.lab.sample.common.eventbus.DataEvent
 
 class DialogEvent(val tag: String, val action: Action, bundle: Bundle? = null) : DataEvent<Bundle?>(bundle) {
 
+    @Suppress("unused")
     fun isFor(action: Action): Boolean {
         return this.action == action
     }
 
+    @Suppress("unused")
     fun isFor(tag: String): Boolean {
         return TextUtils.equals(this.tag, tag)
     }
 
+    @Suppress("unused")
     fun isFor(tag: String, action: Action): Boolean {
         return isFor(tag) && isFor(action)
     }

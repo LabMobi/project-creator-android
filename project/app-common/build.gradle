@@ -11,19 +11,19 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 
     compileOptions {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled = true
 
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
+        targetCompatibility = JavaVersion.valueOf(libs.versions.javaCompatibility.get())
     }
 
     defaultConfig {
-        compileSdkVersion(libs.versions.android.sdk.compile.get())
+        compileSdk = libs.versions.android.sdk.compile.get().toInteger()
         targetSdkVersion(libs.versions.android.sdk.target.get())
         minSdkVersion(libs.versions.android.sdk.min.get())
     }

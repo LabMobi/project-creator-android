@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.common.eventbus
 
 import mobi.lab.sample.common.util.isDebugBuild

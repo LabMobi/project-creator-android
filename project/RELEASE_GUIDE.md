@@ -6,20 +6,17 @@ Release guide for <%= sanitized_name %> Android.
 
 This document contains a guide for the release process. 
 
-It assumes:
-
-- Familiarity with the project and the details on how to build and run it
-- Access to the project's CI
-
 ## Release prerequisites
 
-1) The `develop` branch build is set up in CI and builds pass testing.
+1) Access to the project's repository
+2) Access to the project's JIRA
+3) Access to the project's CI
+4) Access to the project's Firebase Crashlytics 
+5) Access to the app project at Google Play Store
+6) The `develop` branch build is set up in CI and builds pass testing.
+7) The JIRA tasks that will go into this release have been tagged with the correct `fix version`.
 
-2) The JIRA tasks that will go into this release have been tagged with the correct `fix version`.
-
-3) Changelog is agreed with the client and translated
-
-4) Agree if app versions for all different countries will be released, or only a specific version.
+**Note:** See the README.md for additional project info.
 
 ## Release steps
 
@@ -27,7 +24,7 @@ It assumes:
 
 1.1) Verify the state of the `develop` branch. Make sure all changes that need to go into the release are merged to `develop` branch and `develop` branch is successfully built and tested in CI.
 
-1.2) Verify the versions codes. Make sure the version numbers in the main module's `build.gradle` file are correct for the release. These can be changed by updating their respective constants:
+1.2) Verify the version code. Make sure the version numbers in the main module's `build.gradle` file are correct for the release. These can be changed by updating their respective constants:
 
 ```groovy
 /* Versioning information:
@@ -48,14 +45,13 @@ versionPatch = 1 <-- UPDATE HERE
 versionBuild = 0 // Use this when builds with the same version are needed. Change to 0 once done
 ```
 
-If you need to update the version codes then do not forget to commit and push the changes to the `develop` branch.
+If you need to update the version code then do not forget to commit and push the changes to the `develop` branch.
 
 1.3) Merge the verified `develop` branch state to `main` branch. 
 
 ### 2. Create a release from `main` branch in the CI
 
-Please note that APKs should be used for testing.
-For the Play Store App Bundles(aab) should be used.
+Please note that APKs should be used for testing. For the Play Store App Bundles (aab) should be used.
 
 2.1) Build a new release build in the CI. Make use the build succeeds and correct artifacts are created.
 

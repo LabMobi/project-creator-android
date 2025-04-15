@@ -1,12 +1,15 @@
 [versions]
 
 android-sdk-min = "28"
-android-sdk-target = "35"
-android-sdk-compile = "android-35"
+android-sdk-target = "36"
+android-sdk-compile = "36"
 
-android-gradle-plugin = "8.8.1"
+android-gradle-plugin = "8.9.1"
 
-kotlin = "2.1.10"
+kotlin = "2.1.20"
+
+jvmTarget = "17"
+javaCompatibility = "VERSION_17"
 
 [plugins]
 
@@ -18,9 +21,9 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 # NB! Make sure to update the kltint version set in the root build.gradle file. subprojects / ktlint / version
 # NB! ktlint-gradle doesn't always depend on the latest ktlint version, but since it is a thin wrapper around ktlint
 # NB! it can be usefult to use a newer version of ktlint to get ruleset updates, etc.
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.2" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.2.0" }
 gradleVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.7" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 
 [libraries]
 
@@ -28,6 +31,9 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.7" }
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
+androidx-activity = "androidx.activity:activity-ktx:1.10.1"
+material = "com.google.android.material:material:1.12.0"
+
 
 # Testing
 test-junit = "junit:junit:4.13.2"

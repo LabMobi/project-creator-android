@@ -12,7 +12,7 @@ enum class ErrorCode(val code: String) {
             if (code == null) {
                 return UNKNOWN
             }
-            for (domainCode in values()) {
+            for (domainCode in entries) {
                 if (domainCode.code == code) {
                     return domainCode
                 }

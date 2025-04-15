@@ -14,7 +14,7 @@ open class BaseActivity : AppCompatActivity, MvvmLiveDataExtensions {
 
     /**
      * Activity Lifecycle is also connected to it's View lifecycle so we want to return
-     * the lifecycle of the Activity itself here. See [BaseMvvmFragment] for why you'd want something different.
+     * the lifecycle of the Activity itself here. See [BaseFragment] for why you'd want something different.
      */
     override fun getLifecycleOwner(): LifecycleOwner = this
 

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import mobi.lab.sample.common.BaseActivity
 import mobi.lab.sample.common.platform.LogoutMonitor
+import mobi.lab.sample.common.util.EdgeToEdgeSpec
+import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import mobi.lab.sample.databinding.ActivityDebugBinding
 import mobi.lab.scrolls.LogImplFile
 import mobi.lab.scrolls.LogViewBuilder
@@ -20,6 +22,8 @@ class DebugActivity : BaseActivity() {
     }
 
     private fun ActivityDebugBinding.initUi() {
+        EdgeToEdgeUtil.applyPaddings(targetView = this.root, EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_ALL, true)
+        EdgeToEdgeUtil.setLightStatusBarIcons(window = window)
         buttonLogout.setOnClickListener { LogoutMonitor.logout() }
         buttonCrash.setOnClickListener { throw RuntimeException() }
         buttonScrolls.setOnClickListener {

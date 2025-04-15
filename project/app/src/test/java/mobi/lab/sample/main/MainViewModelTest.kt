@@ -31,7 +31,7 @@ class MainViewModelTest {
     @Test
     fun open_link_when_open_prototype_is_clicked() {
         viewModel.onOpenPrototypeClicked()
-        assertEquals(viewModel.action.value!!.peekContent(), MainViewModel.Action.OpenWebLink("https://www.google.com"))
+        assertEquals(viewModel.action.value!!.peekContent(), MainViewModel.Action.OpenWebLink("https://lab.mobi"))
     }
 
     @Test

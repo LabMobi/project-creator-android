@@ -71,7 +71,7 @@ open class App : Application() {
          * But by default, the collection is disabled on the Manifest level until it is enabled here in the App onCreate call.
          */
         val enabled = isFirebaseDataCollectionEnabled()
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(enabled)
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = enabled
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(enabled)
     }
 

@@ -103,8 +103,6 @@ Notice 3: The template includes a `RELEASE_GUIDE.md` for your new project. Pleas
 
 Notice 4: The template includes a `codemagic.yaml` fail to configure your build at Codemagic CI. Please take some time to review it.
 
-Notice 5: The template uses Android Gradle Plugin 8.1.2, for which the minimum Java version is 17.
-
 ## Usage
 
 ### Creating a new project
@@ -222,9 +220,8 @@ To build the Android App Bundle(aab) file use the `bundleRelease` command.
 The bundle must also be signed. To sign using jarsigner, execute the following command `jarsigner -keystore $pathToKeystore app-release.aab $keyAlias`.
 Replace the variables with actual values.
 
-
 WARNING: Current approach creates the bundle using Google's default command.
-If a release was built with some other way that wouldn't involve Codemagic (or even do it locally) and would use the .\gradlew bundleRelease, then this would skip all the linters and setup for .\gradlew buildAllRelease.
+If a release was built with some other way that wouldn't involve Codemagic (or even do it locally) and would use the `.\gradlew bundleRelease`, then this would skip all the linters and setup for `.\gradlew buildAllRelease`.
 If that command has already been run then this is fine. Otherwise this can cause a problem.
 
 

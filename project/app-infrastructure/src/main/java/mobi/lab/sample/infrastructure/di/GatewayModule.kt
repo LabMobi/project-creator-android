@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package mobi.lab.sample.infrastructure.di
 
 import dagger.Binds

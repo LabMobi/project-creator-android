@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme.Base" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base">
-        <item name="android:statusBarColor">@color/primary</item>
-    </style>
-
-    <style name="AppTheme.White" parent="AppTheme">
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme.Splash" parent="Theme.SplashScreen">
@@ -31,7 +24,7 @@
 
     <style name="Text" parent="">
         <!-- Base text styles with fonts, etc.-->
-        <!-- Add custom Text styles as neede. For example Text.Body.16 or Text.Title, Text.Subtitle.-->
+        <!-- Add custom Text styles as needed. For example Text.Body.16 or Text.Title, Text.Subtitle.-->
          <item name="android:textColor">@color/primary</item>
         <!-- <item name="android:fontFamily">@font/graphik_regular</item>-->
         <!-- <item name="fontFamily">@font/graphik_regular</item>-->
@@ -74,7 +67,7 @@
         <item name="mpb_useIntrinsicPadding">false</item>
     </style>
 
-    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
+    <style name="Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:background">@color/primary</item>
         <item name="android:elevation">@dimen/size_1</item>
         <item name="titleTextColor">@color/white</item>
