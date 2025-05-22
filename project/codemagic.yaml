@@ -70,8 +70,8 @@ workflows:
     environment:
       java: 17
     scripts:
-      - name: Check 'master' branch
-        script: if [ "$FCI_BRANCH" != "master" ]; then exit 1; fi
+      - name: Check 'main' branch
+        script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
       - *stepLocalSetup
       - *stepCheckCode
       - *stepStartEmulator
