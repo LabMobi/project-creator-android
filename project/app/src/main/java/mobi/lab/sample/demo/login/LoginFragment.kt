@@ -21,17 +21,18 @@ import mobi.lab.sample.demo.main.MainActivity
 import mobi.lab.sample.domain.entities.ErrorCode
 
 @AndroidEntryPoint
-class LoginFragment : BaseFragment(), ViewBindingHolder<DemoFragmentLoginBinding> by FragmentBindingHolder() {
+class LoginFragment :
+    BaseFragment(),
+    ViewBindingHolder<DemoFragmentLoginBinding> by FragmentBindingHolder() {
 
     private val viewModel: LoginViewModel by viewModels()
 
-    override fun getLifecycleOwner(): LifecycleOwner {
-        return this
-    }
+    override fun getLifecycleOwner(): LifecycleOwner = this
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return createBinding(DemoFragmentLoginBinding.inflate(inflater), this)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = createBinding(
+        DemoFragmentLoginBinding.inflate(inflater),
+        this
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,13 +112,9 @@ class LoginFragment : BaseFragment(), ViewBindingHolder<DemoFragmentLoginBinding
         }
     }
 
-    private fun getEmailString(): String {
-        return requireBinding().editTextEmail.text.toString()
-    }
+    private fun getEmailString(): String = requireBinding().editTextEmail.text.toString()
 
-    private fun getPasswordString(): String {
-        return requireBinding().editTextPassword.text.toString()
-    }
+    private fun getPasswordString(): String = requireBinding().editTextPassword.text.toString()
 
     private fun showProgress() {
         if (isProgressShown()) {
@@ -135,16 +132,12 @@ class LoginFragment : BaseFragment(), ViewBindingHolder<DemoFragmentLoginBinding
         DialogUtil.dismiss(this, TAG_DIALOG_PROGRESS)
     }
 
-    private fun isProgressShown(): Boolean {
-        return DialogUtil.isShowing(activity, TAG_DIALOG_PROGRESS)
-    }
+    private fun isProgressShown(): Boolean = DialogUtil.isShowing(activity, TAG_DIALOG_PROGRESS)
 
     companion object {
         const val TAG_DIALOG_PROGRESS = "login.TAG_DIALOG_PROGRESS"
         const val TAG_DIALOG_ERROR = "login.TAG_DIALOG_ERROR"
 
-        fun newInstance(): LoginFragment {
-            return LoginFragment()
-        }
+        fun newInstance(): LoginFragment = LoginFragment()
     }
 }

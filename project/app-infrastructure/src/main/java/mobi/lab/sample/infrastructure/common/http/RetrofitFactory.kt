@@ -9,13 +9,11 @@ class RetrofitFactory(private val errorTransformer: ErrorTransformer) {
         baseUrl: String,
         httpClient: OkHttpClient,
         converterFactoryProvider: RetrofitConverterFactoryProvider
-    ): Retrofit {
-        return Retrofit.Builder()
-            .validateEagerly(true)
-            .baseUrl(baseUrl)
-            .addConverterFactory(converterFactoryProvider.get())
-            .addCallAdapterFactory(RxErrorCallAdapterFactory.create(errorTransformer))
-            .client(httpClient)
-            .build()
-    }
+    ): Retrofit = Retrofit.Builder()
+        .validateEagerly(true)
+        .baseUrl(baseUrl)
+        .addConverterFactory(converterFactoryProvider.get())
+        .addCallAdapterFactory(RxErrorCallAdapterFactory.create(errorTransformer))
+        .client(httpClient)
+        .build()
 }

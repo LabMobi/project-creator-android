@@ -9,30 +9,20 @@ import mobi.lab.sample.common.eventbus.DataEvent
 class DialogEvent(val tag: String, val action: Action, bundle: Bundle? = null) : DataEvent<Bundle?>(bundle) {
 
     @Suppress("unused")
-    fun isFor(action: Action): Boolean {
-        return this.action == action
-    }
+    fun isFor(action: Action): Boolean = this.action == action
 
     @Suppress("unused")
-    fun isFor(tag: String): Boolean {
-        return TextUtils.equals(this.tag, tag)
-    }
+    fun isFor(tag: String): Boolean = TextUtils.equals(this.tag, tag)
 
     @Suppress("unused")
-    fun isFor(tag: String, action: Action): Boolean {
-        return isFor(tag) && isFor(action)
-    }
+    fun isFor(tag: String, action: Action): Boolean = isFor(tag) && isFor(action)
 
-    override fun toString(): String {
-        return "DialogEvent{tag=$tag, action='${getActionString()}'}"
-    }
+    override fun toString(): String = "DialogEvent{tag=$tag, action='${getActionString()}'}"
 
-    private fun getActionString(): String {
-        return when (action) {
-            Action.BUTTON_NEGATIVE -> "BUTTON_NEGATIVE"
-            Action.BUTTON_POSITIVE -> "BUTTON_POSITIVE"
-            Action.CANCELLED -> "CANCELLED"
-        }
+    private fun getActionString(): String = when (action) {
+        Action.BUTTON_NEGATIVE -> "BUTTON_NEGATIVE"
+        Action.BUTTON_POSITIVE -> "BUTTON_POSITIVE"
+        Action.CANCELLED -> "CANCELLED"
     }
 
     enum class Action {

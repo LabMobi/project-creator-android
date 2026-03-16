@@ -83,3 +83,27 @@
 -keep,allowobfuscation,allowshrinking class io.reactivex.rxjava3.core.Observable
 -keep,allowobfuscation,allowshrinking class io.reactivex.rxjava3.core.Single
 # RxJava3
+
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public class * extends com.bumptech.glide.module.LibraryGlideModule
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+
+-keep public class * extends com.bumptech.glide.module.AppGlideModule {
+    <init>(...);
+}
+-keep public class * extends com.bumptech.glide.module.LibraryGlideModule {
+    <init>(...);
+}
+-keep public class * implements com.bumptech.glide.module.GlideModule {
+    <init>(...);
+}
+
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl {
+    <init>(...);
+}
+
+-keepattributes *Annotation*
+-keep @com.bumptech.glide.annotation.GlideModule class *
+# Glide

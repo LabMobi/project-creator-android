@@ -86,9 +86,7 @@ object ImageLoader {
         glide().clear(imageView)
     }
 
-    private fun glide(): RequestManager {
-        return Glide.with(context)
-    }
+    private fun glide(): RequestManager = Glide.with(context)
 
     private fun wrapCallback(callback: Callback?): RequestListener<Drawable>? {
         if (callback == null) {
@@ -115,9 +113,9 @@ object ImageLoader {
         }
     }
 
-    private fun processRequest(request: RequestBuilder<Drawable>, options: Options): RequestBuilder<Drawable> {
-        return request.apply(options.toRequestOptions())
-    }
+    private fun processRequest(request: RequestBuilder<Drawable>, options: Options): RequestBuilder<Drawable> = request.apply(
+        options.toRequestOptions()
+    )
 
     data class Options(
         val scaleType: ImageView.ScaleType? = null,

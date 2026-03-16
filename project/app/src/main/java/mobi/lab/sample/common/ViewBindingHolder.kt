@@ -35,7 +35,9 @@ interface ViewBindingHolder<BINDING : ViewBinding> {
     fun requireBinding(action: (BINDING.() -> Unit)? = null): BINDING
 }
 
-class FragmentBindingHolder<BINDING : ViewBinding> : ViewBindingHolder<BINDING>, LifecycleEventObserver {
+class FragmentBindingHolder<BINDING : ViewBinding> :
+    ViewBindingHolder<BINDING>,
+    LifecycleEventObserver {
     override var binding: BINDING? = null
     private var viewLifecycle: Lifecycle? = null
     private var name: String? = null

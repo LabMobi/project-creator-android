@@ -29,7 +29,9 @@ object PlatformModule {
 
     @Provides
     @Singleton
-    fun provideErrorTransformer(networkMonitor: NetworkMonitor, errorMapper: ApiErrorResponseMapper, json: Json): ErrorTransformer {
-        return MyErrorTransformer(networkMonitor, errorMapper, json)
-    }
+    fun provideErrorTransformer(
+        networkMonitor: NetworkMonitor,
+        errorMapper: ApiErrorResponseMapper,
+        json: Json
+    ): ErrorTransformer = MyErrorTransformer(networkMonitor, errorMapper, json)
 }

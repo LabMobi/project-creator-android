@@ -25,11 +25,9 @@ object Bus {
         instance.unregister(subscriber)
     }
 
-    private fun createInstance(): EventBus {
-        return EventBus.builder()
-            .eventInheritance(false)
-            .logNoSubscriberMessages(isDebugBuild())
-            .logSubscriberExceptions(isDebugBuild())
-            .build()
-    }
+    private fun createInstance(): EventBus = EventBus.builder()
+        .eventInheritance(false)
+        .logNoSubscriberMessages(isDebugBuild())
+        .logSubscriberExceptions(isDebugBuild())
+        .build()
 }

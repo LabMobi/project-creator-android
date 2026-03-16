@@ -12,7 +12,7 @@ hilt = "2.59.2"
 retrofit = "3.0.0"
 glide = "5.0.5"
 moshi = "1.15.2"
-kotshi = "3.0.0"
+kotshi = "4.0.0"
 
 jvmTarget = "17"
 javaCompatibility = "VERSION_17"
@@ -27,8 +27,8 @@ kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.2.0" }
-gradleVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "14.2.0" }
+gradleVersions = { id = "com.github.ben-manes.versions", version = "0.53.0" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 
 google-services = { id = "com.google.gms.google-services", version = "4.4.4"}
@@ -46,12 +46,12 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
-## WARINIG - 1.13.0 is not compatable with view-based Lab components
+## WARINIG - 1.13.0 is not compatible with view-based Lab components
 material = "com.google.android.material:material:1.12.0"
 material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
-androidx-core = "androidx.core:core-ktx:1.16.0"
+androidx-core = "androidx.core:core-ktx:1.18.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.9"
 androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
 androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"

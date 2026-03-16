@@ -23,7 +23,9 @@ import mobi.lab.sample.demo.prototype.PrototypeActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> by FragmentBindingHolder() {
+class MainFragment :
+    BaseFragment(),
+    ViewBindingHolder<DemoFragmentMainBinding> by FragmentBindingHolder() {
 
     @Inject lateinit var debugActions: DebugActions
 
@@ -34,9 +36,10 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
         LogoutMonitor.reset() // Reset logout monitor. If we can see this screen, then we have a valid session
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return createBinding(DemoFragmentMainBinding.inflate(inflater), this)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = createBinding(
+        DemoFragmentMainBinding.inflate(inflater),
+        this
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,8 +114,6 @@ class MainFragment : BaseFragment(), ViewBindingHolder<DemoFragmentMainBinding> 
     }
 
     companion object {
-        fun newInstance(): MainFragment {
-            return MainFragment()
-        }
+        fun newInstance(): MainFragment = MainFragment()
     }
 }

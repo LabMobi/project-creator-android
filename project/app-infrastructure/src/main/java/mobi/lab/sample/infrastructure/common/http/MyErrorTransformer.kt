@@ -9,11 +9,8 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.net.UnknownHostException
 
-class MyErrorTransformer(
-    private val networkMonitor: NetworkMonitor,
-    private val errorMapper: ApiErrorResponseMapper,
-    private val json: Json
-) : ErrorTransformer {
+class MyErrorTransformer(private val networkMonitor: NetworkMonitor, private val errorMapper: ApiErrorResponseMapper, private val json: Json) :
+    ErrorTransformer {
     override fun transform(error: Throwable): Throwable {
         if (error is HttpException) {
             return transformHttpException(error)

@@ -6,10 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.time.temporal.TemporalAccessor
 
-class MoshiTemporalAccessorFormatter(
-    private val outputFormatter: DateTimeFormatter,
-    private val inputFormatters: List<DateTimeFormatter>
-) {
+class MoshiTemporalAccessorFormatter(private val outputFormatter: DateTimeFormatter, private val inputFormatters: List<DateTimeFormatter>) {
 
     @Throws(JsonDataException::class)
     fun parse(value: String): TemporalAccessor {

@@ -8,13 +8,8 @@ import mobi.lab.sample.infrastructure.auth.remote.ApiSessionMapper
 import mobi.lab.sample.infrastructure.auth.remote.AuthResource
 import javax.inject.Inject
 
-class AuthProvider @Inject constructor(
-    private val res: AuthResource,
-    private val sessionMapper: ApiSessionMapper
-) : AuthGateway {
+class AuthProvider @Inject constructor(private val res: AuthResource, private val sessionMapper: ApiSessionMapper) : AuthGateway {
 
-    override fun login(username: String, password: String): Single<Session> {
-        return res.login(ApiLoginRequest(email = username, password = password))
-            .map(sessionMapper::toEntity)
-    }
+    override fun login(username: String, password: String): Single<Session> = res.login(ApiLoginRequest(email = username, password = password))
+        .map(sessionMapper::toEntity)
 }

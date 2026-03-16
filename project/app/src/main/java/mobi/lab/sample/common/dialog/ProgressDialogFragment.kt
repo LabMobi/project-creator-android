@@ -32,13 +32,9 @@ class ProgressDialogFragment : DialogFragment() {
         Bus.post(DialogEvent(getSafeTag(), action))
     }
 
-    private fun getSafeTag(): String {
-        return tag ?: ""
-    }
+    private fun getSafeTag(): String = tag ?: ""
 
     companion object {
-        fun newInstance(): ProgressDialogFragment {
-            return ProgressDialogFragment()
-        }
+        fun newInstance(): ProgressDialogFragment = ProgressDialogFragment()
     }
 }

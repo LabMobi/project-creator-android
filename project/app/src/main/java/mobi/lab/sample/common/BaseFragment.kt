@@ -10,7 +10,9 @@ import mobi.lab.sample.common.util.EdgeToEdgeSpec
 import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import timber.log.Timber
 
-open class BaseFragment : Fragment, MvvmLiveDataExtensions {
+open class BaseFragment :
+    Fragment,
+    MvvmLiveDataExtensions {
 
     constructor() : super()
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)

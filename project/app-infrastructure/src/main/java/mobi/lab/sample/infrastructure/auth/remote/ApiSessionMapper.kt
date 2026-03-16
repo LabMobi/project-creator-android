@@ -5,7 +5,5 @@ import javax.inject.Inject
 
 class ApiSessionMapper @Inject constructor() {
 
-    fun toEntity(item: ApiSession): Session {
-        return Session(item.token)
-    }
+    fun toEntity(item: ApiSession): Session = Session(item.token)
 }

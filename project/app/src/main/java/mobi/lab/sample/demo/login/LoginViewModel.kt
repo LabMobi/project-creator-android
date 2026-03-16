@@ -64,9 +64,7 @@ class LoginViewModel @Inject constructor(
         _state.value = State.Error(error.errorCode())
     }
 
-    private fun delay(): Completable {
-        return Completable.complete().delay(LOGIN_DELAY_MILLIS, TimeUnit.MILLISECONDS, schedulers.computation)
-    }
+    private fun delay(): Completable = Completable.complete().delay(LOGIN_DELAY_MILLIS, TimeUnit.MILLISECONDS, schedulers.computation)
 
     sealed class State : Parcelable {
         @Parcelize data object Default : State()

@@ -13,10 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val logoutUseCase: LogoutUseCase,
-    private val schedulers: SchedulerProvider,
-) : ViewModel() {
+class MainViewModel @Inject constructor(private val logoutUseCase: LogoutUseCase, private val schedulers: SchedulerProvider,) : ViewModel() {
 
     private val _action = MutableLiveData<SingleEvent<Action>>()
     val action = _action.asLiveData()

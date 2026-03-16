@@ -19,9 +19,7 @@ import timber.log.Timber
  * NB! Note @AssistedInject annotation for the constructor and @Assisted annotation for the assisted argument.
  */
 @HiltViewModel(assistedFactory = PrototypeViewModel.Factory::class)
-class PrototypeViewModel @AssistedInject constructor(
-    @Assisted private val prototypeUrl: String
-) : ViewModel() {
+class PrototypeViewModel @AssistedInject constructor(@Assisted private val prototypeUrl: String) : ViewModel() {
 
     @AssistedFactory
     interface Factory {

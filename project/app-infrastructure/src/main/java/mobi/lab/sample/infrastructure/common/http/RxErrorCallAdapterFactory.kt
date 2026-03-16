@@ -35,26 +35,19 @@ internal class RxErrorCallAdapterFactory private constructor(val errorTransforme
         fun create(errorTransformer: ErrorTransformer): CallAdapter.Factory = RxErrorCallAdapterFactory(errorTransformer)
     }
 
-    private class RxCallAdapterWrapper<R>(
-        val errorTransformer: ErrorTransformer,
-        val wrappedCallAdapter: CallAdapter<R, *>
-    ) : CallAdapter<R, Any> {
+    private class RxCallAdapterWrapper<R>(val errorTransformer: ErrorTransformer, val wrappedCallAdapter: CallAdapter<R, *>) : CallAdapter<R, Any> {
 
         override fun responseType(): Type = wrappedCallAdapter.responseType()
 
-        override fun adapt(call: Call<R>): Any {
-            return when (val result = wrappedCallAdapter.adapt(call)) {
-                is Observable<*> -> result.onErrorResumeNext { throwable: Throwable -> Observable.error(transformException(throwable)) }
-                is Single<*> -> result.onErrorResumeNext { throwable: Throwable -> Single.error(transformException(throwable)) }
-                is Flowable<*> -> result.onErrorResumeNext { throwable: Throwable -> Flowable.error(transformException(throwable)) }
-                is Maybe<*> -> result.onErrorResumeNext { throwable: Throwable -> Maybe.error(transformException(throwable)) }
-                is Completable -> result.onErrorResumeNext { throwable: Throwable -> Completable.error(transformException(throwable)) }
-                else -> result
-            }
+        override fun adapt(call: Call<R>): Any = when (val result = wrappedCallAdapter.adapt(call)) {
+            is Observable<*> -> result.onErrorResumeNext { throwable: Throwable -> Observable.error(transformException(throwable)) }
+            is Single<*> -> result.onErrorResumeNext { throwable: Throwable -> Single.error(transformException(throwable)) }
+            is Flowable<*> -> result.onErrorResumeNext { throwable: Throwable -> Flowable.error(transformException(throwable)) }
+            is Maybe<*> -> result.onErrorResumeNext { throwable: Throwable -> Maybe.error(transformException(throwable)) }
+            is Completable -> result.onErrorResumeNext { throwable: Throwable -> Completable.error(transformException(throwable)) }
+            else -> result
         }
 
-        private fun transformException(error: Throwable): Throwable {
-            return errorTransformer.transform(error)
-        }
+        private fun transformException(error: Throwable): Throwable = errorTransformer.transform(error)
     }
 }

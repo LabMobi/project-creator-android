@@ -31,11 +31,9 @@ class MoshiOffsetDateTimeAdapter : JsonAdapter<OffsetDateTime>() {
         }
     }
 
-    override fun fromJson(reader: JsonReader): OffsetDateTime? {
-        return if (reader.peek() == JsonReader.Token.NULL) {
-            reader.nextNull()
-        } else {
-            OffsetDateTime.from(formatter.parse(reader.nextString()))
-        }
+    override fun fromJson(reader: JsonReader): OffsetDateTime? = if (reader.peek() == JsonReader.Token.NULL) {
+        reader.nextNull()
+    } else {
+        OffsetDateTime.from(formatter.parse(reader.nextString()))
     }
 }
