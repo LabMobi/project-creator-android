@@ -105,9 +105,6 @@ workflows:
       - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
       - *stepGeneratedAppBuild
-      - *stepStartEmulator
-      - *stepGeneratedAppRunTests
-      - *stepStopEmulator
     artifacts: *generatedAppArtifacts
     publishing:
       email:
@@ -132,9 +129,6 @@ workflows:
       - *stepRunCreatorScriptLib
       - *stepGeneratedLibCheckCode
       - *stepGeneratedLibBuild
-      - *stepStartEmulator
-      - *stepGeneratedLibRunTests
-      - *stepStopEmulator
     artifacts: *generatedLibArtifacts
     publishing:
       email:
@@ -158,9 +152,6 @@ workflows:
       - *stepRunCreatorScriptApp
       - *stepGeneratedAppCheckCode
       - *stepGeneratedAppBuild
-      - *stepStartEmulator
-      - *stepGeneratedAppRunTests
-      - *stepStopEmulator
     publishing:
       email:
         recipients: *debugEmails
@@ -185,9 +176,6 @@ workflows:
       - *stepRunCreatorScriptLib
       - *stepGeneratedLibCheckCode
       - *stepGeneratedLibBuild
-      - *stepStartEmulator
-      - *stepGeneratedLibRunTests
-      - *stepStopEmulator
     publishing:
       email:
         recipients: *debugEmails
