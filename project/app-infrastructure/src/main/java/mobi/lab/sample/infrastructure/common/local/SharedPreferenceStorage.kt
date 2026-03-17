@@ -12,10 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPreferenceStorage @Inject constructor(
-    @ApplicationContext context: Context,
-    private val json: Json,
-) {
+class SharedPreferenceStorage @Inject constructor(@ApplicationContext context: Context, private val json: Json,) {
 
     private val prefs: SharedPreferences by lazy { context.getSharedPreferences(KEY_PREFS_NAME, Context.MODE_PRIVATE) }
 
@@ -50,15 +47,13 @@ class SharedPreferenceStorage @Inject constructor(
         }
     }
 
-    internal inline fun <reified T : Any> get(key: String, defaultValue: T? = null): T? {
-        return when (T::class) {
-            String::class -> prefs.getString(key, defaultValue as? String) as T?
-            Int::class -> prefs.getInt(key, defaultValue as? Int ?: -1) as T?
-            Boolean::class -> prefs.getBoolean(key, defaultValue as? Boolean ?: false) as T?
-            Float::class -> prefs.getFloat(key, defaultValue as? Float ?: -1f) as T?
-            Long::class -> prefs.getLong(key, defaultValue as? Long ?: -1) as T?
-            else -> throw UnsupportedOperationException("Unknown preference type")
-        }
+    internal inline fun <reified T : Any> get(key: String, defaultValue: T? = null): T? = when (T::class) {
+        String::class -> prefs.getString(key, defaultValue as? String) as T?
+        Int::class -> prefs.getInt(key, defaultValue as? Int ?: -1) as T?
+        Boolean::class -> prefs.getBoolean(key, defaultValue as? Boolean ?: false) as T?
+        Float::class -> prefs.getFloat(key, defaultValue as? Float ?: -1f) as T?
+        Long::class -> prefs.getLong(key, defaultValue as? Long ?: -1) as T?
+        else -> throw UnsupportedOperationException("Unknown preference type")
     }
 
     internal fun edit(operation: (SharedPreferences.Editor) -> Unit) {

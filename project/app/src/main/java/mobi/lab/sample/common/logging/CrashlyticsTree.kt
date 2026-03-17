@@ -11,7 +11,5 @@ class CrashlyticsTree(private val logPriority: Int) : Timber.Tree() {
         }
     }
 
-    private fun ensureTag(tag: String?): String {
-        return tag ?: "null"
-    }
+    private fun ensureTag(tag: String?): String = tag ?: "null"
 }

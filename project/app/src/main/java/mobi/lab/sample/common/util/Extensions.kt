@@ -35,10 +35,6 @@ fun SpannableString.addSpan(spannablePart: String, span: Any): SpannableString {
     return this
 }
 
-fun Throwable.errorCode(): ErrorCode {
-    return if (this is DomainException) code else ErrorCode.UNKNOWN
-}
+fun Throwable.errorCode(): ErrorCode = if (this is DomainException) code else ErrorCode.UNKNOWN
 
-fun ErrorCode.formatErrorCode(context: Context?, @StringRes default: Int = R.string.error_generic): String {
-    return formatErrorCode(context, this, default)
-}
+fun ErrorCode.formatErrorCode(context: Context?, @StringRes default: Int = R.string.error_generic): String = formatErrorCode(context, this, default)

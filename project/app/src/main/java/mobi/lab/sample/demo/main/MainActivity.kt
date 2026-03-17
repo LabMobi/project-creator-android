@@ -12,13 +12,9 @@ class MainActivity : BaseFragmentActivity() {
     override val tag: String
         get() = MainFragment::class.java.name
 
-    override fun createFragment(): Fragment {
-        return MainFragment.newInstance()
-    }
+    override fun createFragment(): Fragment = MainFragment.newInstance()
 
     companion object {
-        fun getIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
-        }
+        fun getIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
     }
 }

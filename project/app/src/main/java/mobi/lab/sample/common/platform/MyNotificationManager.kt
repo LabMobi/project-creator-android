@@ -32,21 +32,20 @@ class MyNotificationManager private constructor(private val context: Context) {
     }
 
     @Suppress("UnusedPrivateMember", "unused") // A convenience function to create notifications. Not used in the template
-    private fun createNotification(message: String, priority: Int = NotificationCompat.PRIORITY_DEFAULT): Notification {
-        return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle(context.getString(R.string.app_name))
-            .setContentText(message)
-            .setColor(ContextCompat.getColor(context, R.color.primary))
-            .setAutoCancel(true)
-            .setPriority(priority)
-            .build()
-    }
+    private fun createNotification(
+        message: String,
+        priority: Int = NotificationCompat.PRIORITY_DEFAULT
+    ): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        .setContentTitle(context.getString(R.string.app_name))
+        .setContentText(message)
+        .setColor(ContextCompat.getColor(context, R.color.primary))
+        .setAutoCancel(true)
+        .setPriority(priority)
+        .build()
 
     companion object {
         private const val CHANNEL_ID = "uploads"
 
-        fun newInstance(context: Context): MyNotificationManager {
-            return MyNotificationManager(context)
-        }
+        fun newInstance(context: Context): MyNotificationManager = MyNotificationManager(context)
     }
 }

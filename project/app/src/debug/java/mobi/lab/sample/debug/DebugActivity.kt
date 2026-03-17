@@ -35,8 +35,6 @@ class DebugActivity : BaseActivity() {
     }
 
     companion object {
-        fun getIntent(context: Context): Intent {
-            return Intent(context, DebugActivity::class.java)
-        }
+        fun getIntent(context: Context): Intent = Intent(context, DebugActivity::class.java)
     }
 }

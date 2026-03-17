@@ -15,9 +15,7 @@ class MoshiJson(private val moshi: Moshi) : Json {
         return adapter.nullSafe()
     }
 
-    override fun <T : Any> toJson(item: T?, typeToken: Type): String {
-        return createAdapter<T>(typeToken).toJson(item)
-    }
+    override fun <T : Any> toJson(item: T?, typeToken: Type): String = createAdapter<T>(typeToken).toJson(item)
 
     override fun <T : Any> fromJson(rawJson: String, typeToken: Type): T? {
         return try {

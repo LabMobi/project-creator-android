@@ -8,10 +8,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SessionPreferenceStorage @Inject constructor(
-    private val sharedPrefs: SharedPreferenceStorage,
-    private val mapper: DbSessionMapper
-) : SessionStorage {
+class SessionPreferenceStorage @Inject constructor(private val sharedPrefs: SharedPreferenceStorage, private val mapper: DbSessionMapper) :
+    SessionStorage {
     private var cache: Session? = null
 
     override fun save(session: Session) {

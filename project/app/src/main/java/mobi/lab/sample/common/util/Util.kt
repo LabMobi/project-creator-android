@@ -13,21 +13,16 @@ import mobi.lab.sample.BuildConfig
 import mobi.lab.sample.R
 import mobi.lab.sample.domain.entities.ErrorCode
 
-fun hasExternalStorageWritePermission(context: Context): Boolean {
-    return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-}
+fun hasExternalStorageWritePermission(context: Context): Boolean = ContextCompat.checkSelfPermission(
+    context,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE
+) == PackageManager.PERMISSION_GRANTED
 
-fun isExternalStorageMounted(): Boolean {
-    return android.os.Environment.MEDIA_MOUNTED == android.os.Environment.getExternalStorageState()
-}
+fun isExternalStorageMounted(): Boolean = android.os.Environment.MEDIA_MOUNTED == android.os.Environment.getExternalStorageState()
 
-fun isDebugBuild(): Boolean {
-    return BuildConfig.DEBUG
-}
+fun isDebugBuild(): Boolean = BuildConfig.DEBUG
 
-fun isFirebaseDataCollectionEnabled(): Boolean {
-    return !isDebugBuild()
-}
+fun isFirebaseDataCollectionEnabled(): Boolean = !isDebugBuild()
 
 fun showToast(ctx: Context?, message: CharSequence) {
     ctx?.let {

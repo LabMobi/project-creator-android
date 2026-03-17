@@ -10,12 +10,10 @@ import javax.inject.Inject
 @Reusable
 class HasValidSessionUseCase @Inject constructor(private val sessionStorage: SessionStorage) {
 
-    fun execute(): Completable {
-        return Completable.fromSupplier {
-            val session = sessionStorage.load()
-            if (session == null || !session.isValid()) {
-                throw DomainException(ErrorCode.LOCAL_UNAUTHORIZED)
-            }
+    fun execute(): Completable = Completable.fromSupplier {
+        val session = sessionStorage.load()
+        if (session == null || !session.isValid()) {
+            throw DomainException(ErrorCode.LOCAL_UNAUTHORIZED)
         }
     }
 }

@@ -10,10 +10,7 @@ import mobi.lab.sample.domain.gateway.AuthGateway
 import javax.inject.Inject
 
 @Reusable
-class LoginUseCase @Inject constructor(
-    private val gw: AuthGateway,
-    private val saveSessionUseCase: SaveSessionUseCase
-) {
+class LoginUseCase @Inject constructor(private val gw: AuthGateway, private val saveSessionUseCase: SaveSessionUseCase) {
     fun execute(email: String, password: String): Single<Session> {
         if (isStringEmpty(email) || isStringEmpty(password)) {
             return Single.error(DomainException(ErrorCode.LOCAL_INVALID_CREDENTIALS))

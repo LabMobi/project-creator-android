@@ -45,10 +45,8 @@ class PrototypeActivity : BaseActivity() {
     companion object {
         private const val EXTRA_PROTOTYPE_URL = "prototype_url"
 
-        fun getIntent(context: Context, prototypeUrl: String): Intent {
-            return Intent(context, PrototypeActivity::class.java).apply {
-                putExtra(EXTRA_PROTOTYPE_URL, prototypeUrl)
-            }
+        fun getIntent(context: Context, prototypeUrl: String): Intent = Intent(context, PrototypeActivity::class.java).apply {
+            putExtra(EXTRA_PROTOTYPE_URL, prototypeUrl)
         }
     }
 }

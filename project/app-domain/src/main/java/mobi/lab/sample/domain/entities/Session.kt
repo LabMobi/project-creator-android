@@ -7,7 +7,5 @@ import mobi.lab.sample.app.common.isStringEmpty
 @Parcelize
 data class Session(val token: String?) : Parcelable {
 
-    fun isValid(): Boolean {
-        return !isStringEmpty(token)
-    }
+    fun isValid(): Boolean = !isStringEmpty(token)
 }

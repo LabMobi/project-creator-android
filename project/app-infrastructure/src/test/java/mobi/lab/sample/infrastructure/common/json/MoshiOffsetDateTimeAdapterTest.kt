@@ -127,9 +127,7 @@ class MoshiOffsetDateTimeAdapterTest {
         Assert.assertThrows(JsonDataException::class.java) { parseOffsetDateTime("{}") }
     }
 
-    private fun parseOffsetDateTime(input: String): OffsetDateTime? {
-        return json.fromJson(input)
-    }
+    private fun parseOffsetDateTime(input: String): OffsetDateTime? = json.fromJson(input)
 
     companion object {
         private const val BASE_TIME_MILLIS = 1616587200000L

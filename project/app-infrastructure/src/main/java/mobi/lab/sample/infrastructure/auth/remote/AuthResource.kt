@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface AuthResource {
 
-    @Headers("x-api-key: reqres-free-v1")
+    @Headers("x-api-key: reqres_1dcb793c2f5f4f209661c3c40b30dc46")
     @POST("login")
     fun login(@Body request: ApiLoginRequest): Single<ApiSession>
 }

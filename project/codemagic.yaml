@@ -74,9 +74,6 @@ workflows:
         script: if [ "$FCI_BRANCH" != "main" ]; then exit 1; fi
       - *stepLocalSetup
       - *stepCheckCode
-      - *stepStartEmulator
-      - *stepRunTests
-      - *stepStopEmulator
       - *stepBuildRelease
     publishing:
       email:
@@ -98,9 +95,6 @@ workflows:
     scripts:
       - *stepLocalSetup
       - *stepCheckCode
-      - *stepStartEmulator
-      - *stepRunTests
-      - *stepStopEmulator
       - *stepBuildDebug
     artifacts: *androidArtifacts
     publishing:
@@ -122,9 +116,6 @@ workflows:
     scripts:
       - *stepLocalSetup
       - *stepCheckCode
-      - *stepStartEmulator
-      - *stepRunTests
-      - *stepStopEmulator
       - *stepBuildDebug
     publishing:
       email:

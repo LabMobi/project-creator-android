@@ -30,16 +30,12 @@ class ScrollsTree(context: Context) : Timber.Tree() {
         }
     }
 
-    private fun ensureTag(tag: String?): String {
-        return tag ?: createDebugTag()
-    }
+    private fun ensureTag(tag: String?): String = tag ?: createDebugTag()
 
     @Suppress("ThrowingExceptionsWithoutMessageOrCause")
-    private fun createDebugTag(): String {
-        return Throwable().stackTrace
-            .first { it.className !in stackIgnore }
-            .let(::createStackElementTag)
-    }
+    private fun createDebugTag(): String = Throwable().stackTrace
+        .first { it.className !in stackIgnore }
+        .let(::createStackElementTag)
 
     private fun createStackElementTag(element: StackTraceElement): String {
         var tag = element.className

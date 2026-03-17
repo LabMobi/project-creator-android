@@ -81,12 +81,10 @@ object DialogUtil {
         }
     }
 
-    fun isShowing(activity: FragmentActivity?, tag: String): Boolean {
-        return if (activity == null) {
-            false
-        } else {
-            activity.supportFragmentManager.findFragmentByTag(tag) != null
-        }
+    fun isShowing(activity: FragmentActivity?, tag: String): Boolean = if (activity == null) {
+        false
+    } else {
+        activity.supportFragmentManager.findFragmentByTag(tag) != null
     }
 
     private fun retryAction(action: () -> Unit) {

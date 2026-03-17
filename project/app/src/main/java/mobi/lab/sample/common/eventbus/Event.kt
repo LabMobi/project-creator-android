@@ -12,9 +12,7 @@ open class Event {
         this.requestCode = requestCode
     }
 
-    fun hasError(): Boolean {
-        return error != null
-    }
+    fun hasError(): Boolean = error != null
 
     companion object {
         const val REQUEST_GENERAL = -1

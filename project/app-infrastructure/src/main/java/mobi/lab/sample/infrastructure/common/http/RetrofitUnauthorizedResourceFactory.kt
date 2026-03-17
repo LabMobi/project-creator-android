@@ -31,7 +31,5 @@ class RetrofitUnauthorizedResourceFactory(
         retrofit = retrofitFactory.newInstance(env.baseUrl, httpClient, converterFactoryProvider)
     }
 
-    fun <T : Any> create(cls: KClass<T>): T {
-        return retrofit.create(cls.java)
-    }
+    fun <T : Any> create(cls: KClass<T>): T = retrofit.create(cls.java)
 }

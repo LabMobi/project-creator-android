@@ -117,13 +117,11 @@ data class EdgeToEdgeSpec(
 
 internal data class ViewPaddings(val left: Int, val top: Int, val right: Int, val bottom: Int) {
     companion object {
-        fun fromView(view: View): ViewPaddings {
-            return ViewPaddings(
-                left = view.paddingLeft,
-                top = view.paddingTop,
-                right = view.paddingRight,
-                bottom = view.paddingBottom
-            )
-        }
+        fun fromView(view: View): ViewPaddings = ViewPaddings(
+            left = view.paddingLeft,
+            top = view.paddingTop,
+            right = view.paddingRight,
+            bottom = view.paddingBottom
+        )
     }
 }

@@ -16,7 +16,5 @@ object MoshiFactory {
             .build()
     }
 
-    fun get(): Moshi {
-        return engine
-    }
+    fun get(): Moshi = engine
 }

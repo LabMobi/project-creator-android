@@ -14,7 +14,5 @@ object BuildVariantModule {
 
     @Provides
     @Singleton
-    fun provideDebugActions(): DebugActions {
-        return DevDebugActions()
-    }
+    fun provideDebugActions(): DebugActions = DevDebugActions()
 }

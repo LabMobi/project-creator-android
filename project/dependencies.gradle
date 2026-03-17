@@ -22,6 +22,6 @@ ext.libsHelper = [
 
         addDependencyInjectionDependencies: { handler ->
             handler.implementation libs.hilt
-            handler.kapt libs.hilt.compiler
+            handler.ksp libs.hilt.compiler
         }
 ]

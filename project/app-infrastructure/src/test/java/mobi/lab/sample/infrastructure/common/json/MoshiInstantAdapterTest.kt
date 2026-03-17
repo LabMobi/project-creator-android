@@ -119,9 +119,7 @@ class MoshiInstantAdapterTest {
         assertThrows(JsonDataException::class.java) { parseInstant("{}") }
     }
 
-    private fun parseInstant(input: String): Instant? {
-        return json.fromJson(input)
-    }
+    private fun parseInstant(input: String): Instant? = json.fromJson(input)
 
     companion object {
         private const val BASE_TIME_MILLIS = 1616587200000L

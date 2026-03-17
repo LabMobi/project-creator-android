@@ -31,11 +31,9 @@ class MoshiInstantAdapter : JsonAdapter<Instant>() {
         }
     }
 
-    override fun fromJson(reader: JsonReader): Instant? {
-        return if (reader.peek() == JsonReader.Token.NULL) {
-            reader.nextNull()
-        } else {
-            Instant.from(formatter.parse(reader.nextString()))
-        }
+    override fun fromJson(reader: JsonReader): Instant? = if (reader.peek() == JsonReader.Token.NULL) {
+        reader.nextNull()
+    } else {
+        Instant.from(formatter.parse(reader.nextString()))
     }
 }

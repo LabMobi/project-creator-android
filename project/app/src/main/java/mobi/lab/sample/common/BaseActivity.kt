@@ -7,7 +7,9 @@ import androidx.lifecycle.LifecycleOwner
 import mobi.lab.mvvm.MvvmLiveDataExtensions
 import timber.log.Timber
 
-open class BaseActivity : AppCompatActivity, MvvmLiveDataExtensions {
+open class BaseActivity :
+    AppCompatActivity,
+    MvvmLiveDataExtensions {
 
     constructor() : super()
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)

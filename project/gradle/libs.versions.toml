@@ -4,15 +4,15 @@ android-sdk-min = "28"
 android-sdk-target = "36"
 android-sdk-compile = "36"
 
-android-gradle-plugin = "8.9.1"
+android-gradle-plugin = "9.1.0"
 
-kotlin = "2.1.20"
-kotlin-ksp = "2.1.20-2.0.0" # This one needs a compatible ksp version code https://github.com/google/ksp/releases
-hilt = "2.56.1"
-retrofit = "2.11.0"
-glide = "4.16.0"
+kotlin = "2.3.20"
+kotlin-ksp = "2.3.6" # This one needs a compatible ksp version code https://github.com/google/ksp/releases
+hilt = "2.59.2"
+retrofit = "3.0.0"
+glide = "5.0.5"
 moshi = "1.15.2"
-kotshi = "3.0.0"
+kotshi = "4.0.0"
 
 jvmTarget = "17"
 javaCompatibility = "VERSION_17"
@@ -22,19 +22,17 @@ javaCompatibility = "VERSION_17"
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
-ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "12.2.0" }
-gradleVersions = { id = "com.github.ben-manes.versions", version = "0.52.0" }
+ktlint-gradle = { id = "org.jlleitschuh.gradle.ktlint", version = "14.2.0" }
+gradleVersions = { id = "com.github.ben-manes.versions", version = "0.53.0" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 
-google-services = { id = "com.google.gms.google-services", version = "4.4.2"}
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.3" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.4"}
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.6" }
 
 [libraries]
 
@@ -43,29 +41,30 @@ kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin"
 jdk-desugar = "com.android.tools:desugar_jdk_libs:2.1.5"
 
 # Firebase
-firebase-bom = "com.google.firebase:firebase-bom:33.12.0"
+firebase-bom = "com.google.firebase:firebase-bom:34.10.0"
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
+## WARINIG - 1.13.0 is not compatible with view-based Lab components
 material = "com.google.android.material:material:1.12.0"
 material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
 constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-androidx-appcompat = "androidx.appcompat:appcompat:1.7.0"
-androidx-core = "androidx.core:core:1.16.0"
-androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.6"
+androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
+androidx-core = "androidx.core:core-ktx:1.18.0"
+androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.9"
 androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
 androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
-androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.8.7"
-androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7"
-androidx-splashscreen = "androidx.core:core-splashscreen:1.0.1"
+androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.10.0"
+androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0"
+androidx-splashscreen = "androidx.core:core-splashscreen:1.2.0"
 
 # Lab design components
 lab-components = "mobi.lab.labcomponents:labcomponents:0.0.15"
 lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
 # RxJava
-rxjava = "io.reactivex.rxjava3:rxjava:3.1.10"
+rxjava = "io.reactivex.rxjava3:rxjava:3.1.12"
 rxjava-android = "io.reactivex.rxjava3:rxandroid:3.0.2"
 
 # Dagger / Hilt
@@ -87,7 +86,7 @@ kotshi-compiler = { module = "se.ansman.kotshi:compiler", version.ref = "kotshi"
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit" }
 retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
-okhttp-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.12.0"
+okhttp-logging-interceptor = "com.squareup.okhttp3:logging-interceptor:5.3.2"
 
 # Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -97,6 +96,6 @@ glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = 
 # Testing
 test-junit = "junit:junit:4.13.2"
 test-junit-kotlin = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-test-mockito-core = "org.mockito:mockito-core:5.17.0"
+test-mockito-core = "org.mockito:mockito-core:5.23.0"
 test-mockito-kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 test-androidx-archtesting = "androidx.arch.core:core-testing:2.2.0"

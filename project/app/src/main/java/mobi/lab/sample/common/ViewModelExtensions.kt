@@ -30,13 +30,11 @@ import kotlin.reflect.KClass
 inline fun <reified VM : ViewModel, VMF : Any> ComponentActivity.assistedViewModels(
     assistedViewModelFactoryClass: KClass<VMF>,
     crossinline assistedViewModelFactory: (VMF) -> VM
-): Lazy<VM> {
-    return viewModels(
-        extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<VMF> { assistedViewModelFactory.invoke(it) }
-        }
-    )
-}
+): Lazy<VM> = viewModels(
+    extrasProducer = {
+        defaultViewModelCreationExtras.withCreationCallback<VMF> { assistedViewModelFactory.invoke(it) }
+    }
+)
 
 /**
  * Convenience function to init ViewModels lazily using Assisted Injection.
@@ -48,10 +46,8 @@ inline fun <reified VM : ViewModel, VMF : Any> ComponentActivity.assistedViewMod
 inline fun <reified VM : ViewModel, VMF : Any> Fragment.assistedViewModels(
     assistedViewModelFactoryClass: KClass<VMF>,
     crossinline assistedViewModelFactory: (VMF) -> VM
-): Lazy<VM> {
-    return viewModels(
-        extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<VMF> { assistedViewModelFactory.invoke(it) }
-        }
-    )
-}
+): Lazy<VM> = viewModels(
+    extrasProducer = {
+        defaultViewModelCreationExtras.withCreationCallback<VMF> { assistedViewModelFactory.invoke(it) }
+    }
+)

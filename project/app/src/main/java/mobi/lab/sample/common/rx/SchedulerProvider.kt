@@ -40,48 +40,38 @@ abstract class SchedulerProvider {
         return this
     }
 
-    fun <T : Any> observable(subscribeOn: Scheduler = io, observeOn: Scheduler = main): ObservableTransformer<T, T> {
-        return ObservableTransformer {
-            it.subscribeOn(subscribeOn)
-                .observeOn(observeOn)
-                .doOnError(::checkUnauthorizedError)
-                .transformObservableInternal()
-        }
+    fun <T : Any> observable(subscribeOn: Scheduler = io, observeOn: Scheduler = main): ObservableTransformer<T, T> = ObservableTransformer {
+        it.subscribeOn(subscribeOn)
+            .observeOn(observeOn)
+            .doOnError(::checkUnauthorizedError)
+            .transformObservableInternal()
     }
 
-    fun <T : Any> single(subscribeOn: Scheduler = io, observeOn: Scheduler = main): SingleTransformer<T, T> {
-        return SingleTransformer {
-            it.subscribeOn(subscribeOn)
-                .observeOn(observeOn)
-                .doOnError(::checkUnauthorizedError)
-                .transformSingleInternal()
-        }
+    fun <T : Any> single(subscribeOn: Scheduler = io, observeOn: Scheduler = main): SingleTransformer<T, T> = SingleTransformer {
+        it.subscribeOn(subscribeOn)
+            .observeOn(observeOn)
+            .doOnError(::checkUnauthorizedError)
+            .transformSingleInternal()
     }
 
-    fun completable(subscribeOn: Scheduler = io, observeOn: Scheduler = main): CompletableTransformer {
-        return CompletableTransformer {
-            it.subscribeOn(subscribeOn)
-                .observeOn(observeOn)
-                .doOnError(::checkUnauthorizedError)
-                .transformCompletableInternal()
-        }
+    fun completable(subscribeOn: Scheduler = io, observeOn: Scheduler = main): CompletableTransformer = CompletableTransformer {
+        it.subscribeOn(subscribeOn)
+            .observeOn(observeOn)
+            .doOnError(::checkUnauthorizedError)
+            .transformCompletableInternal()
     }
 
-    fun completableNoAuthCheck(subscribeOn: Scheduler = io, observeOn: Scheduler = main): CompletableTransformer {
-        return CompletableTransformer {
-            it.subscribeOn(subscribeOn)
-                .observeOn(observeOn)
-                .transformCompletableInternal()
-        }
+    fun completableNoAuthCheck(subscribeOn: Scheduler = io, observeOn: Scheduler = main): CompletableTransformer = CompletableTransformer {
+        it.subscribeOn(subscribeOn)
+            .observeOn(observeOn)
+            .transformCompletableInternal()
     }
 
-    fun <T : Any> maybe(subscribeOn: Scheduler = io, observeOn: Scheduler = main): MaybeTransformer<T, T> {
-        return MaybeTransformer {
-            it.subscribeOn(subscribeOn)
-                .observeOn(observeOn)
-                .doOnError(::checkUnauthorizedError)
-                .transformMaybeInternal()
-        }
+    fun <T : Any> maybe(subscribeOn: Scheduler = io, observeOn: Scheduler = main): MaybeTransformer<T, T> = MaybeTransformer {
+        it.subscribeOn(subscribeOn)
+            .observeOn(observeOn)
+            .doOnError(::checkUnauthorizedError)
+            .transformMaybeInternal()
     }
 
     private fun checkUnauthorizedError(error: Throwable) {

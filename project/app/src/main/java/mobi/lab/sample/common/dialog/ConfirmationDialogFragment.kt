@@ -50,13 +50,9 @@ class ConfirmationDialogFragment : DialogFragment() {
         Bus.post(DialogEvent(getSafeTag(), action, getExtras()))
     }
 
-    private fun getSafeTag(): String {
-        return tag ?: ""
-    }
+    private fun getSafeTag(): String = tag ?: ""
 
-    private fun getExtras(): Bundle? {
-        return arguments?.getBundle(ARG_EXTRAS)
-    }
+    private fun getExtras(): Bundle? = arguments?.getBundle(ARG_EXTRAS)
 
     companion object {
         private const val ARG_TITLE = "ARG_TITLE"

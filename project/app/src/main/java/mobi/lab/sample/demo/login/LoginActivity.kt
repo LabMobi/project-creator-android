@@ -12,13 +12,9 @@ class LoginActivity : BaseFragmentActivity() {
     override val tag: String
         get() = LoginFragment::class.java.name
 
-    override fun createFragment(): Fragment {
-        return LoginFragment.newInstance()
-    }
+    override fun createFragment(): Fragment = LoginFragment.newInstance()
 
     companion object {
-        fun getIntent(context: Context): Intent {
-            return Intent(context, LoginActivity::class.java)
-        }
+        fun getIntent(context: Context): Intent = Intent(context, LoginActivity::class.java)
     }
 }

@@ -24,12 +24,8 @@ object ResourceModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitConverterFactoryProvider(): RetrofitConverterFactoryProvider {
-        return object : RetrofitConverterFactoryProvider {
-            override fun get(): Converter.Factory {
-                return MoshiConverterFactory.create(MoshiFactory.get())
-            }
-        }
+    fun provideRetrofitConverterFactoryProvider(): RetrofitConverterFactoryProvider = object : RetrofitConverterFactoryProvider {
+        override fun get(): Converter.Factory = MoshiConverterFactory.create(MoshiFactory.get())
     }
 
     @Provides

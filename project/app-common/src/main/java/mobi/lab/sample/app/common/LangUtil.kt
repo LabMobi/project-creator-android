@@ -2,9 +2,7 @@
 
 package mobi.lab.sample.app.common
 
-fun isStringEmpty(string: CharSequence?): Boolean {
-    return string.isNullOrEmpty()
-}
+fun isStringEmpty(string: CharSequence?): Boolean = string.isNullOrEmpty()
 
 fun stringEquals(a: CharSequence?, b: CharSequence?): Boolean {
     // Taken from TextUtils.equals
@@ -27,6 +25,4 @@ private fun charSequenceEqualsCharByChar(compareLength: Int, a: CharSequence, b:
     return true
 }
 
-fun Any.className(): String {
-    return this::class.java.name
-}
+fun Any.className(): String = this::class.java.name
