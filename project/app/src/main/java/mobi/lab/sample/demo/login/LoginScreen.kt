@@ -65,21 +65,30 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_48)))
 
                     LabTextField(
+                        modifier = Modifier.fillMaxWidth(),
                         value = email,
                         onValueChange = { email = it },
                         label = stringResource(R.string.demo_title_email),
                         errorValue = emailError,
-                        modifier = Modifier.fillMaxWidth()
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Email,
+                            imeAction = androidx.compose.ui.text.input.ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_8)))
 
                     LabTextField(
+                        modifier = Modifier.fillMaxWidth(),
                         value = password,
                         onValueChange = { password = it },
                         label = stringResource(R.string.demo_title_password),
                         errorValue = passwordError,
-                        modifier = Modifier.fillMaxWidth()
+                        visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Password,
+                            imeAction = androidx.compose.ui.text.input.ImeAction.Done
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_32)))
