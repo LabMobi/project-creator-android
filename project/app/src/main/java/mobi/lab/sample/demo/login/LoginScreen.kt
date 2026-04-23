@@ -39,16 +39,9 @@ fun LoginScreen(
         var email by rememberSaveable { mutableStateOf("") }
         var password by rememberSaveable { mutableStateOf("") }
 
-        var emailError by rememberSaveable { mutableStateOf<String?>(null) }
-        var passwordError by rememberSaveable { mutableStateOf<String?>(null) }
-
-        if (state is LoginViewModel.State.Error && state.errorCode == ErrorCode.LOCAL_INVALID_CREDENTIALS) {
-            if (email.isEmpty()) emailError = stringResource(R.string.demo_text_required)
-            if (password.isEmpty()) passwordError = stringResource(R.string.demo_text_required)
-        } else {
-            emailError = null
-            passwordError = null
-        }
+        val isInvalidCredentials = state is LoginViewModel.State.Error && state.errorCode == ErrorCode.LOCAL_INVALID_CREDENTIALS
+        val emailError = if (isInvalidCredentials && email.isEmpty()) stringResource(R.string.demo_text_required) else null
+        val passwordError = if (isInvalidCredentials && password.isEmpty()) stringResource(R.string.demo_text_required) else null
 
         Scaffold(
             topBar = {
