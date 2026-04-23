@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import mobi.lab.sample.common.BaseActivity
 import mobi.lab.sample.common.platform.LogoutMonitor
-import mobi.lab.sample.common.util.EdgeToEdgeUtil
 import mobi.lab.scrolls.LogImplFile
 import mobi.lab.scrolls.LogViewBuilder
 
 class DebugActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        EdgeToEdgeUtil.setLightStatusBarIcons(window = window)
         setContent {
             DebugScreen(
                 onLogoutClicked = { LogoutMonitor.logout() },

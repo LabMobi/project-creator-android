@@ -74,11 +74,6 @@ class MainFragment : BaseFragment() {
         debugActions.launchDebugActivity(context)
     }
 
-    override fun setEdgeToEdgeInsets() {
-        // Compose handles insets differently, we can either use Scaffold insets or handle it here if needed.
-        // For now, let's just make it no-op or call super if needed.
-    }
-
     companion object {
         fun newInstance(): MainFragment = MainFragment()
     }
