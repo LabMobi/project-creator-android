@@ -17,6 +17,8 @@ kotshi = "4.0.0"
 jvmTarget = "17"
 javaCompatibility = "VERSION_17"
 
+compose-bom = "2025.02.00"
+
 [plugins]
 
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
@@ -24,6 +26,7 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
@@ -61,7 +64,19 @@ androidx-splashscreen = "androidx.core:core-splashscreen:1.2.0"
 
 # Lab design components
 lab-components = "mobi.lab.labcomponents:labcomponents:0.0.15"
+lab-components-compose = "mobi.lab.labcomponents:labcomponents-compose:0.0.9"
 lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
+
+# Compose
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.10.0" }
+compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version = "2.8.7" }
+compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 
 # RxJava
 rxjava = "io.reactivex.rxjava3:rxjava:3.1.12"

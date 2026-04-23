@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.compose)
 }
 
 ext {
@@ -37,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 
     compileOptions {
@@ -169,9 +171,20 @@ dependencies {
     implementation libs.material
     implementation libs.material.progressbar
 
-    // Lab
     implementation libs.lab.components
+    implementation libs.lab.components.compose
     implementation libs.lab.mvvm
+
+    // Compose
+    implementation platform(libs.compose.bom)
+    implementation libs.compose.ui
+    implementation libs.compose.ui.graphics
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.compose.material3
+    implementation libs.compose.activity
+    implementation libs.compose.viewmodel
+    implementation libs.compose.runtime.livedata
+    debugImplementation libs.compose.ui.tooling
 
     implementation project(":app-infrastructure")
     implementation project(":app-domain")

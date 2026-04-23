@@ -31,3 +31,6 @@ captures/
 
 # kotlin temp files
 .kotlin
+
+# AI files
+.artifacts
