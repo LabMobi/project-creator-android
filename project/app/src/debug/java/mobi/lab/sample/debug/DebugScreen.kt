@@ -11,16 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import mobi.lab.components.compose.theme.LabTheme
 import mobi.lab.components.compose.widget.button.LabButton
 import mobi.lab.components.compose.widget.topappbar.LabTopAppBar
 import mobi.lab.sample.R
@@ -45,7 +43,7 @@ fun DebugScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(LabTheme.colors.background)
             ) {
                 Column(
                     modifier = Modifier
@@ -57,19 +55,16 @@ fun DebugScreen(
 
                     Text(
                         text = stringResource(R.string.text_debug_options),
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 48.sp,
-                        color = MaterialTheme.colorScheme.primary
+                        style = LabTheme.typography.headlineLarge,
+                        color = LabTheme.colors.primary
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_24)))
 
                     Text(
                         text = stringResource(R.string.text_debug_menu_description),
-                        fontSize = 16.sp,
-                        lineHeight = 24.sp,
-                        color = MaterialTheme.colorScheme.primary
+                        style = LabTheme.typography.bodyLarge,
+                        color = LabTheme.colors.primary
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_48)))

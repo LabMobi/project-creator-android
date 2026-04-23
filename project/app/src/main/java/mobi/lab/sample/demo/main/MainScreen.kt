@@ -18,7 +18,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,9 +31,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import mobi.lab.components.compose.theme.LabTheme
 import mobi.lab.components.compose.widget.button.LabButton
 import mobi.lab.components.compose.widget.topappbar.LabTopAppBar
 import mobi.lab.sample.BuildConfig
@@ -65,7 +63,12 @@ fun MainScreen(
                         ) {
                             if (BuildConfig.DEBUG) {
                                 DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.title_debug)) },
+                                    text = {
+                                        Text(
+                                            text = stringResource(R.string.title_debug),
+                                            style = LabTheme.typography.bodyMedium
+                                        )
+                                    },
                                     onClick = {
                                         showMenu = false
                                         onDebugClicked()
@@ -73,7 +76,12 @@ fun MainScreen(
                                 )
                             }
                             DropdownMenuItem(
-                                text = { Text(stringResource(R.string.title_log_out)) },
+                                text = {
+                                    Text(
+                                        text = stringResource(R.string.title_log_out),
+                                        style = LabTheme.typography.bodyMedium
+                                    )
+                                },
                                 onClick = {
                                     showMenu = false
                                     onLogoutClicked()
@@ -88,12 +96,12 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(LabTheme.colors.background)
             ) {
                 Image(
                     painter = painterResource(R.drawable.demo_img_brush),
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                    colorFilter = ColorFilter.tint(LabTheme.colors.primary),
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
 
@@ -107,19 +115,16 @@ fun MainScreen(
 
                     Text(
                         text = stringResource(R.string.demo_text_experience_prototype),
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = 48.sp,
-                        color = MaterialTheme.colorScheme.primary
+                        style = LabTheme.typography.headlineLarge,
+                        color = LabTheme.colors.primary
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_24)))
 
                     Text(
                         text = stringResource(R.string.demo_text_experience_prototype_description),
-                        fontSize = 16.sp,
-                        lineHeight = 24.sp,
-                        color = MaterialTheme.colorScheme.primary
+                        style = LabTheme.typography.bodyLarge,
+                        color = LabTheme.colors.primary
                     )
 
                     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.size_48)))

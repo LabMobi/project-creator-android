@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
@@ -274,13 +273,13 @@ private fun PreviewAppTheme() {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text("Primary Button", style = MaterialTheme.typography.titleMedium)
+            Text("Primary Button", style = LabTheme.typography.titleMedium)
             LabButton(onClick = {}, text = "Primary Button")
 
-            Text("Secondary Button", style = MaterialTheme.typography.titleMedium)
+            Text("Secondary Button", style = LabTheme.typography.titleMedium)
             LabTonedButton(onClick = {}, text = "Secondary Button")
 
-            Text("Success Color", style = MaterialTheme.typography.titleMedium)
+            Text("Success Color", style = LabTheme.typography.titleMedium)
             Box(
                 modifier = Modifier
                     .size(40.dp)
