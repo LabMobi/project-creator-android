@@ -37,6 +37,8 @@ style:
   MagicNumber:
     ignoreLocalVariableDeclaration: true
     ignoreAnnotated: [ 'Composable' ] # Ignore for Composable functions
+  UnusedPrivateMember:
+    ignoreAnnotated: [ 'Preview' ] # Ignore for Composable Preview functions
 
 naming:
   FunctionNaming:
