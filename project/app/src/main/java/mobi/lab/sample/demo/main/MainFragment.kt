@@ -5,27 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import mobi.lab.sample.BuildConfig
-import mobi.lab.sample.R
 import mobi.lab.sample.common.BaseFragment
-import mobi.lab.sample.common.FragmentBindingHolder
-import mobi.lab.sample.common.ViewBindingHolder
 import mobi.lab.sample.common.debug.DebugActions
 import mobi.lab.sample.common.platform.LogoutMonitor
-import mobi.lab.sample.common.util.EdgeToEdgeSpec
-import mobi.lab.sample.common.util.EdgeToEdgeUtil
-import mobi.lab.sample.common.util.EdgeToEdgeUtil.applyPaddings
 import mobi.lab.sample.common.util.NavUtil
-import mobi.lab.sample.databinding.DemoFragmentMainBinding
 import mobi.lab.sample.demo.prototype.PrototypeActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment :
-    BaseFragment(),
-    ViewBindingHolder<DemoFragmentMainBinding> by FragmentBindingHolder() {
+class MainFragment : BaseFragment() {
 
     @Inject lateinit var debugActions: DebugActions
 
@@ -36,18 +28,20 @@ class MainFragment :
         LogoutMonitor.reset() // Reset logout monitor. If we can see this screen, then we have a valid session
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = createBinding(
-        DemoFragmentMainBinding.inflate(inflater),
-        this
-    )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MainScreen(
+                    onOpenPrototypeClicked = { viewModel.onOpenPrototypeClicked() },
+                    onLogoutClicked = { viewModel.onLogoutClicked() },
+                    onDebugClicked = { viewModel.onDebugClicked() }
+                )
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireBinding {
-            initToolbar(this)
-            buttonOpen.setOnClickListener { viewModel.onOpenPrototypeClicked() }
-        }
-
         /**
          * Init ViewModel in onViewCreated as they are connected to View's lifecycle.
          */
@@ -66,33 +60,6 @@ class MainFragment :
         }
     }
 
-    private fun initToolbar(binding: DemoFragmentMainBinding) {
-        if (BuildConfig.DEBUG) {
-            binding.toolbar.inflateMenu(R.menu.debug_toolbar)
-            binding.toolbar.setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.menu_logout) {
-                    viewModel.onLogoutClicked()
-                    return@setOnMenuItemClickListener true
-                }
-                if (item.itemId == R.id.button_debug) {
-                    viewModel.onDebugClicked()
-                    return@setOnMenuItemClickListener true
-                }
-
-                return@setOnMenuItemClickListener false
-            }
-        } else {
-            binding.toolbar.inflateMenu(R.menu.demo_main_toolbar)
-            binding.toolbar.setOnMenuItemClickListener { item ->
-                if (item.itemId == R.id.menu_logout) {
-                    viewModel.onLogoutClicked()
-                    return@setOnMenuItemClickListener true
-                }
-                return@setOnMenuItemClickListener false
-            }
-        }
-    }
-
     private fun openPrototype(context: Context, url: String) {
         // Open PrototypeActivity to demonstrate assisted injection with runtime arguments
         startActivity(PrototypeActivity.getIntent(context, url))
@@ -105,12 +72,6 @@ class MainFragment :
     private fun openDebug(context: Context) {
         // Open DebugActivity
         debugActions.launchDebugActivity(context)
-    }
-
-    override fun setEdgeToEdgeInsets() {
-        // Let the image go under the navigation bars
-        applyPaddings(targetView = requireView(), spec = EdgeToEdgeSpec.AVOID_BAR_AND_CUTOUT_SET_LEFT_TOP_RIGHT, true)
-        EdgeToEdgeUtil.setLightStatusBarIcons(window = requireActivity().window)
     }
 
     companion object {

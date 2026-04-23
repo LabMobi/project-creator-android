@@ -1,48 +1,43 @@
 package mobi.lab.sample.demo.login
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 import mobi.lab.sample.R
 import mobi.lab.sample.common.BaseFragment
-import mobi.lab.sample.common.FragmentBindingHolder
-import mobi.lab.sample.common.ViewBindingHolder
 import mobi.lab.sample.common.dialog.ConfirmationDialogFragment
 import mobi.lab.sample.common.dialog.ProgressDialogFragment
 import mobi.lab.sample.common.util.DialogUtil
 import mobi.lab.sample.common.util.formatErrorCode
-import mobi.lab.sample.databinding.DemoFragmentLoginBinding
 import mobi.lab.sample.demo.main.MainActivity
 import mobi.lab.sample.domain.entities.ErrorCode
 
 @AndroidEntryPoint
-class LoginFragment :
-    BaseFragment(),
-    ViewBindingHolder<DemoFragmentLoginBinding> by FragmentBindingHolder() {
+class LoginFragment : BaseFragment() {
 
     private val viewModel: LoginViewModel by viewModels()
 
-    override fun getLifecycleOwner(): LifecycleOwner = this
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = createBinding(
-        DemoFragmentLoginBinding.inflate(inflater),
-        this
-    )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                val state by viewModel.state.observeAsState(LoginViewModel.State.Default)
+                LoginScreen(
+                    state = state,
+                    onLoginClicked = { email, password -> viewModel.onLoginClicked(email, password) }
+                )
+            }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireBinding {
-            buttonLogin.setOnClickListener { viewModel.onLoginClicked(getEmailString(), getPasswordString()) }
-        }
-
-        /**
-         * Init ViewModel in onViewCreated as they are connected to View's lifecycle.
-         */
         initViewModel()
     }
 
@@ -64,32 +59,18 @@ class LoginFragment :
         viewModel.state.onEachNotNull { state ->
             when (state) {
                 LoginViewModel.State.Default -> {
-                    clearErrors()
                     hideProgress()
                 }
                 LoginViewModel.State.Progress -> {
-                    clearErrors()
                     showProgress()
                 }
                 is LoginViewModel.State.Error -> {
                     hideProgress()
-                    if (state.errorCode == ErrorCode.LOCAL_INVALID_CREDENTIALS) {
-                        showInputErrors()
-                    } else {
+                    if (state.errorCode != ErrorCode.LOCAL_INVALID_CREDENTIALS) {
                         showLoginError(state.errorCode)
                     }
                 }
             }
-        }
-    }
-
-    private fun showInputErrors() {
-        val binding = requireBinding()
-        if (TextUtils.isEmpty(getEmailString())) {
-            binding.inputLayoutEmail.error = getString(R.string.demo_text_required)
-        }
-        if (TextUtils.isEmpty(getPasswordString())) {
-            binding.inputLayoutPassword.error = getString(R.string.demo_text_required)
         }
     }
 
@@ -104,17 +85,6 @@ class LoginFragment :
             TAG_DIALOG_ERROR
         )
     }
-
-    private fun clearErrors() {
-        requireBinding {
-            inputLayoutEmail.error = null
-            inputLayoutPassword.error = null
-        }
-    }
-
-    private fun getEmailString(): String = requireBinding().editTextEmail.text.toString()
-
-    private fun getPasswordString(): String = requireBinding().editTextPassword.text.toString()
 
     private fun showProgress() {
         if (isProgressShown()) {
