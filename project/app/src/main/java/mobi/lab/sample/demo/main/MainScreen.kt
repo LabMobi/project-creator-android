@@ -55,7 +55,7 @@ fun MainScreen(
                     title = stringResource(R.string.demo_title_prototype),
                     actions = {
                         IconButton(onClick = { showMenu = !showMenu }) {
-                            Icon(Icons.Default.MoreVert, contentDescription = null)
+                            Icon(Icons.Default.MoreVert, contentDescription = null, tint = LabTheme.colors.onSurface)
                         }
                         DropdownMenu(
                             expanded = showMenu,
