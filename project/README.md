@@ -51,11 +51,13 @@ The project uses Kotlin as the main language. See https://kotlinlang.org/docs/re
 `Ktlint` is added to the project to keep code style and formatting uniform. Ktlint is run with regular lint checks during a build (specifically `gradle check` command). For more information about Ktlint, see https://github.com/shyiko/ktlint
 
 We have different modules for different parts of the application:
-* app -> the actual Android application code
+* app -> the actual Android application code (single-activity Jetpack Compose UI with Jetpack Navigation 3, ViewModels, DI wiring)
 * app-infrastructure -> Implementations for communicating with the outside world. Storage, network, Android platform specifics, etc. For example, Gateway implemenations that UseCases use or Android specific biometrics, location service implementations.
 * app-domain -> Usecases and entities used within the application. This module defines what it wants to use via interfaces called Gateways. Implementations are usually provided by module_infrastructure (Providers).
 * app-common -> Common elements used throughout the modules
 * lib-* -> library modules. Copied and modified libraries that we need
+
+See `AGENTS.md` for a detailed overview of the Single-Activity + Navigation 3 architecture, conventions, and verification commands.
 
 ### Reminders
 

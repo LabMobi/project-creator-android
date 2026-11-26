@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import mobi.lab.sample.common.debug.DebugActions
-import mobi.lab.sample.debug.DevDebugActions
+import mobi.lab.sample.common.debug.DebugNavigation
+import mobi.lab.sample.debug.DevDebugNavigation
 import javax.inject.Singleton
 
 @Module
@@ -14,5 +14,5 @@ object BuildVariantModule {
 
     @Provides
     @Singleton
-    fun provideDebugActions(): DebugActions = DevDebugActions()
+    fun provideDebugNavigation(): DebugNavigation = DevDebugNavigation()
 }

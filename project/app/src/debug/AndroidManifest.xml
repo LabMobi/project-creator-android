@@ -22,9 +22,6 @@
             android:name="mobi.lab.scrolls.activity.LogReaderActivity"
             android:theme="@style/AppTheme"
             android:exported="false" />
-        <activity
-            android:name="mobi.lab.sample.debug.DebugActivity"
-            android:theme="@style/AppTheme" />
 
         <provider
             android:name="mobi.lab.scrolls.ScrollsFileProvider"

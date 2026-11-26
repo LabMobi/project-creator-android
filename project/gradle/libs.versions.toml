@@ -8,7 +8,7 @@ android-gradle-plugin = "9.1.0"
 
 kotlin = "2.3.20"
 kotlin-ksp = "2.3.6" # This one needs a compatible ksp version code https://github.com/google/ksp/releases
-hilt = "2.59.2"
+hilt = "2.60.1"
 retrofit = "3.0.0"
 glide = "5.0.5"
 moshi = "1.15.2"
@@ -17,7 +17,9 @@ kotshi = "4.0.0"
 jvmTarget = "17"
 javaCompatibility = "VERSION_17"
 
-compose-bom = "2025.02.00"
+compose-bom = "2026.02.01"
+lifecycle = "2.10.0"
+navigation3 = "1.2.2"
 
 [plugins]
 
@@ -27,6 +29,7 @@ android-library = { id = "com.android.library", version.ref = "android-gradle-pl
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
@@ -41,6 +44,7 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.
 
 # Language
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinx-serialization-core = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.13.0"
 jdk-desugar = "com.android.tools:desugar_jdk_libs:2.1.5"
 
 # Firebase
@@ -49,21 +53,20 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 # Android + UI
-## WARINIG - 1.13.0 is not compatible with view-based Lab components
 material = "com.google.android.material:material:1.12.0"
-material-progressbar = "me.zhanghai.android.materialprogressbar:library:1.6.1"
-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.7.1"
 androidx-core = "androidx.core:core-ktx:1.18.0"
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.9"
-androidx-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
-androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
-androidx-livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.10.0"
-androidx-viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0"
+androidx-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-splashscreen = "androidx.core:core-splashscreen:1.2.0"
 
+# Navigation 3
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycle" }
+
 # Lab design components
-lab-components = "mobi.lab.labcomponents:labcomponents:0.0.15"
 lab-components-compose = "mobi.lab.labcomponents:labcomponents-compose:0.0.9"
 lab-mvvm = "mobi.lab.mvvm:mvvm:3.0.0"
 
@@ -74,9 +77,11 @@ compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
-compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.10.0" }
-compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version = "2.8.7" }
+compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.12.4" }
+compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+hilt-lifecycle-viewmodel-compose = "androidx.hilt:hilt-lifecycle-viewmodel-compose:1.3.0"
 
 # RxJava
 rxjava = "io.reactivex.rxjava3:rxjava:3.1.12"
