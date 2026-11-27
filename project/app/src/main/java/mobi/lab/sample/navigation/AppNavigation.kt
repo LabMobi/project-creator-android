@@ -17,14 +17,26 @@ import mobi.lab.sample.demo.prototype.prototypeEntry
 @Composable
 fun AppNavigation(
     startDestination: AppRoute,
+    freshAuthState: Boolean?,
     debugNavigation: DebugNavigation,
 ) {
     val backStack = rememberNavBackStack(startDestination)
-    val navigator = remember(backStack) { Navigator(backStack) }
+    val navigator = remember(backStack) {
+        Navigator(backStack).apply {
+            if (freshAuthState != null) {
+                reconcileAuth(freshAuthState)
+            }
+            if (LogoutMonitor.consumePendingLogout()) {
+                replaceAll(AppRoute.Login)
+            }
+        }
+    }
 
     LaunchedEffect(navigator) {
-        LogoutMonitor.logoutEvents.collect {
-            navigator.replaceAll(AppRoute.Login)
+        LogoutMonitor.logoutPending.collect { isPending ->
+            if (isPending && LogoutMonitor.consumePendingLogout()) {
+                navigator.replaceAll(AppRoute.Login)
+            }
         }
     }
 

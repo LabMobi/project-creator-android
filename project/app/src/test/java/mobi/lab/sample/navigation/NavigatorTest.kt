@@ -62,4 +62,45 @@ class NavigatorTest {
 
         assertEquals(listOf<NavKey>(AppRoute.Login), backStack)
     }
+
+    @Test
+    fun reconcile_auth_replaces_protected_stack_with_login_when_unauthenticated() {
+        val backStack = mutableListOf<NavKey>(AppRoute.Main, AppRoute.Debug)
+        val navigator = Navigator(backStack)
+
+        navigator.reconcileAuth(isAuthenticated = false)
+
+        assertEquals(listOf<NavKey>(AppRoute.Login), backStack)
+    }
+
+    @Test
+    fun reconcile_auth_preserves_unauthenticated_stack_when_unauthenticated() {
+        val backStack = mutableListOf<NavKey>(AppRoute.Login)
+        val navigator = Navigator(backStack)
+
+        navigator.reconcileAuth(isAuthenticated = false)
+
+        assertEquals(listOf<NavKey>(AppRoute.Login), backStack)
+    }
+
+    @Test
+    fun reconcile_auth_preserves_authenticated_stack_when_authenticated() {
+        val backStack = mutableListOf<NavKey>(AppRoute.Main, AppRoute.Debug)
+        val navigator = Navigator(backStack)
+
+        navigator.reconcileAuth(isAuthenticated = true)
+
+        assertEquals(listOf<NavKey>(AppRoute.Main, AppRoute.Debug), backStack)
+    }
+
+    @Test
+    fun reconcile_auth_treats_unknown_nav_keys_as_protected() {
+        val unknownKey = object : NavKey {}
+        val backStack = mutableListOf<NavKey>(unknownKey)
+        val navigator = Navigator(backStack)
+
+        navigator.reconcileAuth(isAuthenticated = false)
+
+        assertEquals(listOf<NavKey>(AppRoute.Login), backStack)
+    }
 }

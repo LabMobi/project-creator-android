@@ -19,18 +19,19 @@ The app uses a **single Activity** (`mobi.lab.sample.MainActivity`) and **Jetpac
 
 - **`MainActivity`** (`AppCompatActivity`):
   - Installs AndroidX SplashScreen (`installSplashScreen()`) and keeps it on screen via `setKeepOnScreenCondition` until `SplashViewModel` resolves the initial session check (`AppRoute.Main` vs `AppRoute.Login`).
-  - Uses `event.peekContent()` when reading `SplashViewModel.action` so configuration changes recreate the Activity without stalling on the splash screen while `rememberNavBackStack` restores the current stack.
+  - Distinguishes a fresh session check (`event.getContentIfNotHandled()`) from a configuration-change replay (`event.peekContent()`) so process-death restoration reconciles any restored stack against fresh session validation while configuration changes preserve the active stack.
   - Calls `enableEdgeToEdge()` once at Activity startup; Compose `Scaffold` / `LabTopAppBar` handle system insets.
   - Extends `AppCompatActivity` directly (no `BaseActivity` inheritance) so `supportFragmentManager` remains available for `DialogFragment` utilities.
 - **Type-Safe Routes (`navigation/AppRoute.kt`)**:
   - Define destinations as `@Serializable` types implementing `NavKey` inside `sealed interface AppRoute : NavKey`.
+  - Routes are protected by default (`requiresAuth = true`); explicitly override `override val requiresAuth: Boolean get() = false` on unauthenticated destinations (e.g., `AppRoute.Login`).
   - `rememberNavBackStack(startDestination)` persists the back stack across configuration changes and process death via Kotlin Serialization.
 - **Navigation Controller (`navigation/Navigator.kt`)**:
-  - Wraps `MutableList<NavKey>` with `navigateTo(route)`, `goBack()`, and `replaceAll(route)` (used for auth transitions such as Login → Main and Logout → Login).
+  - Wraps `MutableList<NavKey>` with `navigateTo(route)`, `goBack()`, `replaceAll(route)` (used for auth transitions such as Login → Main and Logout → Login), and `reconcileAuth(isAuthenticated)` (strips protected entries on invalid fresh session checks).
   - Keep navigation logic in `Navigator` so it remains straightforward to unit test on the JVM (`NavigatorTest`).
 - **Navigation Host (`navigation/AppNavigation.kt`)**:
   - Uses `NavDisplay` with both `rememberSaveableStateHolderNavEntryDecorator()` and `rememberViewModelStoreNavEntryDecorator()` so every back-stack entry gets its own scoped `ViewModelStoreOwner`.
-  - Collects `LogoutMonitor.logoutEvents` to reset the stack to `AppRoute.Login` on unauthorized session expiry.
+  - Reconciles fresh auth state and any pending `LogoutMonitor` logout synchronously before `NavDisplay` composes, and collects `LogoutMonitor.logoutPending` (acknowledged via `consumePendingLogout()`) so logouts triggered while no collector is active (e.g., during Activity recreation) are never lost.
 - **Route + Screen Split**:
   - `*Route.kt` registers the `EntryProviderScope<NavKey>` extension (`loginEntry`, `mainEntry`, `prototypeEntry`), acquires the Hilt ViewModel via `hiltViewModel()`, observes one-off actions via `ObserveSingleEvent`, and handles platform/navigation side effects.
   - `*Screen.kt` stays a pure, previewable `@Composable` taking state and callbacks.

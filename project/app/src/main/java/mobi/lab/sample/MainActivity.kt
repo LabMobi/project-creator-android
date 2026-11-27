@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val splashViewModel: SplashViewModel by viewModels()
 
     private var startDestination by mutableStateOf<AppRoute?>(null)
+    private var freshAuthState by mutableStateOf<Boolean?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -57,6 +58,10 @@ class MainActivity : AppCompatActivity() {
 
         splashViewModel.action.observe(this) { event ->
             if (startDestination == null) {
+                val freshAction = event.getContentIfNotHandled()
+                if (freshAction != null) {
+                    freshAuthState = freshAction == SplashViewModel.Action.LaunchApplication
+                }
                 startDestination = when (event.peekContent()) {
                     SplashViewModel.Action.LaunchApplication -> AppRoute.Main
                     SplashViewModel.Action.LaunchLogin -> AppRoute.Login
@@ -69,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                 startDestination?.let { initialRoute ->
                     AppNavigation(
                         startDestination = initialRoute,
+                        freshAuthState = freshAuthState,
                         debugNavigation = debugNavigation,
                     )
                 }

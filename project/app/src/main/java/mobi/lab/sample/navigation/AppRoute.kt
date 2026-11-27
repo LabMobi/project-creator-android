@@ -9,12 +9,21 @@ import kotlinx.serialization.Serializable
  * All routes are [@Serializable] and implement [NavKey] so the back stack
  * managed by [androidx.navigation3.runtime.rememberNavBackStack] automatically
  * survives configuration changes and process death.
+ *
+ * Routes require authentication by default ([requiresAuth] = `true`).
+ * Explicitly override [requiresAuth] to `false` on unauthenticated routes.
  */
 @Serializable
 sealed interface AppRoute : NavKey {
 
+    val requiresAuth: Boolean
+        get() = true
+
     @Serializable
-    data object Login : AppRoute
+    data object Login : AppRoute {
+        override val requiresAuth: Boolean
+            get() = false
+    }
 
     @Serializable
     data object Main : AppRoute
