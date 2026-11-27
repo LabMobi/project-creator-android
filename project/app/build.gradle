@@ -76,7 +76,6 @@ android {
             keyAlias "<%= sanitized_name %>"
             keyPassword "<%= keypass_debug %>"
         }
-        }
     }
     
     buildTypes {
