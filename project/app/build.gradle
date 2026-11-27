@@ -70,17 +70,11 @@ android {
             keyAlias "<%= sanitized_name %>"
             keyPassword "<%= keypass_release %>"
         }
-/*        debugSigning {
+        debugSigning {
             storeFile file("signing/debug.keystore")
             storePassword "<%= storepass_debug %>"
             keyAlias "<%= sanitized_name %>"
             keyPassword "<%= keypass_debug %>"
-        }*/
-        debugSigning {
-            storeFile file('../../ProjectCodeName-debug.keystore')
-            storePassword 'androiddebug'
-            keyAlias 'androiddebug'
-            keyPassword 'androiddebug'
         }
     }
     
