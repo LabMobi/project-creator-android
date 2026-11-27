@@ -240,26 +240,12 @@ If that command has already been run then this is fine. Otherwise this can cause
    - If you do not have the rights to merge then contact `Lauris Kruusamäe` or `Harri Kirik`
 7. If Mobi Lab employee, then let the Android community `#community-android` in Slack know about the changes you made
 
-#### Set up the Google services for development
+#### Open and run the project template in Android Studio
 
-Copy google-services.json from project root to project/app/ dir
-Edit project/app/build.gradle and add
+Open the `project` folder directly in Android Studio. No manual setup is required — `project/app/google-services.json` and template-only signing keystores (`project/app/signing/debug.keystore` and `project/app/signing/signing.keystore`) are tracked in the template repository so you can immediately run the app and execute `./gradlew buildAllDebug` or `./gradlew buildAllRelease`.
 
-```
-debugSigning {
-    storeFile file('../../ProjectCodeName-debug.keystore')
-    storePassword 'androiddebug'
-    keyAlias 'androiddebug'
-    keyPassword 'androiddebug'
-}
-```
+When generating a new project with `bundle exec cap android:create`, the generator excludes `project/app/google-services.json` and `project/app/signing/`, replaces the `TEMPLATE_*_PASS` signing placeholders in `app/build.gradle` with freshly generated random passwords, and creates brand-new debug and release keystores for the new project.
 
-**NB! Remove said changes from project/app before committing your changes**
+Note 1: If you make changes to the code of the project make sure the project still compiles with `./gradlew checkCode` and `./gradlew buildAllRelease`.
 
-#### Open the project template in Android Studio
-
-Open the template from `project` folder with Android Studio. Now you can directly edit and run the project.
-
-Note 1: If you make changes to the code of the project make sure the project still compiles with `buildAllRelease`. 
-
-Note 2: If you make changes to the project creation script them make sure that the script still runs.
+Note 2: If you make changes to the project creation script make sure that the script still runs and generates fresh keystores.

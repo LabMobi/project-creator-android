@@ -66,15 +66,15 @@ android {
     signingConfigs {
         releaseSigning {
             storeFile file("signing/signing.keystore")
-            storePassword "<%= storepass_release %>"
-            keyAlias "<%= sanitized_name %>"
-            keyPassword "<%= keypass_release %>"
+            storePassword "TEMPLATE_RELEASE_STORE_PASS"
+            keyAlias "ProjectCodeName"
+            keyPassword "TEMPLATE_RELEASE_KEY_PASS"
         }
         debugSigning {
             storeFile file("signing/debug.keystore")
-            storePassword "<%= storepass_debug %>"
-            keyAlias "<%= sanitized_name %>"
-            keyPassword "<%= keypass_debug %>"
+            storePassword "TEMPLATE_DEBUG_STORE_PASS"
+            keyAlias "ProjectCodeName"
+            keyPassword "TEMPLATE_DEBUG_KEY_PASS"
         }
     }
     
