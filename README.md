@@ -58,7 +58,7 @@ The same applies to making changes to existing features. Splitting by type is le
 
 **App**
 - Single-activity Jetpack Compose setup (`MainActivity`) using AndroidX SplashScreen for initial session check and routing to `Main` or `Login`
-- Jetpack Navigation 3 (`AppRoute`, `Navigator`, `AppNavigation`) with type-safe `@Serializable NavKey` destinations, saveable back stack, per-destination ViewModel scoping (`rememberViewModelStoreNavEntryDecorator`), and Hilt `@AssistedInject` route argument passing (`PrototypeRoute`)
+- Jetpack Navigation 3 (`AppRoute`, `Navigator`, `AppNavigation`) with type-safe `@Serializable NavKey` destinations, saveable back stack, and per-destination ViewModel scoping (`rememberViewModelStoreNavEntryDecorator`)
 - Login screen implementation with an example login use case
 - Main application screen with button to open app prototype (Figma)
 - Debug screen with buttons for viewing logs, creating crash and logging user out. Registered only in the `debug` build variant via `BuildVariantModule` (`DebugNavigation`) and accessible from the overflow menu in debug builds

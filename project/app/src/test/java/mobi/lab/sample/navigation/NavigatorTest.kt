@@ -13,10 +13,10 @@ class NavigatorTest {
         val backStack = mutableListOf<NavKey>(AppRoute.Main)
         val navigator = Navigator(backStack)
 
-        navigator.navigateTo(AppRoute.Prototype("https://lab.mobi"))
+        navigator.navigateTo(AppRoute.Debug)
 
-        assertEquals(listOf<NavKey>(AppRoute.Main, AppRoute.Prototype("https://lab.mobi")), backStack)
-        assertEquals(AppRoute.Prototype("https://lab.mobi"), navigator.currentDestination)
+        assertEquals(listOf<NavKey>(AppRoute.Main, AppRoute.Debug), backStack)
+        assertEquals(AppRoute.Debug, navigator.currentDestination)
     }
 
     @Test
@@ -91,6 +91,16 @@ class NavigatorTest {
         navigator.reconcileAuth(isAuthenticated = true)
 
         assertEquals(listOf<NavKey>(AppRoute.Main, AppRoute.Debug), backStack)
+    }
+
+    @Test
+    fun reconcile_auth_replaces_login_with_main_when_authenticated() {
+        val backStack = mutableListOf<NavKey>(AppRoute.Login)
+        val navigator = Navigator(backStack)
+
+        navigator.reconcileAuth(isAuthenticated = true)
+
+        assertEquals(listOf<NavKey>(AppRoute.Main), backStack)
     }
 
     @Test

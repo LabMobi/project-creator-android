@@ -29,8 +29,5 @@ sealed interface AppRoute : NavKey {
     data object Main : AppRoute
 
     @Serializable
-    data class Prototype(val url: String) : AppRoute
-
-    @Serializable
     data object Debug : AppRoute
 }

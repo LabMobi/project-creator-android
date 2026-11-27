@@ -33,10 +33,10 @@ The app uses a **single Activity** (`mobi.lab.sample.MainActivity`) and **Jetpac
   - Uses `NavDisplay` with both `rememberSaveableStateHolderNavEntryDecorator()` and `rememberViewModelStoreNavEntryDecorator()` so every back-stack entry gets its own scoped `ViewModelStoreOwner`.
   - Reconciles fresh auth state and any pending `LogoutMonitor` logout synchronously before `NavDisplay` composes, and collects `LogoutMonitor.logoutPending` (acknowledged via `consumePendingLogout()`) so logouts triggered while no collector is active (e.g., during Activity recreation) are never lost.
 - **Route + Screen Split**:
-  - `*Route.kt` registers the `EntryProviderScope<NavKey>` extension (`loginEntry`, `mainEntry`, `prototypeEntry`), acquires the Hilt ViewModel via `hiltViewModel()`, observes one-off actions via `ObserveSingleEvent`, and handles platform/navigation side effects.
+  - `*Route.kt` registers the `EntryProviderScope<NavKey>` extension (`loginEntry`, `mainEntry`), acquires the Hilt ViewModel via `hiltViewModel()`, observes one-off actions via `ObserveSingleEvent`, and handles platform/navigation side effects.
   - `*Screen.kt` stays a pure, previewable `@Composable` taking state and callbacks.
-- **Passing Route Arguments to ViewModels (`demo/prototype/PrototypeRoute.kt`)**:
-  - Annotate the ViewModel with `@HiltViewModel(assistedFactory = MyViewModel.Factory::class)` and `@AssistedInject`, then instantiate it inside the route composable using:
+- **Passing Route Arguments to ViewModels**:
+  - When a destination needs typed route arguments in its ViewModel, annotate the ViewModel with `@HiltViewModel(assistedFactory = MyViewModel.Factory::class)` and `@AssistedInject`, then instantiate it inside the route composable using:
     ```kotlin
     val viewModel = hiltViewModel<MyViewModel, MyViewModel.Factory>(
         creationCallback = { factory -> factory.create(route.arg) }

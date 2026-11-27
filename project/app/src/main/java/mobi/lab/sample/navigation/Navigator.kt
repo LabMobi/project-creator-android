@@ -36,12 +36,17 @@ class Navigator(private val backStack: MutableList<NavKey>) {
     /**
      * Reconciles a restored back stack against fresh session validation.
      *
+     * When [isAuthenticated] is `true`, a restored [AppRoute.Login] destination is replaced
+     * with [AppRoute.Main] while authenticated destinations are preserved.
      * When [isAuthenticated] is `false`, any stack containing a protected route
      * ([AppRoute.requiresAuth]) is replaced with [AppRoute.Login], while purely
      * unauthenticated stacks remain intact.
      */
     fun reconcileAuth(isAuthenticated: Boolean) {
         if (isAuthenticated) {
+            if (backStack.any { it == AppRoute.Login }) {
+                replaceAll(AppRoute.Main)
+            }
             return
         }
         val hasProtectedDestination = backStack.any { key ->
