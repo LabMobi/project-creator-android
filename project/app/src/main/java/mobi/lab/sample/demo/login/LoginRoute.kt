@@ -41,7 +41,12 @@ fun LoginRoute(
 
     ObserveSingleEvent(viewModel.action) { action ->
         when (action) {
-            LoginViewModel.Action.OpenApplication -> onOpenApplication()
+            LoginViewModel.Action.OpenApplication -> {
+                if (activity != null) {
+                    hideProgress(activity)
+                }
+                onOpenApplication()
+            }
         }
     }
 
