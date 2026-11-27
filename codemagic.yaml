@@ -27,7 +27,7 @@ definitions:
   scripts:
     # Generate app with creator script
     - &stepRunCreatorScriptApp
-      name: Run project creator script and replace google-services.json and keystores in the generated project
+      name: Run project creator script and copy google-services.json to the generated project
       script: sh ci/run_app_creator.sh
     # Generate lib with creator script
     - &stepRunCreatorScriptLib

@@ -67,6 +67,6 @@ Always run static analysis and tests after making changes:
   ```
 - **Debug & release verification:**
   ```bash
-  ./gradlew :app:assembleDebug :app:minifyReleaseWithR8 :app:lint
+  ./gradlew :app:buildAllDebug
+  ./gradlew :app:buildAllRelease
   ```
-  (Or `./gradlew :app:buildAllDebug` / `./gradlew :app:buildAllRelease` when release signing keystore is configured.)

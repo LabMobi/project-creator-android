@@ -1,5 +1,6 @@
 require 'highline'
 require 'erb'
+require 'securerandom'
 require 'yaml'
 
 load 'lib/android'
@@ -74,13 +75,13 @@ namespace :android do
     set :template, 'project'
     o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
     # generate key pass for release
-    set :keypass_release, (0...50).map { o[rand(o.length)] }.join
+    set :keypass_release, (0...50).map { o[SecureRandom.random_number(o.length)] }.join
     # generate key pass for debug
-    set :keypass_debug, (0...50).map { o[rand(o.length)] }.join
+    set :keypass_debug, (0...50).map { o[SecureRandom.random_number(o.length)] }.join
     # generate store pass for release
-    set :storepass_release, (0...50).map { o[rand(o.length)] }.join
+    set :storepass_release, (0...50).map { o[SecureRandom.random_number(o.length)] }.join
     # generate store pass for debug
-    set :storepass_debug, (0...50).map { o[rand(o.length)] }.join
+    set :storepass_debug, (0...50).map { o[SecureRandom.random_number(o.length)] }.join
     proj = Android.new self
     proj.process
   end

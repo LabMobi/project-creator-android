@@ -14,11 +14,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- Made the `project/` Android template directly runnable and buildable (`./gradlew buildAllRelease`) out-of-the-box by committing template-only debug/release keystores (`project/app/signing/`), tracking `project/app/google-services.json`, and replacing ERB signing placeholders in `project/app/build.gradle` with `TEMPLATE_*_PASS` tokens.
+- Hardened `lib/android.rb` to exclude template signing/Firebase/build artifacts during generation, fail fast on `keytool` errors, generate random passwords with `SecureRandom`, and verify generated projects receive fresh keystores without template placeholders.
+- Simplified `ci/run_app_creator.sh` to remove the `sed` signing override so Codemagic validates the generator's real keystore creation.
 - Migrated the project template to a single-activity architecture (`MainActivity` handling AndroidX SplashScreen, edge-to-edge, and hosting `AppNavigation`).
 - Updated `LogoutMonitor` to emit reactive logout events that reset the Navigation 3 back stack to `AppRoute.Login`.
 - Updated Hilt, Compose BOM, Activity Compose, and Navigation dependencies.
 
 ### Removed
+
+- Removed obsolete `ProjectCodeName-debug.keystore`, `ci/debug.keystore`, `ci/signing.keystore`, and root `google-services.json` duplicates.
 
 - Removed separate Activities (`SplashActivity`, `LoginActivity`, `demo.main.MainActivity`, `PrototypeActivity`, `DebugActivity`), `PrototypeViewModel`, and screen Fragments (`LoginFragment`, `MainFragment`).
 - Removed `BaseActivity`, `BaseFragment`, `BaseFragmentActivity`, `ViewBindingHolder`, `ViewModelExtensions`, `EdgeToEdgeUtil`, `viewBinding`, and unused XML layouts/menus/view dependencies.
