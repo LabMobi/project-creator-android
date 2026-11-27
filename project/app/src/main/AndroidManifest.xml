@@ -30,31 +30,15 @@
         </provider>
 
         <activity
-            android:name="mobi.lab.sample.splash.SplashActivity"
+            android:name="mobi.lab.sample.MainActivity"
             android:theme="@style/AppTheme.Splash"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name="mobi.lab.sample.demo.login.LoginActivity"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name="mobi.lab.sample.demo.main.MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name="mobi.lab.sample.demo.prototype.PrototypeActivity"
-            android:theme="@style/AppTheme">
         </activity>
     </application>
 </manifest>

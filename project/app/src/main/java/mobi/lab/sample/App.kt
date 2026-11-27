@@ -48,7 +48,7 @@ open class App : Application() {
         initFirebase()
         initStrictMode()
 
-        LogoutMonitor.init(this, deleteSessionUseCase)
+        LogoutMonitor.init(deleteSessionUseCase)
         MyNotificationManager.newInstance(this).createChannels()
         ImageLoader.configure(this, environment, sessionStorage)
     }

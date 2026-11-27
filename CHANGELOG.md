@@ -2,6 +2,27 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). This project does not use semantic versioning.
 
+## Unreleased
+
+### Added
+
+- Added Jetpack Navigation 3 (`navigation3-runtime`, `navigation3-ui`, `lifecycle-viewmodel-navigation3`) with Kotlin Serialization for type-safe `@Serializable NavKey` routes (`AppRoute`), `Navigator`, and `AppNavigation`.
+- Added `androidx.hilt:hilt-lifecycle-viewmodel-compose` and `ObserveSingleEvent` for Hilt ViewModels and `SingleEvent` LiveData observation in Compose.
+- Added `DebugNavigation` via `BuildVariantModule` to register the `DebugScreen` destination only in debug builds.
+- Added `NavigatorTest` unit tests.
+- Added `AGENTS.md` files for both the template repository and generated Android projects.
+
+### Changed
+
+- Migrated the project template to a single-activity architecture (`MainActivity` handling AndroidX SplashScreen, edge-to-edge, and hosting `AppNavigation`).
+- Updated `LogoutMonitor` to emit reactive logout events that reset the Navigation 3 back stack to `AppRoute.Login`.
+- Updated Hilt, Compose BOM, Activity Compose, and Navigation dependencies.
+
+### Removed
+
+- Removed separate Activities (`SplashActivity`, `LoginActivity`, `demo.main.MainActivity`, `PrototypeActivity`, `DebugActivity`), `PrototypeViewModel`, and screen Fragments (`LoginFragment`, `MainFragment`).
+- Removed `BaseActivity`, `BaseFragment`, `BaseFragmentActivity`, `ViewBindingHolder`, `ViewModelExtensions`, `EdgeToEdgeUtil`, `viewBinding`, and unused XML layouts/menus/view dependencies.
+
 ## 09.04.2025
 
 - Updated project and projectlib template build scripts

@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import mobi.lab.sample.app.common.isStringEmpty
@@ -23,10 +22,6 @@ object DialogUtil {
 
     private const val RETRY_COUNT = 3
     private const val RETRY_DELAY = 800L
-
-    fun show(fragment: Fragment, dialog: DialogFragment, tag: String) {
-        show(fragment.activity, dialog, tag, RETRY_COUNT)
-    }
 
     fun show(activity: FragmentActivity?, dialog: DialogFragment?, tag: String, retryCount: Int = RETRY_COUNT) {
         if (activity == null || dialog == null || isStringEmpty(tag)) {
@@ -53,10 +48,6 @@ object DialogUtil {
                 retryAction { show(activity, dialog, tag, retryCount - 1) }
             }
         }
-    }
-
-    fun dismiss(fragment: Fragment, tag: String) {
-        dismiss(fragment.activity, tag)
     }
 
     fun dismiss(activity: FragmentActivity?, tag: String, retryCount: Int = RETRY_COUNT) {

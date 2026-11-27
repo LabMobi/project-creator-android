@@ -14,9 +14,9 @@ There are 2 project templates available:
 
 
 ### Android project
-The Android project template uses MVVM for UI and Use Cases for business logic. 
+The Android project template uses a single-activity Jetpack Compose architecture with Jetpack Navigation 3, MVVM for UI, and Use Cases for business logic.
 
-View models are powered by Google's ViewModel and LiveData classes. Communication between Use Cases and models is done with RxJava. An event bus is used for communication originating from dialogs.
+View models are powered by Google's ViewModel and LiveData classes. Communication between Use Cases and models is done with RxJava. An event bus is used for communication originating from `DialogFragment` dialogs.
 
 Dependencies are injected with Hilt. Constructor injection (@Inject annotated constructors) is preferred where possible. See `di` packages in modules.
 
@@ -28,7 +28,7 @@ See the example in the new project created by the bootstrapper for more informat
 
 There are 4 modules in the project:
 
-- app - Main Android application and UI. Activities, Fragments, ViewModels, related utilities, etc
+- app - Main Android application and UI. Single Activity, Jetpack Compose screens, Navigation 3 routes, ViewModels, related utilities, etc.
 - app-common - Code shared between different modules. Utilities, extensions, etc
 - app-infrastructure - Communications with the outside world. Data storage, network, etc
 - app-domain - Application domain logic. Use-cases, entities, gateways, etc.
@@ -57,22 +57,22 @@ The same applies to making changes to existing features. Splitting by type is le
 #### Features packaged with the project
 
 **App**
-- Splash implementation with existing session check and routing to Main or Login screens
+- Single-activity Jetpack Compose setup (`MainActivity`) using AndroidX SplashScreen for initial session check and routing to `Main` or `Login`
+- Jetpack Navigation 3 (`AppRoute`, `Navigator`, `AppNavigation`) with type-safe `@Serializable NavKey` destinations, saveable back stack, and per-destination ViewModel scoping (`rememberViewModelStoreNavEntryDecorator`)
 - Login screen implementation with an example login use case
-- Main application screen with button to open app prototype(Figma)
-- Debug screen with buttons for viewing  logs, creating crash and logging user out. Accessible from toolbar in non release build variant.
-- MVVM library
+- Main application screen with button to open app prototype (Figma)
+- Debug screen with buttons for viewing logs, creating crash and logging user out. Registered only in the `debug` build variant via `BuildVariantModule` (`DebugNavigation`) and accessible from the overflow menu in debug builds
+- MVVM library (`ObserveSingleEvent` helper for observing `SingleEvent` LiveData in Compose)
 - Scrolls logging library
 - Firebase Analytics integration
 - Firebase Crashlytics integration
 - Hilt setup completed
-- Base activities and Fragments for MVVM and general usage
-- BaseFragmentActivity for an easier showing of fragments
 - MyNotificationManager to init Notification channels and show notifications
-- Session handling. See LogoutMonitor, Session entity, SessionStorage
+- Session handling. See `LogoutMonitor`, `Session` entity, `SessionStorage`
 - Timber for logging to Scrolls and Crashlytics
-- EventBus implementation with base Event and DataEvent classes
-- ConfirmationDialogFragment implementation with DialogEvent as callback. DialogUtil object for showing/hiding DialogFragments.
+- EventBus implementation with base `Event` and `DataEvent` classes
+- `ConfirmationDialogFragment` and `ProgressDialogFragment` implementations with `DialogEvent` as callback, and `DialogUtil` object for showing/hiding `DialogFragment`s
+- `AGENTS.md` included in the template describing the architecture and conventions for AI coding assistants
 
 **Infrastructure**
 - Retrofit, OkHttp client setup

@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
-import mobi.lab.sample.splash.SplashActivity
+import mobi.lab.sample.MainActivity
 import timber.log.Timber
 
 object NavUtil {
@@ -17,8 +17,9 @@ object NavUtil {
         }
     }
 
+    @Suppress("unused")
     fun restartApplication(context: Context) {
-        val intent = Intent(context, SplashActivity::class.java)
+        val intent = Intent(context, MainActivity::class.java)
         val restartIntent = Intent.makeRestartActivityTask(intent.component)
         context.startActivity(restartIntent)
     }

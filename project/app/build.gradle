@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 ext {
@@ -36,7 +37,6 @@ android {
     namespace = "mobi.lab.sample"
 
     buildFeatures {
-        viewBinding = true
         buildConfig = true
         compose = true
     }
@@ -70,11 +70,17 @@ android {
             keyAlias "<%= sanitized_name %>"
             keyPassword "<%= keypass_release %>"
         }
-        debugSigning {
+/*        debugSigning {
             storeFile file("signing/debug.keystore")
             storePassword "<%= storepass_debug %>"
             keyAlias "<%= sanitized_name %>"
             keyPassword "<%= keypass_debug %>"
+        }*/
+        debugSigning {
+            storeFile file('../../ProjectCodeName-debug.keystore')
+            storePassword 'androiddebug'
+            keyAlias 'androiddebug'
+            keyPassword 'androiddebug'
         }
     }
     
@@ -142,8 +148,8 @@ dependencies {
     libsHelper.addUnitTestDependencies(it)
 
     implementation libs.kotlin
+    implementation libs.kotlinx.serialization.core
     implementation libs.androidx.core
-    implementation libs.androidx.legacy
     implementation libs.androidx.livedata
     implementation libs.androidx.viewmodel
     coreLibraryDesugaring libs.jdk.desugar
@@ -158,7 +164,6 @@ dependencies {
     implementation libs.rxjava.android
 
     // Util
-    implementation libs.androidx.lifecycle.extensions
     implementation libs.scrolls
     implementation libs.timber
     implementation libs.eventbus
@@ -167,13 +172,15 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.fragment.ktx
     implementation libs.androidx.splashscreen
-    implementation libs.constraintlayout
     implementation libs.material
-    implementation libs.material.progressbar
 
-    implementation libs.lab.components
     implementation libs.lab.components.compose
     implementation libs.lab.mvvm
+
+    // Navigation 3
+    implementation libs.androidx.navigation3.runtime
+    implementation libs.androidx.navigation3.ui
+    implementation libs.androidx.lifecycle.viewmodel.navigation3
 
     // Compose
     implementation platform(libs.compose.bom)
@@ -181,9 +188,11 @@ dependencies {
     implementation libs.compose.ui.graphics
     implementation libs.compose.ui.tooling.preview
     implementation libs.compose.material3
+    implementation libs.compose.material.icons.core
     implementation libs.compose.activity
     implementation libs.compose.viewmodel
     implementation libs.compose.runtime.livedata
+    implementation libs.hilt.lifecycle.viewmodel.compose
     debugImplementation libs.compose.ui.tooling
 
     implementation project(":app-infrastructure")
